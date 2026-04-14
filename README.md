@@ -35,7 +35,7 @@ Every action-taking skill follows three steps:
 ## Setup
 
 ```bash
-git clone <this repo>
+git clone git@github.com:sergebulaev/linkedin-skills.git
 cd linkedin-skills
 python3 -m venv venv
 source venv/bin/activate
@@ -48,6 +48,76 @@ cp .env.example .env
 
 - **PUBLORA_API_KEY:** sign up at [publora.com](https://publora.com) (free tier includes 15 LinkedIn + Bluesky posts/month). API key lives in the dashboard under `API`.
 - **LINKEDIN_PLATFORM_ID:** in Publora dashboard, `Channels` → click your LinkedIn account → copy the ID (format: `linkedin-ABC123`).
+
+## Runtime compatibility
+
+The repo has two layers — only the auto-discovery layer is Claude-specific:
+
+```
+linkedin-skills/
+├── skills/          ← SKILL.md frontmatter; native to Claude Code, others read as markdown
+├── lib/             ← pure Python, works in any agent runtime
+├── references/      ← pure markdown, works anywhere
+└── scripts/         ← pure Python CLI, works anywhere
+```
+
+### Matrix
+
+| Runtime | Auto-discovers `skills/`? | Setup |
+|---|---|---|
+| **Claude Code CLI** (and IDE extensions) | ✅ Native | Clone the repo, open it in Claude Code. Skills activate on matching prompts. |
+| **claude.ai web** | ✅ Native | Zip the `skills/` folder and upload in the Skills panel. |
+| **Anthropic API Managed Agents** (`/v1/agents`) | ✅ Native | Pass skill files in the agent's context. |
+| **OpenClaw** | ⚠️ Manual wiring | Mount the repo, add system prompt: *"You have access to LinkedIn marketing skills in `./linkedin-skills/`. Read the relevant `skills/*/SKILL.md` before drafting posts or comments."* Python lib usable directly. |
+| **Manus** | ❌ No Skills concept | Use the repo as a knowledge base in RAG setup. Feed relevant `references/` markdown as context. Python lib works if Manus can execute Python. |
+| **Cursor / Codex / Cline / Aider** | ❌ No native Skills | Same as OpenClaw — read `SKILL.md` files as prompt context; import `lib/` as a regular Python package. |
+| **LangChain / AutoGen / custom LLM agents** | ❌ | Use `lib/` as a pip-installable package; use `references/` + `skills/*/references/` as prompt context. |
+
+### What's runtime-agnostic
+
+- `lib/url_parser.py` — handles all LinkedIn URN variants (activity, share, ugcPost, comment). Zero dependencies beyond stdlib.
+- `lib/publora_client.py` — thin Publora REST wrapper with `INSIGHTFUL → INTEREST` auto-mapping.
+- `references/industry-benchmarks.md` — drop into any agent's prompt as context.
+- `references/engagement-metrics-taxonomy.md` — same.
+- Every `skills/*/references/` — portable knowledge files.
+
+### Claude Code-specific value-add
+
+The Skills auto-discovery is the only Claude-native feature. When a user says *"comment on this post"* with a URL, Claude Code matches the prompt against each `SKILL.md` frontmatter `description` field and loads the relevant skill before responding. Other runtimes need explicit routing.
+
+### OpenClaw quickstart
+
+```bash
+# In your OpenClaw working directory
+git clone git@github.com:sergebulaev/linkedin-skills.git
+
+# In OpenClaw system prompt, add:
+# "You have LinkedIn marketing skills in ./linkedin-skills/.
+#  For any LinkedIn post / comment / reply task, first read the
+#  relevant skills/*/SKILL.md and skills/*/references/*.md files.
+#  Use lib/url_parser.py and lib/publora_client.py for actions."
+```
+
+### Manus quickstart
+
+Upload the `references/` folder and all `skills/*/references/` markdown files as knowledge base items. Point Manus's tool-calling configuration at the Publora REST API directly (no Python wrapper needed).
+
+### Generic Python agent quickstart
+
+```python
+import sys; sys.path.insert(0, "path/to/linkedin-skills")
+from lib import parse_linkedin_url, PubloraClient, render_approval_card
+
+parsed = parse_linkedin_url("https://www.linkedin.com/posts/slug-activity-7448808898326654978-iW20")
+print(parsed["post_urn"])  # urn:li:activity:7448808898326654978
+
+client = PubloraClient()  # reads PUBLORA_API_KEY from env
+resp = client.create_comment(
+    post_urn=parsed["post_urn"],
+    message="your draft here",
+    platform_id="linkedin-xxx",
+)
+```
 
 ## URL handling
 
