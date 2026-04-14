@@ -34,7 +34,10 @@ A LinkedIn URL containing `commentUrn=urn:li:comment:(activity:POST,COMMENT_ID)`
 4. **Draft the reply.** Follow the engagement templates in `references/reply-templates.md`. If the counterpart asked a question, answer it directly. If they pushed back, concede then sharpen.
 5. **Humanizer pass.** Strip em dashes, AI vocab, enforce varied sentence length.
 6. **Approval card.** Include thread preview (who said what in last 3 turns), the draft, reaction suggestion, and the parentComment URN we'll send.
-7. **On approval:** react on the specific comment being replied to → pause 8-15s → post reply with the right parentComment URN.
+7. **On approval — adapt to the active backend.** Call `lib.active_backend()`:
+   - **`publora`** (PUBLORA_API_KEY set) → react on the specific comment being replied to, pause 8-15s, then post reply with the correct top-level `parentComment` URN.
+   - **`manual`** (no backend configured — the default) → output the approved reply via `lib.manual_mode_message(draft_text, target_url, kind="reply")`. Include the parent comment URL so the user knows exactly where to paste. Do NOT attempt to post.
+   - **`diy`** (LINKEDIN_SKILLS_CUSTOM_POSTER set) → invoke the custom poster with draft, target URL, and parent-comment URN.
 
 ## The flattening gotcha
 

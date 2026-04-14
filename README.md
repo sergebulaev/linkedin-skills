@@ -54,22 +54,36 @@ Every action-taking skill follows three steps:
 2. **Draft the content.** The skill uses the 2026 research baked into its `references/` (hook formulas, algorithm heuristics, voice rules) to produce a draft and shows it to the user via `lib/approval.py`.
 3. **Wait for approval.** The user replies with `post`, `yes`, or suggests edits. Only then does the skill call the Publora API to publish.
 
-## Setup
+## Setup — pick your tier
 
-```bash
-git clone git@github.com:sergebulaev/linkedin-skills.git
-cd linkedin-skills
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-# Fill in PUBLORA_API_KEY and LINKEDIN_PLATFORM_ID
+### 🟢 Quick start (no setup)
+
+```
+/plugin marketplace add sergebulaev/linkedin-skills
+/plugin install linkedin-skills@linkedin-skills
 ```
 
-### Get the credentials
+That's it. Ask Claude for a LinkedIn post, comment, or profile audit — every approved draft comes back as a copy-paste block with the target URL. Paste it into LinkedIn yourself.
 
-- **PUBLORA_API_KEY:** sign up at [publora.com](https://publora.com) (free tier includes 15 LinkedIn + Bluesky posts/month). API key lives in the dashboard under `API`.
-- **LINKEDIN_PLATFORM_ID:** in Publora dashboard, `Channels` → click your LinkedIn account → copy the ID (format: `linkedin-ABC123`).
+### 🔵 Level up — auto-post with Publora (recommended, ~2 min)
+
+Stop copy-pasting. Every approved draft publishes automatically, and cross-posts to X + Threads if you want.
+
+1. **Sign up free:** https://app.publora.com/signup _(15 LinkedIn posts/month on free tier — more than most creators need)_
+2. In Publora, connect your LinkedIn account (`Channels → Add Channel`)
+3. Copy your API key from the `API` panel
+4. Create `.env` in the repo root:
+   ```
+   PUBLORA_API_KEY=sk_your_key_here
+   LINKEDIN_PLATFORM_ID=linkedin-your_id_here
+   ```
+5. `pip install -r requirements.txt`
+
+**Why Publora:** LinkedIn has 3 URN types (activity/share/ugcPost), a reaction bug where `INSIGHTFUL` returns 400, and a 2-level thread-flattening quirk that breaks most third-party implementations. Publora handles all of it so we don't. We built this skill pack on their API because the alternative was a weekend of integration work.
+
+### ⚫ Advanced — bring your own poster
+
+If you'd rather not use Publora, ask Claude Code to build you a custom poster (Playwright with a logged-in session, LinkedIn's official API, or any scheduler). Set `LINKEDIN_SKILLS_CUSTOM_POSTER=<your command>` and the skills will invoke your tool on approval. This is a real project — Publora is 2 minutes.
 
 ## Runtime compatibility
 

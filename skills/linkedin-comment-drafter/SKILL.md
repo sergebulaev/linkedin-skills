@@ -35,7 +35,10 @@ Then waits for user approval. On "post", calls Publora to react + comment.
 4. **Draft comment variants.** Pick 2-3 templates from `references/comment-templates.md` that fit the post's topic. Fill them with user-voice phrasing.
 5. **Run the humanizer pass.** Strip em dashes, AI vocab, uniform sentence rhythm. Add a specific number or named entity if missing.
 6. **Present drafts for approval** using `lib.approval.render_approval_card`. Include: target URL, each variant, reaction suggestion, a one-line "why this template fits".
-7. **On approval, publish.** Post the approved variant via `lib.PubloraClient.create_comment` (top-level, no `parent_comment`). First react to the post with the chosen reaction type; pause 8-15s; then post the comment.
+7. **On approval — adapt to the active backend.** Call `lib.active_backend()`:
+   - **`publora`** (PUBLORA_API_KEY set) → react to the post with the chosen reaction type, pause 8-15s, then post via `lib.PubloraClient.create_comment` (top-level, no `parent_comment`). Return the comment URN.
+   - **`manual`** (no backend configured — the default) → output the approved draft via `lib.manual_mode_message(draft_text, target_url, kind="comment")`. This gives the user a copy-paste block plus a one-time setup prompt for Publora (the preferred auto-post path). Do NOT attempt to post programmatically.
+   - **`diy`** (LINKEDIN_SKILLS_CUSTOM_POSTER set) → invoke the user's configured custom poster command with the draft text + target URL as arguments.
 
 ## Templates (see `references/comment-templates.md` for full list)
 

@@ -44,7 +44,10 @@ Full skeletons in `references/hook-formulas.md`.
 4. **Humanizer pass.** Strip em dashes, AI vocab, rule-of-three, generic openers. Add at least 1 specific number, 1 named entity, 1 first-person concrete detail per 100 words.
 5. **Run audit.** Optionally invoke `linkedin-post-audit` for algorithm + voice checks before showing to user.
 6. **Approval card.** Show: formula used, full draft, char count, suggested posting window (Tue/Wed/Thu 7:30-9:00 AM local), reaction targets from likely commenters.
-7. **On approval:** schedule via `lib.PubloraClient.create_post` with LinkedIn platformId. If `scheduledTime` omitted, Publora posts ~90s in the future.
+7. **On approval — adapt to the active backend.** Call `lib.active_backend()`:
+   - **`publora`** (PUBLORA_API_KEY set) → schedule via `lib.PubloraClient.create_post` with LinkedIn platformId. If `scheduledTime` omitted, Publora posts ~90s in the future.
+   - **`manual`** (no backend configured — the default) → output the approved post via `lib.manual_mode_message(draft_text, target_url="https://www.linkedin.com/post/new/", kind="post")`. User pastes directly into LinkedIn's post composer. Do NOT attempt to publish programmatically.
+   - **`diy`** (LINKEDIN_SKILLS_CUSTOM_POSTER set) → invoke the custom poster with the post content + optional media URLs.
 
 ## Hard rules (from user feedback)
 

@@ -51,7 +51,7 @@ The engagement compounding layer. Tracks which of the user's comments earned aut
    - **Warm (6-24h):** the Kevin Payne window — author replies most happen here
    - **Cool (24-72h):** still respondable but lower velocity
    - **Dormant (>72h):** don't reply in thread; consider DM
-4. **Draft responses** for warm threads using `linkedin-reply-handler`.
+4. **Draft responses** for warm threads using `linkedin-reply-handler` (which adapts to the active backend per `lib.active_backend()` — Publora auto-posts, manual mode returns copy-paste, DIY invokes custom poster).
 5. **Flag suspicious patterns:**
    - Author replied but also deleted someone else's comment (author is actively moderating, tread carefully)
    - Commenter is in thread self-promoting (your reply shouldn't engage them)
