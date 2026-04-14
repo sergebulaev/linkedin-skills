@@ -1,0 +1,37 @@
+{
+  "name": "linkedin-skills",
+  "owner": {
+    "name": "Serge Bulaev",
+    "url": "https://github.com/sergebulaev"
+  },
+  "metadata": {
+    "description": "Claude Code skills for LinkedIn growth — post writing, comment drafting, algorithm audit, humanizer, profile optimizer, content planner, and thread engagement."
+  },
+  "plugins": [
+    {
+      "name": "linkedin-skills",
+      "source": "./",
+      "description": "Bundle of 10 LinkedIn marketing skills with verified 2026 hook formulas, comment templates that earn author replies, a 20-point pre-publish algorithm check, AI-tell humanizer, profile rewriter, and thread engagement monitoring.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Serge Bulaev",
+        "url": "https://github.com/sergebulaev"
+      },
+      "homepage": "https://github.com/sergebulaev/linkedin-skills",
+      "license": "MIT",
+      "keywords": [
+        "linkedin",
+        "marketing",
+        "social-media",
+        "content-creation",
+        "claude-skills",
+        "anthropic",
+        "ai-agents",
+        "personal-branding",
+        "b2b",
+        "viral-content"
+      ],
+      "category": "productivity"
+    }
+  ]
+}

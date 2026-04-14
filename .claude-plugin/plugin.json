@@ -1,0 +1,19 @@
+{
+  "name": "linkedin-skills",
+  "description": "10 Claude Code skills for LinkedIn marketing: post writing, comment drafting, algorithm audit, humanizer, profile optimizer, content planner, thread engagement.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Serge Bulaev",
+    "url": "https://github.com/sergebulaev"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/sergebulaev/linkedin-skills",
+  "keywords": [
+    "linkedin",
+    "marketing",
+    "social-media",
+    "content",
+    "claude-skills",
+    "viral"
+  ]
+}
