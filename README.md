@@ -4,9 +4,27 @@
 
 # LinkedIn Marketing Skills
 
+<p align="center">
+  <img src="https://img.shields.io/github/v/release/sergebulaev/linkedin-skills?color=1E40AF&label=release" alt="Latest release">
+  <img src="https://img.shields.io/badge/Claude_Code-Compatible-D97757?logo=anthropic&logoColor=white" alt="Claude Code Compatible">
+  <img src="https://img.shields.io/badge/Claude-Skills-8A63D2" alt="Claude Skills">
+  <img src="https://img.shields.io/badge/License-MIT-22C55E.svg" alt="MIT License">
+  <img src="https://img.shields.io/github/stars/sergebulaev/linkedin-skills?style=social" alt="GitHub stars">
+  <img src="https://img.shields.io/badge/PRs-welcome-F59E0B.svg" alt="PRs Welcome">
+</p>
+
 A bundle of 10 focused Claude Skills for LinkedIn content ops in 2026.
 Each skill is single-purpose, follows the **draft → approval → publish** pattern,
 and uses the [Publora REST API](https://publora.com) for posting when confirmed.
+
+## Install
+
+```
+/plugin marketplace add sergebulaev/linkedin-skills
+/plugin install linkedin-skills@linkedin-skills
+```
+
+Or clone the repo and drop skills into `.claude/skills/` directly. See [Runtime compatibility](#runtime-compatibility) for Cursor, Cline, Aider, and generic Python agent setup.
 
 ## The skills
 
