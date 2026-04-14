@@ -6,3 +6,7 @@ __pycache__/
 venv/
 .DS_Store
 *.egg-info/
+
+# local marketing assets — not meant for the public repo
+marketing/
+
