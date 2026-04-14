@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://shared.co.actor/img/linkedin-skills-hero.png" alt="10 Claude Code skills for LinkedIn marketing — open source, MIT licensed" width="100%" />
+</p>
+
 # LinkedIn Marketing Skills
 
 A bundle of 10 focused Claude Skills for LinkedIn content ops in 2026.
