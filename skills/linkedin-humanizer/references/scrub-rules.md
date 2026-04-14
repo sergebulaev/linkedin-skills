@@ -124,3 +124,28 @@ CLOSER_TELLS = [
 - Contractions (don't, it's, you're)
 - Specific numbers and named entities (add MORE, never remove)
 - First-person sensory details
+
+## Comment-reply scrub (when replying to commenters on your own post)
+
+**Forbidden author replies** (signal low quality, downrank the thread):
+
+- "Great point!"
+- "Thanks!"
+- "100%"
+- "Well said."
+- "🙌"
+- "So true."
+
+**Required:** every author reply must contain ≥1 of:
+- A new concrete detail not in the original post
+- A specific name (person, company, tool)
+- A follow-up question that invites thread depth
+
+## Announcement-opener scrub
+
+Replace these patterns with the concrete moment that prompted the post:
+
+- "I'm excited to announce" → describe what actually happened, in order
+- "I'm thrilled to share" → just share it, no preamble
+- "Honored to be mentioned" → what did you do to earn the mention?
+- "Delighted to be featured" → lead with the insight, not the feature

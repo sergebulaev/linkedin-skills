@@ -292,6 +292,12 @@ If you're {winning behavior}, you already won.
 | Founder build-log | F7 Odd-Precision Money | Screenshot-bait ledger |
 | Emergent/surprise story | F9 Curiosity-Gap | Scroll-lock hook |
 
+## Hook micro-rules
+
+- **"How I" beats "How to".** First-person experience ("How I cut CAC by 62%") outperforms generic instruction ("How to cut CAC") by 2-3x. Swap every "How to" hook to "How I" unless the post is a pure framework with no narrator.
+- **Specific number in the first sentence** raises expand-rate by ~35%. $873.47 beats $900. 40,000 beats "a lot of".
+- **Real failure in the first 3 lines** outperforms polished framing by **8.5x**. Lead with what broke.
+
 ## Never do
 
 - Blend two hooks in one post (dilutes both)

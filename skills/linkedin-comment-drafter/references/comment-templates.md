@@ -155,3 +155,50 @@ curious if you've seen [specific case].
 | T7 Ask-a-Sharper-Question | `INTEREST` |
 
 React before commenting, pause 8-15s, then comment. Spacing makes the interaction look human.
+
+---
+
+## Length & Weight Rules
+
+- **Minimum length:** comments under 10 words get near-zero algorithmic weight. Target 12+ words for any comment meant to drive reach. "Great post!" and single-emoji replies are functionally invisible to the ranker.
+- **High-weight sweet spot:** 200-350 chars (~25-50 words), 2 short paragraphs.
+- **Upper bound:** over 500 chars reads as a thread hijack and depresses the parent post's Depth Score.
+
+## High-Weight Comment Structure (4-part)
+
+All four elements together trigger the "in-depth comment" algorithmic signal:
+
+1. **Reference a specific point** from the original post (quote or paraphrase one line)
+2. **Add your own data / test result / personal experience** with a number
+3. **Introduce a new keyword or angle** the post didn't cover
+4. **End with a genuine question** that invites thread depth
+
+**Worked example:**
+
+> The point about dwell time hit me - I tested this last month by adding 3 line breaks every 2 sentences. Impressions went from ~800 to 2,400 on two consecutive posts. One thing I'm still figuring out: does this work the same way for carousels?
+
+## Sales-oriented templates (new)
+
+### SALES-T1 — Account Engagement Warmup
+
+**When to use:** On posts from target-account prospects, before any outreach. Goal: build familiarity so your name is recognized on the first call.
+
+**Skeleton:**
+```
+[React to a specific point from prospect's post].
+[Add one insight from your industry that reinforces their thesis].
+```
+
+No pitch. No link. The recognition on the first call is the entire value.
+
+### SALES-T2 — Expertise-Building Comment
+
+**When to use:** On industry/peer posts where you can "position yourself as someone worth listening to".
+
+**Skeleton:**
+```
+[Industry insight from your own experience tied to OP's point].
+[One specific case or number that proves the insight isn't borrowed].
+```
+
+**Cadence:** 2-3 comments per day on target-account posts (not all at once — spread across morning/afternoon).

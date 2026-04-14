@@ -71,6 +71,93 @@ Avoid: Mon before 9 AM, Fri after 2 PM, Sat/Sun (30-50% reach cut for B2B).
 - Long-tail SEO via Google indexing (bonus)
 - Use for evergreen/reference; not for timely takes
 
+## 2026 AuthoredUp format benchmarks (absolute engagement rates)
+
+| Format | Engagement rate / reach |
+|---|---|
+| Multi-image (3-4 personal photos) | **6.60%** engagement rate (highest of all formats) |
+| Carousel (doc post, 6-9 slides, <12 words/slide) | ~6x engagement, ~4x reach vs text-only |
+| Poll | +206% reach vs average post |
+| Single image | 0.7x (now underperforms text-only by ~30%) |
+| Native video (30-90s, captioned) | reach -35% YoY in 2026; still viable with strong hook |
+
+## Native video rules
+
+- Length: **30-90 seconds**
+- Captions mandatory (85% of users watch without sound)
+- **Native upload only** — YouTube links kill reach
+- Hook visually in first 3 seconds
+- Vertical 9:16, not landscape
+
+## Hook cutoff (device-specific)
+
+- Desktop: ~210 chars before "…see more"
+- **Mobile: ~140 chars before "…see more"**
+- Write for the 140-char mobile line; the desktop window is a bonus.
+
+## Close mechanics
+
+- Specific closing question (e.g., "What's your experience with X?") boosts engagement **20-40%** vs generic "Thoughts?"
+- Name the topic inside the CTA — generic CTAs don't trigger replies.
+
+## Save ratio absolute case
+
+- 200 saves ≈ **4x the reach** of 1,000 likes
+- Checklists, frameworks, and templates are save-bait — optimize for save, not like.
+
+## Engagement benchmarks by follower count
+
+| Follower count | Expected engagement rate |
+|---|---|
+| 1K-5K | 4-8% |
+| 5K-10K | 3-5% |
+| 10K-50K | 2-4% |
+| 50K+ | 1-3% |
+
+Use to calibrate whether a post underperformed or is within band before blaming the algorithm.
+
+## Comment-weight math (reach multipliers)
+
+- Comments weigh **~3x more than likes** for reach
+- Posts with back-and-forth conversation: **3x reach** of posts with passive engagement
+- Posts where the author replies to commenters: **2x+ distribution**
+- Author-replied comments count as a **fresh ranker signal each time**
+
+## Pod / pattern detection (avoid)
+
+Triggers for suppression:
+- 15+ comments landing within a 90-second window
+- Same accounts engaging at the same clock minute daily (e.g., 9:01 AM)
+- Identical like/comment pattern across every post
+
+Observed real consequence: one creator dropped from 8,500 to 340 impressions overnight after pod detection.
+
+**Recovery times:**
+- From pod detection: **6-8 weeks**
+- Already-credible account cold start: ~1 week
+- New account cold start: 30-60 days
+
+## External-link penalty (expanded)
+
+- External links in post body: **~60% reach reduction** (move to first comment)
+- Engagement-bait CTAs ("Agree? Comment below!") now **actively suppressed**, not just ignored
+- **Viewer tolerance score:** if users scroll past your posts without dwelling, distribution progressively collapses even for followers
+
+## Edit-safety window
+
+- Edits within first **3 hours** trigger a re-evaluation
+- Structural restructuring (>20% of text changed) **resets distribution entirely**
+- Typo fixes safe after the 90-min momentum window
+
+## Post-publish engagement windows
+
+| Phase | Window | Action |
+|---|---|---|
+| Warm-up | 15 min **BEFORE** publishing | Leave 3-5 substantive comments on others' posts |
+| Critical | First 30 min AFTER publishing | Reply to every comment within minutes |
+| Seeding | 15-30 min after posting | Leave 3-5 bonus comments on your own post to create thread depth |
+| Visibility bump | Reply within 1st hour | +35% visibility lift |
+
 ## Pre-publish checklist
 
 - [ ] Hook fits in first 210 chars

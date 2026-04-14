@@ -1,6 +1,6 @@
 # LinkedIn Marketing Skills
 
-A bundle of 8 focused Claude Skills for LinkedIn content ops in 2026.
+A bundle of 10 focused Claude Skills for LinkedIn content ops in 2026.
 Each skill is single-purpose, follows the **draft → approval → publish** pattern,
 and uses the [Publora REST API](https://publora.com) for posting when confirmed.
 
@@ -16,6 +16,13 @@ and uses the [Publora REST API](https://publora.com) for posting when confirmed.
 | [`linkedin-hook-extractor`](skills/linkedin-hook-extractor/) | Reverse-engineer the hook formula from any viral post | viral post URL |
 | [`linkedin-content-planner`](skills/linkedin-content-planner/) | Generate a 7-day content plan with pillars, formulas, posting times, comment targets | theme, audience |
 | [`linkedin-thread-engagement`](skills/linkedin-thread-engagement/) | Monitor threads for author replies (the Kevin Payne window) and draft follow-ups | profile URL |
+| [`linkedin-profile-optimizer`](skills/linkedin-profile-optimizer/) | Audit and rewrite a LinkedIn profile end-to-end (headline, About, Featured, banner, Experience, Skills) | profile URL + goal |
+| [`linkedin-employee-advocacy`](skills/linkedin-employee-advocacy/) | Plan, launch, and operate a team LinkedIn advocacy program (14-day launch, governance, ROI) | team size, goal |
+
+## Cross-cutting references
+
+- [`references/industry-benchmarks.md`](references/industry-benchmarks.md) — verified benchmarks across pharma, law, B2B SaaS, enterprise IT (engagement rates, time-per-post, reach multipliers)
+- [`references/engagement-metrics-taxonomy.md`](references/engagement-metrics-taxonomy.md) — per-post / account-level / team-level / business-metric distinction
 
 ## The core pattern
 

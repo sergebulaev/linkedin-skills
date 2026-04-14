@@ -56,3 +56,29 @@ The DM should reference the thread specifically, not be a generic pitch.
 - Generic "catching up on this thread" without a new thought
 - DMing before the public thread closes naturally (skips the earned step)
 - Replying to replies OF replies (LinkedIn flattens — it doesn't nest that deep)
+
+## Publishing-adjacent timing windows (own posts)
+
+| Phase | Window | Action |
+|---|---|---|
+| Warm-up | 15 min **BEFORE** publishing | Leave 3-5 substantive comments on others' posts |
+| Critical | First 30 min AFTER publishing | Reply to every comment within minutes; distribution contracts if dead |
+| Seeding | 15-30 min after posting | Leave 3-5 bonus comments on your own post to create thread depth |
+| Visibility bump | Reply within 1st hour | +35% visibility lift (author-reply signal) |
+
+## Peer engagement (safe pattern, not a pod)
+
+A **safe peer group** is 5-8 people in adjacent fields who actually read each other's work and comment only when they have something substantive to say.
+
+Distinguishes from pods by:
+- Varied timing (no fixed daily slot)
+- Varied commenters per post (not the same 6 people every time)
+- Comment substance >10 words, with new angles
+- No reciprocity obligation
+
+Pod detection catches:
+- Same accounts engaging at the same clock minute daily (e.g., 9:01 AM)
+- 15+ comments landing within a 90-second window
+- Identical like/comment pattern across every post
+
+Real penalty observed: one creator dropped from 8,500 to 340 impressions overnight after pod detection. Recovery: 6-8 weeks.

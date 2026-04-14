@@ -71,6 +71,20 @@ Every post must pass this before the approval card is shown. If any fail, rewrit
 - Flesch reading ease: >55 (conversational)
 - Passive voice: <8%
 
+## DO rules (from 2026 dos-and-donts playbook)
+
+- [ ] Lead with strongest insight first (inverted pyramid) — hook captures in 3 lines
+- [ ] Keep length 300-400 words, 20+ sentences (dwell-time optimal)
+- [ ] Use line breaks, **bold**, lists for scannability and dwell time
+- [ ] End with a **genuine question**, not engagement bait
+- [ ] Include at least one real failure or behind-the-scenes moment (failures draw **8.5x more engagement** than polished posts)
+- [ ] Make content save-worthy: framework, template, or specific data
+- [ ] Post 2-3x per week max, same days/times (audience training)
+- [ ] Engage 15-30 min **before AND after** posting (up to +20% reach)
+- [ ] Reply to every comment within the first hour (first 90 min = distribution fate)
+- [ ] Engage on 10-15 others' posts daily with substantive comments
+- [ ] Write from personal experience (validates expertise over marketing)
+
 ## Final voice check
 
 - Capitalize all names (Dharmesh, not dharmesh)

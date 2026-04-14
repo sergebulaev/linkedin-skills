@@ -32,3 +32,14 @@ Never use in comments:
 - Overused openers: "This.", "100%", "Couldn't agree more"
 - Rule of three ("faster, cheaper, better")
 - Passive voice over 10% of clauses
+
+## Algorithmic Scoring Criteria (NLP-level)
+
+LinkedIn's ranker runs NLP on comments and rewards:
+
+- **Depth** — comments with ≥12 words and multiple sentence structures
+- **New keywords** — introduce at least one noun/concept NOT already in the parent post
+- **Questions** — end with one that invites a sub-thread
+- **Sub-thread sparks** — comments that generate replies from the author AND other commenters count as a strong signal
+
+**Before submitting, check:** does your comment add at least one noun/concept not already in the post? If no, rewrite.

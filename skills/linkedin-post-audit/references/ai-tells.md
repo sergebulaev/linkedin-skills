@@ -59,6 +59,26 @@ Delete every instance. These are high-probability AI markers:
 - Passive voice >10% of clauses
 - Triple-listing everything ("faster, cheaper, better")
 
+## 2026 dos-and-donts blockers (auto-fail)
+
+| Pattern | Why | Fix |
+|---|---|---|
+| External link in post body | -40 to -60% reach penalty; LinkedIn suppresses off-platform traffic | Move link to first comment, or summarize the insight inline |
+| "Comment YES if you agree" / "Drop a 🙌" / manufactured CTA | Algorithm explicitly detects and demotes engagement bait | Ask a specific open question tied to the post's thesis |
+| Press-release / corporate-polished tone | Underperforms personal voice 3x; suppresses authenticity signals | Rewrite in first person with a concrete moment |
+| Humble-brag opener ("honored to announce…") | Failures outperform humble brags **8.5x** | Lead with what broke or what you learned |
+| Significant edits within first hour of posting | Resets the algorithm's initial distribution test | Fix typos only in first 60 min; hold structural edits |
+| Posts >3x/week from one author | Diminishing returns; cannibalizes own reach | Cap at 2-3x/week, same time/days |
+| Company-page-only distribution | Employee posts get 6-8x more reach than company pages | Publish from personal profile, let company reshare |
+| Pure vanity-metric chasing (likes only) | Likes are weakest signal; saves > comments > shares > likes | Design for saves: frameworks, templates, data |
+| Announcement openers ("I'm excited to share") | Reads as PR; kills voice | Replace with the concrete moment that prompted the post |
+
+## Attention budget
+
+Average user screen attention is **47 seconds** (down from 150 seconds in 2004). Post dwell-time target: 31-60 seconds.
+
+Flag any draft that demands >60s of continuous reading without a visual break, list, or fragment sentence — it'll lose the skim layer.
+
 ## Regex patterns (for audit implementation)
 
 ```python
