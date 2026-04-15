@@ -36,6 +36,21 @@ Pick whichever way you use Claude:
 5. Paste: `sergebulaev/linkedin-skills`
 6. Done. Start a new conversation and ask Claude to write a LinkedIn post.
 
+### OpenClaw
+
+1. Open your OpenClaw working directory
+2. Clone the skills into it:
+   ```bash
+   git clone https://github.com/sergebulaev/linkedin-skills.git
+   ```
+3. In OpenClaw settings, add this to your system prompt:
+   ```
+   You have LinkedIn marketing skills in ./linkedin-skills/.
+   For any LinkedIn task, read the relevant skills/*/SKILL.md first.
+   Use lib/url_parser.py and lib/publora_client.py for actions.
+   ```
+4. Done. Ask OpenClaw to write a LinkedIn post or comment.
+
 ### Claude Code (CLI / VS Code / JetBrains)
 
 ```
