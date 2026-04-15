@@ -2,7 +2,7 @@
   <img src="https://shared.co.actor/img/linkedin-skills-hero.jpg" alt="10 Claude Code skills for LinkedIn marketing — open source, MIT licensed" width="900" />
 </p>
 
-# LinkedIn Marketing Skills
+# LinkedIn Marketing Skills for Claude
 
 <p align="center">
   <img src="https://img.shields.io/github/v/release/sergebulaev/linkedin-skills?color=1E40AF&label=release" alt="Latest release">
@@ -13,144 +13,163 @@
   <img src="https://img.shields.io/badge/PRs-welcome-F59E0B.svg" alt="PRs Welcome">
 </p>
 
-A bundle of 10 focused Claude Skills for LinkedIn content ops in 2026.
-Each skill is single-purpose, follows the **draft → approval → publish** pattern,
-and uses the [Publora REST API](https://publora.com) for posting when confirmed.
+10 skills that help Claude write LinkedIn posts, comments, and replies in your voice. They draft content, strip AI tells, and wait for your approval before anything gets published. No coding required.
 
 ## Install
 
+Pick whichever way you use Claude:
+
+### claude.ai (web)
+
+1. Open https://claude.ai/code
+2. Go to **Skills** in the sidebar
+3. Click **Add from GitHub**
+4. Paste: `sergebulaev/linkedin-skills`
+5. Done. The skills activate automatically when you ask about LinkedIn.
+
+### Claude Desktop (Mac / Windows)
+
+1. Open Claude Desktop
+2. Open **Settings** (gear icon)
+3. Go to **Skills**
+4. Click **Add from GitHub**
+5. Paste: `sergebulaev/linkedin-skills`
+6. Done. Start a new conversation and ask Claude to write a LinkedIn post.
+
+### Claude Code (CLI / VS Code / JetBrains)
+
 ```
 /plugin marketplace add sergebulaev/linkedin-skills
 /plugin install linkedin-skills@linkedin-skills
 ```
 
-Or clone the repo and drop skills into `.claude/skills/` directly. See [Runtime compatibility](#runtime-compatibility) for Cursor, Cline, Aider, and generic Python agent setup.
-
-## The skills
-
-| Skill | Purpose | Input |
-|---|---|---|
-| [`linkedin-post-writer`](skills/linkedin-post-writer/) | Draft a viral-ready LinkedIn post using 10 proven 2026 hook formulas | topic, angle, audience |
-| [`linkedin-comment-drafter`](skills/linkedin-comment-drafter/) | Draft a comment on any post from its URL | post URL |
-| [`linkedin-reply-handler`](skills/linkedin-reply-handler/) | Draft a reply to any existing comment, handling LinkedIn's 2-level thread flattening | comment URL |
-| [`linkedin-post-audit`](skills/linkedin-post-audit/) | Audit a draft against 360Brew algorithm + voice rules before publishing | draft text |
-| [`linkedin-humanizer`](skills/linkedin-humanizer/) | Aggressively strip AI tells from any text | any text |
-| [`linkedin-hook-extractor`](skills/linkedin-hook-extractor/) | Reverse-engineer the hook formula from any viral post | viral post URL |
-| [`linkedin-content-planner`](skills/linkedin-content-planner/) | Generate a 7-day content plan with pillars, formulas, posting times, comment targets | theme, audience |
-| [`linkedin-thread-engagement`](skills/linkedin-thread-engagement/) | Monitor threads for author replies (the Kevin Payne window) and draft follow-ups | profile URL |
-| [`linkedin-profile-optimizer`](skills/linkedin-profile-optimizer/) | Audit and rewrite a LinkedIn profile end-to-end (headline, About, Featured, banner, Experience, Skills) | profile URL + goal |
-| [`linkedin-employee-advocacy`](skills/linkedin-employee-advocacy/) | Plan, launch, and operate a team LinkedIn advocacy program (14-day launch, governance, ROI) | team size, goal |
-
-## Cross-cutting references
-
-- [`references/industry-benchmarks.md`](references/industry-benchmarks.md) — verified benchmarks across pharma, law, B2B SaaS, enterprise IT (engagement rates, time-per-post, reach multipliers)
-- [`references/engagement-metrics-taxonomy.md`](references/engagement-metrics-taxonomy.md) — per-post / account-level / team-level / business-metric distinction
-
-## The core pattern
-
-Every action-taking skill follows three steps:
-
-1. **Parse the input.** User provides a LinkedIn URL (post or comment). The shared `lib/url_parser.py` extracts the post URN and any comment ID.
-2. **Draft the content.** The skill uses the 2026 research baked into its `references/` (hook formulas, algorithm heuristics, voice rules) to produce a draft and shows it to the user via `lib/approval.py`.
-3. **Wait for approval.** The user replies with `post`, `yes`, or suggests edits. Only then does the skill call the Publora API to publish.
-
-## Setup — pick your tier
-
-### Tier 0: Draft only (no setup, no API keys)
-
-Install the skills:
+Or clone the repo and open it as your working directory:
 
 ```bash
-# Claude Code CLI or IDE extensions
-/plugin marketplace add sergebulaev/linkedin-skills
-/plugin install linkedin-skills@linkedin-skills
-```
-
-Or clone manually:
-
-```bash
-git clone git@github.com:sergebulaev/linkedin-skills.git
+git clone https://github.com/sergebulaev/linkedin-skills.git
 cd linkedin-skills
 ```
 
-That's it. Ask Claude for a LinkedIn post, comment, or profile audit. Every approved draft comes back as a copy-paste block. Paste it into LinkedIn yourself.
+## What you can do
 
-**No API keys needed. No Python needed. Just the skill files and Claude.**
+Once installed, just talk to Claude. The right skill activates automatically.
 
-### Tier 1: Auto-post with Publora (recommended, ~2 min)
+**Write a post:**
+> "Write me a LinkedIn post about why AI agencies are replacing traditional ones. Make it viral."
 
-Stop copy-pasting. Every approved draft publishes directly to LinkedIn (and optionally to X + Threads).
+**Comment on someone's post:**
+> "Comment on this post: https://linkedin.com/posts/... — I want to add a thoughtful take."
 
-**Step 1.** Sign up free at https://app.publora.com/signup (15 posts/month on free tier)
+**Check a draft before publishing:**
+> "Audit this post draft for AI tells and algorithm issues: [paste your text]"
 
-**Step 2.** Connect your LinkedIn: go to **Channels** in the left sidebar, click **Add Channel**, select **LinkedIn**, authorize.
+**Reverse-engineer a viral post:**
+> "What hook formula does this post use? https://linkedin.com/posts/..."
 
-**Step 3.** Copy your Platform ID: go to **Channels**, click on your LinkedIn account. The ID is in the URL or the account card, formatted as `linkedin-ABC123DEF`. Copy the full string including `linkedin-`.
+**Plan your week:**
+> "Create a 7-day LinkedIn content plan. I'm a B2B SaaS founder targeting VPs of Marketing."
 
-**Step 4.** Copy your API key: go to **Settings** (gear icon, bottom-left), then **API**. Click **Create Key**, copy the `sk_...` string.
+**Rewrite your profile:**
+> "Optimize my LinkedIn profile for inbound leads: https://linkedin.com/in/yourname"
 
-**Step 5.** Create your `.env` file:
+**Remove AI tells from any text:**
+> "Humanize this text: [paste AI-generated draft]"
 
-```bash
-cp .env.example .env
-```
+Every skill shows you a draft first and waits for your OK before doing anything. Nothing gets posted without your approval.
 
-Open `.env` and replace the placeholders:
+## The 10 skills
+
+| Skill | What it does |
+|---|---|
+| **Post Writer** | Drafts viral-ready posts using 10 proven 2026 hook formulas (anaphora, R.I.P. obituary, year-over-year pivot, curiosity gap, and 6 more) |
+| **Comment Drafter** | Drafts a comment on any LinkedIn post from its URL |
+| **Reply Handler** | Drafts a reply to any comment, correctly handling LinkedIn's 2-level thread flattening |
+| **Post Audit** | Checks your draft against 2026 algorithm rules and AI-detection patterns before you publish |
+| **Humanizer** | Strips em dashes, AI vocabulary ("leverage", "delve", "harness"), rule-of-three lists, and other AI fingerprints |
+| **Hook Extractor** | Reverse-engineers the hook formula from any viral post. Returns a blank template you can fill with your own topic |
+| **Content Planner** | Creates a 7-day plan with daily post topics, formats, hooks, posting times, and comment targets |
+| **Thread Engagement** | Monitors your comment threads for author replies and drafts follow-ups during the key 6-24h window |
+| **Profile Optimizer** | Rewrites your headline, About section, Featured section, and Experience for 2026 conversion patterns |
+| **Employee Advocacy** | Plans a team LinkedIn program: 14-day launch, posting cadence, brand governance, ROI tracking |
+
+## Optional: auto-post with Publora
+
+By default, skills draft content for you to copy-paste into LinkedIn. If you want Claude to publish directly to your LinkedIn (and optionally to X, Threads, Instagram), connect Publora. It takes about 2 minutes.
+
+### What is Publora?
+
+[Publora](https://publora.com) is a publishing API that handles LinkedIn's quirks (3 different URL formats, reaction type mismatches, thread flattening bugs). The free tier gives you 15 posts/month.
+
+### Setup (2 minutes)
+
+**Step 1.** Sign up at https://app.publora.com/signup (free)
+
+**Step 2.** Connect LinkedIn: click **Channels** in the left sidebar, then **Add Channel**, pick **LinkedIn**, authorize.
+
+**Step 3.** Find your Platform ID: go to **Channels**, click your LinkedIn account. The ID looks like `linkedin-ABC123DEF`. Copy the whole thing including `linkedin-`.
+
+**Step 4.** Get your API key: click **Settings** (gear icon, bottom-left), then **API**, then **Create Key**. Copy the `sk_...` string.
+
+**Step 5.** Create a file called `.env` in the linkedin-skills folder:
 
 ```
 PUBLORA_API_KEY=sk_paste_your_key_here
 LINKEDIN_PLATFORM_ID=linkedin-paste_your_id_here
 ```
 
-**Step 6.** Install Python dependencies:
+If you cloned the repo, you can copy the template instead:
 
 ```bash
-pip install -r requirements.txt
+cp .env.example .env
 ```
 
-**Step 7.** Validate your setup:
+Then open `.env` and replace the placeholders with your real values.
+
+**Step 6.** Install two small Python packages:
 
 ```bash
-python -c "
-from lib.publora_client import PubloraClient
-c = PubloraClient()
-accounts = c.get_accounts()
-print('Connected accounts:')
-for a in accounts:
-    print(f'  {a[\"platform\"]} | {a[\"username\"]} | {a[\"_id\"]}')
-print('Setup OK.')
-"
+pip install requests python-dotenv
 ```
 
-If you see your LinkedIn account listed, you're ready. If you get an error, check the [Troubleshooting](#troubleshooting) section below.
+**Step 7.** Test it. Ask Claude:
 
-**Why Publora:** LinkedIn has 3 URN types (activity/share/ugcPost), a reaction type mismatch (their API uses INTEREST not INSIGHTFUL, PRAISE not CELEBRATE), and 2-level thread flattening that breaks most implementations. Publora handles all of it. We built this skill pack on their API because the alternative was a weekend of integration work.
+> "List my connected Publora accounts."
 
-### Tier 2: Bring your own poster (advanced)
+If you see your LinkedIn account, you're set. If not, check [Troubleshooting](#troubleshooting).
 
-If you'd rather not use Publora, point the skills at your own publishing backend (Playwright with a logged-in session, LinkedIn's official API, or any scheduler):
+## Voice rules
 
-```
-LINKEDIN_SKILLS_CUSTOM_POSTER=python /path/to/my-poster.py
-```
+Every skill follows these rules automatically:
 
-The skills invoke your command on approval. This is a real project. Publora is 2 minutes.
+1. No em dashes. Biggest AI tell in 2026.
+2. Capitalize names. Always. Lowercase reads as disrespectful.
+3. No AI vocabulary: "leverage", "fundamentally", "streamline", "harness", "delve", "unlock", "foster".
+4. Specific numbers beat adjectives. "$14,200" beats "significant savings".
+5. One sharp insight per comment beats three vague ones.
+6. 200-350 chars for comments, 900-1,300 chars for posts.
 
-### Troubleshooting
+## Troubleshooting
 
-| Symptom | Fix |
+| Problem | Fix |
 |---|---|
-| `ValueError: Publora API key not provided` | Check your `.env` file exists in the repo root and has `PUBLORA_API_KEY=sk_...` |
-| `401 Unauthorized` | API key expired or wrong. Generate a new one in Publora Settings > API. |
-| `404 on comment/post` | Wrong `LINKEDIN_PLATFORM_ID`. Go to Publora Channels, copy the full `linkedin-...` string. |
-| `400 reactionType must be one of` | Use Publora's codes: LIKE, PRAISE, EMPATHY, INTEREST, APPRECIATION, ENTERTAINMENT. Not LinkedIn UI names. |
-| `409 Conflict on reaction` | You already reacted to that post/comment. Remove the old reaction first. |
-| `pip install fails` | Use a virtual environment: `python -m venv venv && source venv/bin/activate && pip install -r requirements.txt` |
-| Skills don't auto-activate in Claude Code | Make sure the repo is open as your working directory, or install via `/plugin install`. |
+| Skills don't activate when I ask about LinkedIn | Make sure you installed via the Skills panel or `/plugin install`. Try starting a new conversation. |
+| "Publora API key not provided" | Your `.env` file is missing or in the wrong folder. It should be in the `linkedin-skills/` root. |
+| "401 Unauthorized" from Publora | Your API key expired. Go to Publora Settings > API > Create a new key. |
+| "404 on comment/post" | Your `LINKEDIN_PLATFORM_ID` is wrong. Go to Publora Channels and copy the full `linkedin-...` string. |
+| "400 reactionType" error | Known Publora quirk. The skills handle this automatically. If you're calling the API manually, use PRAISE (not CELEBRATE), INTEREST (not INSIGHTFUL). |
+| `pip install` fails | Use a virtual environment: `python -m venv venv && source venv/bin/activate && pip install requests python-dotenv` |
+
+## Cross-cutting references
+
+- [`references/industry-benchmarks.md`](references/industry-benchmarks.md) — engagement rates, time-per-post, reach multipliers across industries
+- [`references/engagement-metrics-taxonomy.md`](references/engagement-metrics-taxonomy.md) — what to measure at post / account / team / business level
+
+---
+
+<details>
+<summary><b>For developers: runtime compatibility, URL parsing, and internals</b></summary>
 
 ## Runtime compatibility
-
-The repo has two layers — only the auto-discovery layer is Claude-specific:
 
 ```
 linkedin-skills/
@@ -160,67 +179,42 @@ linkedin-skills/
 └── scripts/         ← pure Python CLI, works anywhere
 ```
 
-### Matrix
-
-| Runtime | Auto-discovers `skills/`? | Setup |
+| Runtime | Auto-discovers skills? | Setup |
 |---|---|---|
-| **Claude Code CLI** (and IDE extensions) | ✅ Native | Clone the repo, open it in Claude Code. Skills activate on matching prompts. |
-| **claude.ai web** | ✅ Native | Zip the `skills/` folder and upload in the Skills panel. |
-| **Anthropic API Managed Agents** (`/v1/agents`) | ✅ Native | Pass skill files in the agent's context. |
-| **OpenClaw** | ⚠️ Manual wiring | Mount the repo, add system prompt: *"You have access to LinkedIn marketing skills in `./linkedin-skills/`. Read the relevant `skills/*/SKILL.md` before drafting posts or comments."* Python lib usable directly. |
-| **Manus** | ❌ No Skills concept | Use the repo as a knowledge base in RAG setup. Feed relevant `references/` markdown as context. Python lib works if Manus can execute Python. |
-| **Cursor / Codex / Cline / Aider** | ❌ No native Skills | Same as OpenClaw — read `SKILL.md` files as prompt context; import `lib/` as a regular Python package. |
-| **LangChain / AutoGen / custom LLM agents** | ❌ | Use `lib/` as a pip-installable package; use `references/` + `skills/*/references/` as prompt context. |
-
-### What's runtime-agnostic
-
-- `lib/url_parser.py` — handles all LinkedIn URN variants (activity, share, ugcPost, comment). Zero dependencies beyond stdlib.
-- `lib/publora_client.py` — thin Publora REST wrapper with `INSIGHTFUL → INTEREST` auto-mapping.
-- `references/industry-benchmarks.md` — drop into any agent's prompt as context.
-- `references/engagement-metrics-taxonomy.md` — same.
-- Every `skills/*/references/` — portable knowledge files.
-
-### Claude Code-specific value-add
-
-The Skills auto-discovery is the only Claude-native feature. When a user says *"comment on this post"* with a URL, Claude Code matches the prompt against each `SKILL.md` frontmatter `description` field and loads the relevant skill before responding. Other runtimes need explicit routing.
+| **Claude Code** (CLI, Desktop, Web, IDE) | Yes | Install via plugin or clone. Skills activate on matching prompts. |
+| **Anthropic Managed Agents** (`/v1/agents`) | Yes | Pass skill files in the agent context. |
+| **OpenClaw** | Manual | Mount the repo, add system prompt pointing to `skills/*/SKILL.md`. |
+| **Cursor / Codex / Cline / Aider** | No | Read `SKILL.md` files as prompt context; import `lib/` as Python. |
+| **Manus** | No | Upload `references/` as knowledge base. Call Publora API directly. |
+| **LangChain / AutoGen** | No | Use `lib/` as a package; feed `references/` as prompt context. |
 
 ### OpenClaw quickstart
 
 ```bash
-# In your OpenClaw working directory
 git clone git@github.com:sergebulaev/linkedin-skills.git
 
-# In OpenClaw system prompt, add:
+# Add to OpenClaw system prompt:
 # "You have LinkedIn marketing skills in ./linkedin-skills/.
-#  For any LinkedIn post / comment / reply task, first read the
-#  relevant skills/*/SKILL.md and skills/*/references/*.md files.
+#  Read the relevant skills/*/SKILL.md before any LinkedIn task.
 #  Use lib/url_parser.py and lib/publora_client.py for actions."
 ```
-
-### Manus quickstart
-
-Upload the `references/` folder and all `skills/*/references/` markdown files as knowledge base items. Point Manus's tool-calling configuration at the Publora REST API directly (no Python wrapper needed).
 
 ### Generic Python agent quickstart
 
 ```python
 import sys; sys.path.insert(0, "path/to/linkedin-skills")
-from lib import parse_linkedin_url, PubloraClient, render_approval_card
+from lib import parse_linkedin_url, PubloraClient
 
 parsed = parse_linkedin_url("https://www.linkedin.com/posts/slug-activity-7448808898326654978-iW20")
 print(parsed["post_urn"])  # urn:li:activity:7448808898326654978
 
 client = PubloraClient()  # reads PUBLORA_API_KEY from env
-resp = client.create_comment(
-    post_urn=parsed["post_urn"],
-    message="your draft here",
-    platform_id="linkedin-xxx",
-)
+client.create_comment(post_urn=parsed["post_urn"], message="draft", platform_id="linkedin-xxx")
 ```
 
 ## URL handling
 
-LinkedIn has three post URN types; the parser handles all three:
+LinkedIn has three post URN types. The `lib/url_parser.py` handles all of them:
 
 | URL fragment | URN |
 |---|---|
@@ -228,44 +222,31 @@ LinkedIn has three post URN types; the parser handles all three:
 | `/posts/slug-share-7449...` | `urn:li:share:7449...` |
 | `/feed/update/urn:li:ugcPost:7447...` | `urn:li:ugcPost:7447...` |
 
-Comment URLs include a `commentUrn=urn:li:comment:(activity:POST,COMMENT)` query param; the parser decodes it and returns both `post_urn` and `comment_id`.
-
-**Edge case:** the post URN inferred from the URL slug (e.g., `activity`) may not be the canonical URN LinkedIn uses (e.g., `ugcPost`). If `POST /linkedin-comments` returns 404, the skill falls back to resolving via an existing comment's `postId` field via HarvestAPI.
+Comment URLs include a `commentUrn` query param. The parser extracts both `post_urn` and `comment_id`.
 
 ## Thread flattening
 
-LinkedIn flattens reply threads to 2 levels. When replying to a reply, `parentComment` MUST point to the **top-level** comment URN, not the reply's URN. `linkedin-reply-handler` handles this correctly.
+LinkedIn flattens reply threads to 2 levels. When replying to a reply, `parentComment` must point to the top-level comment URN, not the reply's URN. The `linkedin-reply-handler` skill handles this correctly.
 
-## Voice rules (baked into every skill)
-
-1. No em dashes (`—`), en dashes, or double dashes. Biggest AI tell.
-2. Use `..` for soft pauses when mid-sentence rhythm calls for it.
-3. Capitalize personal names, company names, product names. Lowercase reads as disrespectful.
-4. No AI vocabulary: `leverage`, `fundamentally`, `streamline`, `harness`, `delve`, `unlock`, `foster`.
-5. Specific numbers beat adjectives.
-6. One sharp insight per comment beats three vague ones.
-7. 200-350 chars for comments, 900-1,300 chars for posts.
-
-## Trying the parser
+## Testing the parser
 
 ```bash
 python lib/url_parser.py "https://www.linkedin.com/posts/dharmesh_activity-7448808898326654978-iW20"
 ```
 
-Returns a structured URN dict.
+</details>
 
 ## References
 
-- [Publora API docs](https://docs.publora.com) — full endpoint reference
-- [360Brew paper](https://arxiv.org/abs/2501.16450) — LinkedIn's 150B-parameter ranking foundation model
+- [Publora API docs](https://docs.publora.com) — endpoint reference
+- [360Brew paper](https://arxiv.org/abs/2501.16450) — LinkedIn's ranking foundation model
 - [AuthoredUp 2026 reach data](https://authoredup.com/) — format-level reach benchmarks
 
 ## License
 
-MIT. Powered by the [Publora REST API](https://publora.com).
+MIT. Powered by [Publora](https://publora.com).
 
-## Related work
+## Related
 
-- Anthropic's official skills repo: [github.com/anthropics/skills](https://github.com/anthropics/skills)
+- [Anthropic Skills repo](https://github.com/anthropics/skills)
 - `awesome-claude-skills` directory
-- Corporate Knowledge `tools/social_poster/` (upstream client implementation this skill pack wraps)
