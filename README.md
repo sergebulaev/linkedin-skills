@@ -256,7 +256,7 @@ Returns a structured URN dict.
 
 ## References
 
-- [Publora API docs](https://publora.com/docs) — full endpoint reference
+- [Publora API docs](https://docs.publora.com) — full endpoint reference
 - [360Brew paper](https://arxiv.org/abs/2501.16450) — LinkedIn's 150B-parameter ranking foundation model
 - [AuthoredUp 2026 reach data](https://authoredup.com/) — format-level reach benchmarks
 
