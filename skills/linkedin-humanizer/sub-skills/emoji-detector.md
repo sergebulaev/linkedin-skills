@@ -1,8 +1,3 @@
----
-name: linkedin-emoji-detector
-description: Detect AI-pattern emoji usage in any LinkedIn post or comment draft. Counts emoji frequency, compares against the AI-correlated emoji frequency table (lightbulb, rocket, sparkles, recycling, target, chart, key, dart, muscle, fire), and returns an AI-emoji density score (0-100) plus suggested human-pattern alternatives. Three modes: scan, score, suggest. Use before publishing or as a pre-pass to linkedin-humanizer. Keywords: emoji detector, AI emoji, lightbulb tell, rocket tell, sparkles tell, ChatGPT signature, OriginalityAI, GPTZero, MagicPost.
----
-
 # LinkedIn Emoji Detector
 
 Flags AI-pattern emoji usage in LinkedIn drafts before they ship. Built on Naïlé Titah / MagicPost frequency data (Feb 2026) showing lightbulb, rocket, sparkles, and recycling emojis appear 2-3x more often in AI-generated LinkedIn posts than in human-authored ones.
@@ -31,7 +26,7 @@ Any LinkedIn text (post, comment, reply, DM). Optional: mode flag (`--strict`, `
 
 ### Mode 1 — SCAN (default)
 
-Walks the text, extracts every emoji, looks up each one in the frequency table at `references/emoji-patterns.md`, and returns a per-emoji report.
+Walks the text, extracts every emoji, looks up each one in the frequency table at `../references/emoji-patterns.md`, and returns a per-emoji report.
 
 For each detected AI-pattern emoji:
 - Show the emoji
@@ -76,7 +71,7 @@ Default mode is between the two: flag if score >20.
 - Preserve emoji count parity if user wants emojis (don't strip and leave nothing)
 - Capitalize all names in suggested replacements (Felix, HubSpot, Claude)
 - If the post has zero emojis, skip the skill entirely and return "n/a"
-- Don't fabricate "human" emoji frequencies — the human-pattern alternatives in `references/emoji-patterns.md` are emojis with sub-1% AI correlation, not emojis proven "more human"
+- Don't fabricate "human" emoji frequencies — the human-pattern alternatives in `../references/emoji-patterns.md` are emojis with sub-1% AI correlation, not emojis proven "more human"
 
 ## Example
 
@@ -100,7 +95,7 @@ Default mode is between the two: flag if score >20.
 ## Files
 
 - `SKILL.md` — this file
-- `references/emoji-patterns.md` — full frequency table + human-pattern alternatives
+- `../references/emoji-patterns.md` — full frequency table + human-pattern alternatives
 
 ## Related skills
 

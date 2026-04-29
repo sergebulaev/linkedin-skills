@@ -1,6 +1,6 @@
 ---
 name: linkedin-hook-extractor
-description: Reverse-engineer the hook formula from any viral LinkedIn post. Use when the user finds a post they want to learn from — paste the URL and get a structural breakdown. Identifies which of the 10 canonical 2026 formulas it uses (anaphora, R.I.P. obituary, year-over-year pivot, time-anchor confession, self-proving meta, odd-precision money, paid-vs-free reversal, curiosity-gap, contrarian historical, comment-gate). Returns a blank template you can fill with your own voice. Keywords: hook formula, viral teardown, reverse engineer, post structure, 2026 formulas.
+description: Reverse-engineer the hook formula from any viral LinkedIn post. Use when the user finds a post they want to learn from. Paste the URL and get a structural breakdown. Identifies which of the 10 canonical 2026 formulas it uses (anaphora, R.I.P. obituary, year-over-year pivot, time-anchor confession, self-proving meta, odd-precision money, paid-vs-free reversal, curiosity-gap, contrarian historical, comment-gate). Returns a blank template you can fill with your own voice. Keywords: hook formula, viral teardown, reverse engineer, post structure, 2026 formulas.
 ---
 
 # LinkedIn Hook Extractor
@@ -32,7 +32,7 @@ A LinkedIn post URL (any type: activity, share, ugcPost).
 ## Steps
 
 1. **Parse URL.** `lib.url_parser.parse_linkedin_url` → `post_urn`.
-2. **Fetch post body.** HarvestAPI preferred; fall back to asking user to paste text.
+2. **Fetch post body.** If `APIFY_TOKEN` is set, call `lib.ApifyClient.fetch_post(url)`. Otherwise ask the user to paste the text.
 3. **Classify.** Match against the 10 formulas using features:
    - First 2 lines: anaphoric? question? confession? number-led?
    - Body: numbered list? dated receipts? ledger? teardown?

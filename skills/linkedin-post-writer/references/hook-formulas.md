@@ -1,6 +1,6 @@
 # 10 LinkedIn Hook Formulas — 2026 Edition
 
-Each formula has a skeleton, why it works, a reference engagement multiplier, and a pointer to a canonical draft file in `/home/sbulaev/p/corporate-knowledge/personal/knowledge/linkedin/serge/2026-04-13-viral-drafts/`.
+Each formula has a skeleton, why it works, and a reference engagement multiplier from the original post that defined it. Canonical draft filenames (e.g. `01-platform-risk-anaphora.md`) refer to the curator's private notebook of source posts and are NOT shipped in this public repo. The skeletons + reference posts below are sufficient to apply each formula.
 
 ---
 

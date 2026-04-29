@@ -1,8 +1,3 @@
----
-name: linkedin-rules-explainer
-description: Explain why each AI-tell rule exists and whether to trust it. Tier-classified rule reference for the linkedin-humanizer package. Separates forensic signals (real AI leakage), strict bans (corporate-speak the user wants out), and aesthetic overreach (stylistic patterns wrongly tagged as AI). Each rule comes with a famous human writer who uses it, a defense strength, and a citation. Use to defend a stylistic choice, audit detector output, or argue against blanket rules. Keywords: rule explainer, AI detector defense, em dash defense, rule of three, passive voice, false positive, OriginalityAI, GPTZero, stylometry.
----
-
 # LinkedIn Rules Explainer
 
 The educational backbone for the humanizer package. Every rule in `linkedin-humanizer` came from somewhere — Wikipedia's "Signs of AI writing" taxonomy, OriginalityAI's heuristics, GPTZero's stylometry, or 2026 LinkedIn-specific patterns. Some are real forensics (a `[oaicite:0]` marker is undefendable). Some are corporate-speak bans the user wants out for taste reasons. Some are aesthetic overreach — patterns Lincoln, Dickinson, and Didion built careers on, now flagged because GPT-4 happens to use them too.
@@ -80,11 +75,10 @@ Examples: a single em dash (Emily Dickinson, Cormac McCarthy), the rule of three
 
 ## Files
 
-- `SKILL.md` — this file
-- `references/rules.md` — full table of all 15 rules organized by tier, with famous-writer examples and citations
+- `../references/rules-explainer.md` — full table of all 15 rules organized by tier, with famous-writer examples and citations
 
 ## Related skills
 
 - `linkedin-humanizer` — applies the rules (this skill explains them)
 - `linkedin-post-audit` — flags rules in a draft
-- `linkedin-detector-tester` — runs OriginalityAI / GPTZero / Pangram against drafts
+- `sub-skills/detector-tester.md` (sibling) — runs OriginalityAI / GPTZero / Pangram against drafts

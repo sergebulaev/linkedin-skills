@@ -1,6 +1,6 @@
 ---
 name: linkedin-humanizer
-description: Remove AI tells from any LinkedIn post or comment draft. Tier-based scrubber (forensic / strict / aesthetic / all) that strips real AI signals like oaicite tokens and knowledge-cutoff disclaimers, optionally also corporate-speak (leverage, delve, utilize) and aesthetic patterns (em dashes, rule of three) on demand. Use before publishing any AI-drafted content. Keywords humanizer, AI detection, OriginalityAI, GPTZero, scrub AI tells, rewrite human, forensic, strict, aesthetic.
+description: Remove AI tells from any LinkedIn post or comment draft and audit the rules behind every flag. Tier-based scrubber (forensic / strict / aesthetic / all) plus three bundled sub-tools: emoji-pattern detector, AI-detector spread tester (GPTZero, Originality.ai, ZeroGPT, Sapling, Copyleaks), and a rule-explainer reference. Use before publishing any AI-drafted content, or to defend a stylistic choice when a single detector flags it. Keywords humanizer, AI detection, OriginalityAI, GPTZero, scrub AI tells, rewrite human, forensic, strict, aesthetic, emoji detector, rule explainer.
 ---
 
 # LinkedIn Humanizer V2
@@ -15,7 +15,7 @@ The previous version applied every rule equally. We learned that some rules catc
 - **Strict** rules catch corporate-speak that's bad style regardless of who wrote it. On by default.
 - **Aesthetic** rules catch patterns that AI uses but humans also use legitimately (em dashes, rule of three, "robust"). Off by default. Opt in if you want maximum scrub.
 
-See `linkedin-rules-explainer` for per-rule justification, defenses, and citations.
+See `sub-skills/rules-explainer.md` for per-rule justification, defenses, and citations.
 
 ## When to use
 
@@ -89,6 +89,7 @@ Vocabulary (regex strip and replace):
 - navigate → handle
 - unlock → find
 - harness → use
+- foster → build
 - fundamentally → (delete)
 - essentially → (delete)
 - ultimately → (delete)
@@ -129,7 +130,6 @@ Phrase-level (full negative parallelism coverage as of 2026-04-27 ban):
 - Single em dash use → period or comma (Dickinson defense ignored)
 - Rule of three: triplet adjectives or triplet clauses → break to 2 or 4 (Lincoln defense ignored)
 - "robust" → solid (every epidemiologist defense ignored)
-- "foster" → build (cultural-criticism defense ignored)
 - "cultivate" → grow (academic-prose defense ignored)
 - "vibrant" → specific descriptor (Toni Morrison defense ignored)
 - "intricate" / "intricacies" → "complex"
@@ -174,11 +174,11 @@ If the input lacks these, ask the user for a specific number or anecdote to plug
 
 The forensic tier exists because oaicite tokens, knowledge-cutoff disclaimers, and Mad-Libs blanks are pure model leakage that no human writer ever produces. Catching them is undefendable. The strict tier exists because corporate-speak ("leverage", "fundamentally", "in today's fast-paced world") is bad LinkedIn style regardless of origin, so stripping it improves the post even if the writer is human. The aesthetic tier exists because patterns like single em dashes, rule of three, "robust", and curly quotes appear in AI output but also appear in Lincoln, Dickinson, every epidemiologist, and every book printed since 1500. Banning them blindly catches Hemingway as AI. Run aesthetic mode only when audience-fit demands it.
 
-For per-rule justification and famous human defenders, see the `linkedin-rules-explainer` skill.
+For per-rule justification and famous human defenders, see `sub-skills/rules-explainer.md` (and the rule index at `references/rules-explainer.md`).
 
-For the unreliability of AI detectors generally (61.3% false positive on TOEFL essays per Stanford 2023), see the `linkedin-detector-tester` skill.
+For the unreliability of AI detectors generally (61.3% false positive on TOEFL essays per Stanford 2023), see `sub-skills/detector-tester.md`. Run it via `python3 scripts/test_detectors.py --text "..." --demo` (offline) or with paid keys configured in `scripts/detectors.env.example`.
 
-For emoji-pattern detection (lightbulb, rocket, sparkles signature), see the `linkedin-emoji-detector` skill.
+For emoji-pattern detection (lightbulb, rocket, sparkles signature), see `sub-skills/emoji-detector.md` and the per-emoji frequency table at `references/emoji-patterns.md`.
 
 ## Example
 
@@ -199,20 +199,27 @@ For emoji-pattern detection (lightbulb, rocket, sparkles signature), see the `li
 
 ## Files
 
-- `SKILL.md` — this file
+- `SKILL.md` — this file (the rewrite scrubber)
 - `references/scrub-rules.md` — full regex patterns by tier
 - `references/voice-fingerprint.md` — how to preserve user voice while scrubbing
 - `references/tier-rationale.md` — long-form per-rule justification
+- `references/rules-explainer.md` — machine-readable index of every rule with citations
+- `references/emoji-patterns.md` — AI-correlated emoji frequency table
+- `references/detector-list.md` — supported AI detectors with API endpoints and accuracy notes
+- `sub-skills/rules-explainer.md` — when to defend a flagged rule (em dash, rule of three, passive voice)
+- `sub-skills/emoji-detector.md` — scan / score / suggest workflow for emoji density
+- `sub-skills/detector-tester.md` — run text through 5 AI detectors in parallel and report disagreement
+- `scripts/test_detectors.py` — runs the parallel detector test (supports `--demo` for offline mode)
+- `scripts/requirements.txt` — Python deps for the detector script (`requests`, `python-dotenv`)
+- `scripts/detectors.env.example` — template for the 5 detector API keys
 
 ## Related skills
 
-- `linkedin-rules-explainer` — per-rule deep dive with citations and defenses
-- `linkedin-detector-tester` — run text through 5 AI detectors in parallel, show divergence
-- `linkedin-emoji-detector` — flag AI-pattern emoji usage (lightbulb / rocket / sparkles)
 - `linkedin-post-audit` — detection-only pass (no rewrite)
 - `linkedin-post-writer` — generates drafts that already pass the humanizer
 
 ## Changelog
 
+- **2026-04-28 V3** — folded the former `linkedin-detector-tester`, `linkedin-emoji-detector`, and `linkedin-rules-explainer` skills into this one as `sub-skills/` references and `scripts/`. Same workflows, fewer top-level skills.
 - **2026-04-27 V2** — split rules into forensic / strict / aesthetic tiers. Added `--mode` flag. Added forensic-tier patterns from Wikipedia (oaicite tokens, knowledge-cutoff disclaimers, phrasal templates). Expanded negative parallelism coverage to all 6 forms per Sergey's 2026-04-27 ban.
 - **2026-04-08 V1** — initial release.

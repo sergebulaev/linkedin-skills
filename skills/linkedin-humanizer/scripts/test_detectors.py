@@ -6,6 +6,7 @@ Usage:
     python test_detectors.py --text "your text here"
     cat draft.txt | python test_detectors.py --stdin
     python test_detectors.py --text "..." --manual    # paste-mode for detectors with no API
+    python test_detectors.py --text "..." --demo      # offline canned scores (no keys needed)
 Dependencies: requests, python-dotenv (optional)
 
 The point of this tool is NOT to give a definitive AI-or-not score. It is to
@@ -17,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 import concurrent.futures
+import hashlib
 import json
 import os
 import sys
@@ -222,6 +224,26 @@ API_DETECTORS: list[Callable[[str], DetectorResult]] = [
 ]
 
 
+# ---------------------------------------------------------------------------
+# Demo mode — canned, deterministic, offline
+# Generates per-detector scores derived from a hash of the input so the same
+# text always returns the same scores. Spread is intentionally wide to
+# demonstrate the disagreement headline without burning paid API calls.
+# ---------------------------------------------------------------------------
+
+_DEMO_DETECTORS = ("GPTZero", "Originality.ai", "ZeroGPT", "Sapling", "Copyleaks")
+
+
+def run_demo(text: str) -> list[DetectorResult]:
+    digest = hashlib.sha256(text.encode("utf-8")).digest()
+    results = []
+    for i, name in enumerate(_DEMO_DETECTORS):
+        # Map each byte 0-255 to 0-100; pick a different byte per detector.
+        score = round((digest[i] / 255) * 100, 1)
+        results.append(DetectorResult(name, score))
+    return results
+
+
 def run_parallel(text: str) -> list[DetectorResult]:
     results: list[DetectorResult] = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(API_DETECTORS)) as pool:
@@ -294,6 +316,8 @@ def main():
 
     p.add_argument("--manual", action="store_true",
                    help="run manual paste-mode for detectors without APIs")
+    p.add_argument("--demo", action="store_true",
+                   help="offline mode: deterministic canned scores derived from input hash; no API calls, no keys needed")
     p.add_argument("--json", metavar="PATH",
                    help="also write the full report as JSON to PATH")
     args = p.parse_args()
@@ -304,7 +328,10 @@ def main():
         print("WARNING: text is very short. Detectors are unreliable below 100 words.\n",
               file=sys.stderr)
 
-    results = run_parallel(text)
+    if args.demo:
+        results = run_demo(text)
+    else:
+        results = run_parallel(text)
     if args.manual:
         results.extend(run_manual(text))
 

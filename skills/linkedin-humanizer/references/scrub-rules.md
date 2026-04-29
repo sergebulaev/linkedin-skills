@@ -113,6 +113,10 @@ STRICT_VOCAB_REPLACE = {
     "unlocked": "found",
     "harness": "use",
     "harnessing": "using",
+    "harnessed": "used",
+    "foster": "build",                       # strict per root SKILL.md rule 5
+    "fostering": "building",
+    "fostered": "built",
     # corporate nouns
     "landscape": "field",
     "ecosystem": "space",
@@ -182,7 +186,6 @@ Patterns AI uses but humans use legitimately. Apply only when audience demands i
 AESTHETIC_VOCAB_REPLACE = {
     # The defense: every epidemiologist, scientist, novelist uses these.
     "robust": "solid",                       # Used in epidemiology since 1950s
-    "foster": "build",                       # George Eliot used "cultivate" in Middlemarch
     "cultivate": "grow",
     "vibrant": "alive",                      # Toni Morrison Nobel lecture
     "intricate": "complex",

@@ -27,9 +27,9 @@ A LinkedIn URL containing `commentUrn=urn:li:comment:(activity:POST,COMMENT_ID)`
 ## Steps
 
 1. **Parse the URL.** `lib.url_parser.parse_linkedin_url` returns `post_urn`, `comment_id`, `comment_urn`.
-2. **Determine thread structure.** Fetch the post's comment thread (HarvestAPI if available) and locate the comment. Figure out whether it's:
+2. **Determine thread structure.** If `APIFY_TOKEN` is set, call `lib.ApifyClient.fetch_post_comments(post_id=post_urn, max_items=50, scrape_replies=True)` and locate the comment by `comment_id`. Otherwise ask the user to paste the relevant slice of the thread. Figure out whether the target is:
    - a top-level comment (parentComment = this comment's URN when replying)
-   - a reply to a top-level comment (parentComment = the TOP comment's URN, not this reply's URN — LinkedIn flattens)
+   - a reply to a top-level comment (parentComment = the TOP comment's URN, not this reply's URN. LinkedIn flattens)
 3. **Read the full context.** Author post text, top-level comment text, any intermediate replies. Include the user's own prior comment if they're in the thread.
 4. **Draft the reply.** Follow the engagement templates in `references/reply-templates.md`. If the counterpart asked a question, answer it directly. If they pushed back, concede then sharpen.
 5. **Humanizer pass.** Strip em dashes, AI vocab, enforce varied sentence length.
@@ -67,7 +67,7 @@ Carol's reply doesn't nest under Bob's — it's pinned at level 2 to the same to
 - React to the comment you're replying to, not to the parent post.
 - Capitalize the counterpart's first name.
 - Never paste a canned "thanks!" — either respond with content or don't reply.
-- If the thread is older than 72 hours, consider a DM instead (use `linkedin-thread-engagement`).
+- If the thread is older than 72 hours, consider a DM instead (use `linkedin-engagement-monitor`).
 
 ## Example
 

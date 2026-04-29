@@ -73,7 +73,6 @@ Full skeletons in `references/hook-formulas.md`.
 - `references/hook-formulas.md` — all 10 formula skeletons with worked examples
 - `references/algorithm-heuristics.md` — 2026 posting rules (timing, format, length)
 - `references/humanizer-checklist.md` — the full scrub list
-- Upstream: `../../corporate-knowledge/personal/knowledge/linkedin/serge/2026-04-13-viral-drafts/` — canonical reference drafts
 
 ## Related skills
 

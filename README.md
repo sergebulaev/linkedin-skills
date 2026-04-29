@@ -47,7 +47,9 @@ Pick whichever way you use Claude:
    ```
    You have LinkedIn marketing skills in ./linkedin-skills/.
    For any LinkedIn task, read the relevant skills/*/SKILL.md first.
-   Use lib/url_parser.py and lib/publora_client.py for actions.
+   Use lib/url_parser.py for URL parsing,
+       lib/apify_client.py for reading posts / comments / engagers,
+       lib/publora_client.py for publishing actions.
    ```
 4. Done. Ask OpenClaw to write a LinkedIn post or comment.
 
@@ -100,12 +102,29 @@ Every skill shows you a draft first and waits for your OK before doing anything.
 | **Comment Drafter** | Drafts a comment on any LinkedIn post from its URL |
 | **Reply Handler** | Drafts a reply to any comment, correctly handling LinkedIn's 2-level thread flattening |
 | **Post Audit** | Checks your draft against 2026 algorithm rules and AI-detection patterns before you publish |
-| **Humanizer** | Strips em dashes, AI vocabulary ("leverage", "delve", "harness"), rule-of-three lists, and other AI fingerprints |
+| **Humanizer** | Strips em dashes, AI vocabulary ("leverage", "delve", "harness"), rule-of-three lists, and other AI fingerprints. Bundles three sub-tools: AI-emoji density scorer, multi-detector spread tester (GPTZero, Originality.ai, ZeroGPT, Sapling, Copyleaks), and a rule-explainer reference for defending stylistic choices. |
 | **Hook Extractor** | Reverse-engineers the hook formula from any viral post. Returns a blank template you can fill with your own topic |
 | **Content Planner** | Creates a 7-day plan with daily post topics, formats, hooks, posting times, and comment targets |
-| **Thread Engagement** | Monitors your comment threads for author replies and drafts follow-ups during the key 6-24h window |
+| **Engagement Monitor** | Two read-side workflows: (1) tracks your comment threads for author replies and drafts follow-ups in the 6-24h window; (2) pulls likers and commenters on any post and groups them by ICP fit (peer / aspirational / prospect). |
 | **Profile Optimizer** | Rewrites your headline, About section, Featured section, and Experience for 2026 conversion patterns |
 | **Employee Advocacy** | Plans a team LinkedIn program: 14-day launch, posting cadence, brand governance, ROI tracking |
+
+## Optional: read LinkedIn data with Apify
+
+Four of the skills (Comment Drafter, Reply Handler, Hook Extractor, Engagement Monitor) can read post bodies, comment threads, your own recent comments, and the people who liked or commented on any post. Without an Apify token they fall back to asking you to paste the relevant text. With one, they fetch automatically.
+
+[Apify](https://console.apify.com/sign-up) free tier ships with $5/month of credit, which goes a long way at $1-$5 per 1,000 results. The skills use four no-cookies actors:
+
+| Use case | Actor | Cost |
+|---|---|---|
+| Post body by URL | `supreme_coder/linkedin-post` | $1 / 1,000 |
+| Comments + replies on a post | `apimaestro/linkedin-post-comments-replies-engagements-scraper-no-cookies` | $5 / 1,000 |
+| Your own recent comments | `apimaestro/linkedin-profile-comments` | $5 / 1,000 |
+| Likers + commenters on any post | `scraping_solutions/linkedin-posts-engagers-likers-and-commenters-no-cookies` | $5 / 1,000 |
+
+Setup: drop `APIFY_TOKEN=apify_api_...` into your `.env`. The thin client at `lib/apify_client.py` exposes `fetch_post`, `fetch_post_comments`, `fetch_user_recent_comments`, and `fetch_post_engagers`.
+
+A typical creator running daily comment ops + a weekly engager-analytics sweep stays under $2/month, well inside the free tier.
 
 ## Optional: auto-post with Publora
 
@@ -148,9 +167,9 @@ pip install requests python-dotenv
 
 **Step 7.** Test it. Ask Claude:
 
-> "List my connected Publora accounts."
+> "Schedule a test LinkedIn post via Publora 2 hours from now: 'testing the API connection'. Show me the response, then delete it."
 
-If you see your LinkedIn account, you're set. If not, check [Troubleshooting](#troubleshooting).
+If Publora returns a scheduled-post ID, you're set. If you get HTTP 401, your API key is wrong. If you get HTTP 400 about a missing platformId, your `LINKEDIN_PLATFORM_ID` isn't set. See [Troubleshooting](#troubleshooting).
 
 ## Voice rules
 
@@ -211,18 +230,26 @@ git clone git@github.com:sergebulaev/linkedin-skills.git
 # Add to OpenClaw system prompt:
 # "You have LinkedIn marketing skills in ./linkedin-skills/.
 #  Read the relevant skills/*/SKILL.md before any LinkedIn task.
-#  Use lib/url_parser.py and lib/publora_client.py for actions."
+#  Use lib/url_parser.py for URL parsing,
+#      lib/apify_client.py for reading posts / comments / engagers,
+#      lib/publora_client.py for publishing."
 ```
 
 ### Generic Python agent quickstart
 
 ```python
 import sys; sys.path.insert(0, "path/to/linkedin-skills")
-from lib import parse_linkedin_url, PubloraClient
+from lib import parse_linkedin_url, PubloraClient, ApifyClient
 
 parsed = parse_linkedin_url("https://www.linkedin.com/posts/slug-activity-7448808898326654978-iW20")
 print(parsed["post_urn"])  # urn:li:activity:7448808898326654978
 
+# Read side (Apify)
+apify = ApifyClient()  # reads APIFY_TOKEN from env
+post = apify.fetch_post(post_url="https://www.linkedin.com/posts/...")
+engagers = apify.fetch_post_engagers(post_url="https://www.linkedin.com/posts/...", max_items=50)
+
+# Write side (Publora)
 client = PubloraClient()  # reads PUBLORA_API_KEY from env
 client.create_comment(post_urn=parsed["post_urn"], message="draft", platform_id="linkedin-xxx")
 ```
@@ -253,7 +280,8 @@ python lib/url_parser.py "https://www.linkedin.com/posts/dharmesh_activity-74488
 
 ## References
 
-- [Publora API docs](https://docs.publora.com) — endpoint reference
+- [Publora API docs](https://docs.publora.com) — endpoint reference for the publishing layer
+- [Apify console](https://console.apify.com) — manage actors, tokens, and usage for the read layer
 - [360Brew paper](https://arxiv.org/abs/2501.16450) — LinkedIn's ranking foundation model
 - [AuthoredUp 2026 reach data](https://authoredup.com/) — format-level reach benchmarks
 

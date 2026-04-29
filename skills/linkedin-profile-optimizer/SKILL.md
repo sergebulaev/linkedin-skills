@@ -1,6 +1,6 @@
 ---
 name: linkedin-profile-optimizer
-description: Audit and rewrite a LinkedIn profile end-to-end for 2026 — headline formula, About section 7-step structure, Featured section strategy, banner design, photo rules, Experience metrics, Skills pinning, custom URL, recommendations. Triggers on requests like "review my LinkedIn profile", "rewrite my headline", "fix my About section", "optimize banner", "profile audit", "LinkedIn bio", "Featured section", "profile conversion", "profile keywords". Converts default/resume-style profiles into one that converts visitors 3-5x better.
+description: Audit and rewrite a LinkedIn profile end-to-end for 2026. Covers headline formula, About section 7-step structure, Featured section strategy, banner design, photo rules, Experience metrics, Skills pinning, custom URL, recommendations. Triggers on requests like "review my LinkedIn profile", "rewrite my headline", "fix my About section", "optimize banner", "profile audit", "LinkedIn bio", "Featured section", "profile conversion", "profile keywords". Converts default/resume-style profiles into one that converts visitors 3-5x better.
 ---
 
 # LinkedIn Profile Optimizer

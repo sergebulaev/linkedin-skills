@@ -1,8 +1,3 @@
----
-name: linkedin-detector-tester
-description: Run text through GPTZero, Originality.ai, ZeroGPT, Sapling, Copyleaks in parallel. Show divergence between detectors to expose unreliability. Keywords: AI detector, GPTZero, Originality.ai, ZeroGPT, Copyleaks, false positive, ESL bias, AI detection accuracy.
----
-
 # LinkedIn Detector Tester
 
 Pipes any text through 5+ AI detectors at once and prints how badly they disagree. The point is not to find the "right" score. The point is to show there is no right score.
@@ -65,7 +60,7 @@ Translation: nobody actually knows. The accusation is a coin flip.
 ## How to run
 
 ```bash
-cd /home/sbulaev/p/linkedin-skills/skills/linkedin-detector-tester
+cd /home/sbulaev/p/linkedin-skills/skills/linkedin-humanizer
 python3 scripts/test_detectors.py --text "$(cat draft.txt)"
 ```
 
@@ -75,16 +70,24 @@ Or pipe in:
 cat draft.txt | python3 scripts/test_detectors.py --stdin
 ```
 
-Most detectors gate their API behind paid plans. The script supports two modes:
+Most detectors gate their API behind paid plans. The script supports three modes:
 
-1. **API mode** — set keys in `.env` (`GPTZERO_API_KEY`, `ORIGINALITY_API_KEY`, `ZEROGPT_API_KEY`, `SAPLING_API_KEY`, `COPYLEAKS_API_KEY`, `COPYLEAKS_EMAIL`). Detectors with valid keys run automatically.
-2. **Manual paste mode** — `--manual` flag opens each detector's web UI, prompts the user to paste the score back. Slower but free, and captures detectors with no API.
+1. **API mode** — copy `.env.example` to `.env` and fill the keys you have (`GPTZERO_API_KEY`, `ORIGINALITY_API_KEY`, `ZEROGPT_API_KEY`, `SAPLING_API_KEY`, `COPYLEAKS_API_KEY` + `COPYLEAKS_EMAIL`). Detectors with valid keys run automatically; missing-key detectors are dropped from the report.
+2. **Manual paste mode** (`--manual`) — opens each detector's web UI, prompts the user to paste the score back. Slower but free, and captures detectors with no API.
+3. **Demo mode** (`--demo`) — offline. Returns deterministic canned scores derived from a hash of the input. No API calls, no keys needed. Use to smoke-test the workflow or to demonstrate the divergence pattern without spending API credit.
+
+Install dependencies first:
+
+```bash
+pip install -r requirements.txt
+```
 
 ## Files
 
-- `SKILL.md` — this file
-- `references/detector-list.md` — supported detectors, API endpoints, known accuracy issues, citations
-- `scripts/test_detectors.py` — runs the parallel test, computes spread, prints verdict
+- `../references/detector-list.md` — supported detectors, API endpoints, known accuracy issues, citations
+- `../scripts/test_detectors.py` — runs the parallel test, computes spread, prints verdict
+- `../scripts/requirements.txt` — Python deps (`requests`, `python-dotenv`)
+- `../scripts/detectors.env.example` — template for the 5 detector API keys (copy to `.env`)
 
 ## Related skills
 

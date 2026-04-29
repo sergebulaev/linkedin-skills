@@ -98,4 +98,4 @@ See `references/example-plan-week.md` for a filled-in 7-day plan.
 
 - `linkedin-post-writer` — generate each day's draft from the plan
 - `linkedin-comment-drafter` — execute the daily comment targets
-- `linkedin-thread-engagement` — track inbound from the comment strategy
+- `linkedin-engagement-monitor` — track inbound from the comment strategy

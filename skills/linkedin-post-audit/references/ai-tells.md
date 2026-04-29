@@ -82,13 +82,35 @@ Flag any draft that demands >60s of continuous reading without a visual break, l
 ## Regex patterns (for audit implementation)
 
 ```python
+import re
+
+# Verb stems that should match every inflection (-s, -ing, -ed, -es).
+# Use a non-capturing inflection suffix so "harnessed", "fostering", "unlocks" all match.
+_VERB_STEMS = (
+    "leverag", "utiliz", "facilitat", "streamlin", "delv", "navigat",
+    "unlock", "harness", "foster", "cultivat",
+)
+_VERB_GROUP = "|".join(_VERB_STEMS)
+
 AI_PATTERNS = {
     "em_dash": r"\u2014",
     "en_dash": r"\u2013",
     "double_dash": r"--",
-    "vocab": r"\b(leverage|utilize|facilitate|streamline|delve|navigate|unlock|harness|foster|cultivate|fundamentally|essentially|ultimately|crucially|notably|landscape|ecosystem|paradigm|realm|tapestry|robust|seamless|holistic|nuanced)\b",
-    "opener_filler": r"^(In today's|Have you ever|Most people don't realize|Here's a hard truth)",
-    "closer_filler": r"(What do you think\?|Thoughts\?|Agree or disagree\?|Let me know in the comments|Tag someone)",
-    "inflated_symbolism": r"not just \w+, it's \w+",
+    # Verbs match all inflected forms via optional suffix.
+    "vocab_verbs": rf"\b(?:{_VERB_GROUP})(?:e|es|ed|ing)?\b",
+    # Adverbs / nouns / adjectives don't inflect \u2014 keep literal.
+    "vocab_other": r"\b(fundamentally|essentially|ultimately|crucially|notably|landscape|ecosystem|paradigm|realm|tapestry|robust|seamless|holistic|nuanced)\b",
+    # Case-insensitive opener match; allow leading whitespace, bullets, or quote marks.
+    "opener_filler": r"(?im)^[\s>*\-]*[\"'\u201c]?(In today's|Have you ever|Most people don't realize|Here's a hard truth)",
+    # Generic closing-question CTA: matches "What do you think?" / "What are your thoughts?" / "Thoughts?" / "Your take?" etc.
+    "closer_filler": r"(?i)(what (do|are) you (think|your? thought)|what(?:'s| is) your (take|thoughts?)|thoughts\?|agree or disagree\?|let me know in the comments|tag someone)",
+    "inflated_symbolism": r"(?i)not just \w+, it'?s \w+",
 }
+
+# Compile-time sanity: catches inflected and conjugated forms.
+assert re.search(AI_PATTERNS["vocab_verbs"], "We harnessed cross-functional synergy.")
+assert re.search(AI_PATTERNS["vocab_verbs"], "We fostered alignment.")
+assert re.search(AI_PATTERNS["vocab_verbs"], "We unlocked 47% gains.")
+assert re.search(AI_PATTERNS["closer_filler"], "What are your thoughts?")
+assert re.search(AI_PATTERNS["closer_filler"], "What's your take?")
 ```

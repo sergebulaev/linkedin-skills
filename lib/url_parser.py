@@ -21,7 +21,7 @@ Returns normalized dict:
       "url_type": "post" | "comment" | "unknown",
     }
 
-Note: the activity ID in the URL slug is NOT always the same as the canonical URN used by LinkedIn's backend (ugcPost vs activity vs share). For posting comments, use the post_urn returned here by default but fall back to resolving via HarvestAPI /linkedin/post-comments (inspect the `postId` field of any existing comment) when the direct URN 404s.
+Note: the activity ID in the URL slug is NOT always the same as the canonical URN used by LinkedIn's backend (ugcPost vs activity vs share). For posting comments, use the post_urn returned here by default. If the direct URN 404s, fall back to resolving via `lib.ApifyClient.fetch_post_comments(post_id=...)` and read the canonical post URN from any existing comment's `post_input` field.
 """
 from __future__ import annotations
 import re
