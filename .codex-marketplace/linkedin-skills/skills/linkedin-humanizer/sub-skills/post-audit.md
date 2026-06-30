@@ -45,11 +45,16 @@ Run any post draft through the 2026 heuristic checklist. Catches AI tells, timin
 16. User's own product named more than once
 17. Missing reaction-prompting moment (vulnerability, stakes, question)
 18. Passive voice >10%
+19. First line is not a complete standalone hook (it needs line 2 to make sense). 2026 corpus: every top post front-loads a full hook before the fold.
+20. No blank line after the hook / wall-of-text open. Winners use heavy whitespace: one idea per line, blank line after the hook.
+21. Emoji sprinkled mid-text in a narrative post, or more than 2-3 total in prose. Top posts front-load 1-2 meaningful emoji; serious/contrarian posts use zero. Exempt: structured glossary/list formats (e.g. F15 Explain-to-Kids) where one emoji anchors each line on purpose.
+22. Comment-gate ("comment X and I'll DM you...") in a post whose goal is thought leadership. Organic top performers use zero hard comment-gates; only flag-clear when the post's goal is list-building (then F6 is intentional).
+23. No clear primary goal: the post chases comments, reposts, likes, and saves all at once. Pick one (see `../../../references/hook-formulas.md` "Engagement-goal split").
 
 ### Info (neutral notes)
-19. Suggested posting time given audience
-20. Format recommendation (text / carousel / video) given topic
-21. Similar-hook detection: if this post's first 100 chars match a recent post
+24. Suggested posting time given audience
+25. Format recommendation (text / carousel / video) given topic
+26. Similar-hook detection: if this post's first 100 chars match a recent post
 
 ## Steps
 

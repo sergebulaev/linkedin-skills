@@ -1,6 +1,10 @@
-# 10 LinkedIn Hook Formulas — 2026 Edition
+# 16 LinkedIn Hook Formulas — 2026 Edition
 
 Each formula has a skeleton, why it works, and a reference engagement multiplier from the original post that defined it. Canonical draft filenames (e.g. `01-platform-risk-anaphora.md`) refer to the curator's private notebook of source posts and are NOT shipped in this public repo. The skeletons + reference posts below are sufficient to apply each formula.
+
+F1-F10 are the original long-form thought-leadership set. F11-F16 were validated in 2026 against a large corpus of above-average performers across 10 verticals; they skew shorter and more emotional, and each is tagged with its primary engagement goal (comments / reposts / likes / saves). Pick by goal first (see "Engagement-goal split" below), then by topic.
+
+**Reading the reference numbers:** F1-F10 cite engagement with a baseline multiplier (a real format effect, e.g. "19.64x baseline"). F11-F16 cite absolute reach from the 2026 corpus, which can be inflated by reshares or a famous author. Treat F11-F16 numbers as a reach ceiling, not a like-for-like comparison against F1-F10. Where the reach was source-driven rather than format-driven, the formula says so.
 
 ---
 
@@ -280,6 +284,144 @@ If you're {winning behavior}, you already won.
 
 ---
 
+## F11 — Emotional Cold-Open
+
+**Reference:** highest single post in the 2026 corpus (256k eng), but that reach came from a generic emotional reshare, not the format. Treat it as a ceiling, not a promise. Primary goal: **likes**. Validated pattern: `emotional-cold-open`.
+
+```
+{One short line dropped into the emotional peak of a real story — the moment of breaking, loss, or impossible odds. No setup.}
+
+{Subject} had almost {given up / lost everything} after {the struggle}.
+
+[Mid-scene narrative — 3-6 short lines, present-tense, sensory. The reader is already inside the moment.]
+
+[The turn: what changed, who showed up, what it cost.]
+
+[One-line meaning, not a moral. Let the story carry it.]
+```
+
+**Why:** Starting at the emotional peak (in medias res) skips the warm-up the scroll punishes. Raw feeling out-travels expertise in every vertical.
+
+**Warning:** Do NOT write the first line in ALL CAPS even though many source posts did — all-caps openers read as AI/cringe and the writer/audit skills reject them. Carry the intensity with word choice, not caps. Only use a true story; half the top emotional posts in the corpus were generic reshares, and readers punish manufactured stakes.
+
+---
+
+## F12 — Permission Slip
+
+**Reference:** 29k eng, comment-heavy. Primary goal: **comments**. Validated pattern: `permission-slip`.
+
+```
+I don't know who needs to hear this today, but {reassuring truth aimed at one anonymous reader}.
+
+[2-4 lines that make the reassurance specific and earned, not a platitude.]
+
+[A small, concrete permission: "you're allowed to {X}". ]
+
+[Soft close that invites the reader to self-identify.]
+```
+
+**Why:** Anonymous second-person reassurance makes readers tag themselves in the comments ("I needed this today"). Comments over-index hard.
+
+**Warning:** This is the most formulaic creator-economy opener in the set. Effective but visibly engineered. Use no more than once or twice a month, and only when the reassurance is something you actually believe, or it reads as hollow.
+
+---
+
+## F13 — Bait-and-Switch Reversal
+
+**Reference:** 195k eng (top of the Startups/Tech corpus). Primary goal: **likes**. Validated pattern: `bait-and-switch reversal`.
+
+```
+Enough is enough. No more {beloved perk / standard practice} at {company / in my workflow}.
+
+We're also cutting {second thing}.
+
+[Beat of suspense — let the reader assume bad news.]
+
+[The reveal: it's actually an upgrade. Here's what we replaced it with and why it's better.]
+
+[What the change really stands for — the value underneath.]
+```
+
+**Why:** Fake bad news weaponizes loss aversion, then the positive reveal releases it. The whiplash is the engine.
+
+**Warning:** Only works if the reveal genuinely resolves positive. A real cut dressed as good news will get torn apart in the comments.
+
+---
+
+## F14 — Named Gratitude / Tribute
+
+**Reference:** 109k eng, but from a celebrity tribute reshare. The format helps; the fame did the heavy lifting. Primary goal: **reposts**. Validated pattern: `named-gratitude`.
+
+```
+To {Name}, {Name}, and {Name}: thank you for {the specific quality or thing they did}.
+
+[2-4 lines naming what each person or the group actually did. Specific, not generic praise.]
+
+[Why it mattered to you / to the work.]
+
+[One-line close that honors them, not you.]
+```
+
+**Why:** Publicly naming real people invites everyone tagged or adjacent to repost and amplify. Celebrating others gets shared far more than self-promotion.
+
+**Warning:** Name real people for real reasons. Tactical name-dropping to borrow reach is transparent and backfires.
+
+---
+
+## F15 — Explain-to-Kids Simplification
+
+**Reference:** 23k eng, 2,184 reposts. Primary goal: **saves** (LinkedIn exposes no public save count, so the high repost count stands in as the save-worthiness proxy here, not a sign this is a repost formula). Validated pattern: `explain-like-im-5`.
+
+```
+{Jargon term} explained to kids.
+
+Explanations for kids... and adults!
+
+{emoji} {TERM}: what does it stand for?
+{emoji} {first part} = {plain-language meaning}
+{emoji} {second part} = {plain-language meaning}
+[continue the scannable, emoji-anchored glossary]
+
+[One-line "now you'll never forget it" close.]
+```
+
+**Why:** A scannable, emoji-anchored simplification of something dense is saved and reshared as a reference. Works for any jargon-heavy field (finance, law, medicine, engineering).
+
+**Warning:** Keep the simplification correct. Condescending or wrong explanations of your own field destroy authority.
+
+---
+
+## F16 — Status-Strip Humility
+
+**Reference:** viral-tier on likes in the corpus (no exact count). Primary goal: **likes**. Validated pattern: `status-strip`.
+
+```
+Outside, I get called {impressive titles like founder, CEO, investor}.
+
+At home, none of that survives {the humbling moment}.
+
+[The scene that strips the status — a kid, a partner, a quiet failure.]
+
+[What the contrast taught you, in one or two lines.]
+```
+
+**Why:** Trading prestige for relatability converts authority into warmth. Senior people get likes by showing the human under the title.
+
+**Warning:** Don't humble-brag. The titles in line one should set up a genuine deflation, not a flex disguised as one.
+
+---
+
+## Engagement-goal split
+
+Pick the formula by what you want the post to earn. This split held across all 10 verticals in the 2026 corpus:
+
+| Goal | Earned by | Formulas |
+|---|---|---|
+| **Comments** | questions, contrarian/unpopular takes, vulnerability, self-tagging | F4 Confession, F10 Contrarian, F12 Permission Slip, F9 Curiosity-Gap |
+| **Reposts** | quotable maxims, tributes, "X isn't Y" distinctions | F14 Named Gratitude, F2 R.I.P., F8 Paid-vs-Free |
+| **Likes** | emotional stories, celebrations, status-strip, spectacle | F11 Emotional Cold-Open, F13 Bait-and-Switch, F16 Status-Strip |
+| **Saves** | simplifications, exact how-to, frameworks | F15 Explain-to-Kids, F7 Odd-Precision Money, F8 Paid-vs-Free |
+
 ## Choosing which formula to use
 
 | Topic type | Best formula | Why |
@@ -291,6 +433,12 @@ If you're {winning behavior}, you already won.
 | Big authority giveaway | F6 Comment-Gate / F8 Paid-vs-Free | List-building tier |
 | Founder build-log | F7 Odd-Precision Money | Screenshot-bait ledger |
 | Emergent/surprise story | F9 Curiosity-Gap | Scroll-lock hook |
+| Real story with emotional stakes | F11 Emotional Cold-Open | In-medias-res beats the warm-up |
+| Encouragement to a discouraged audience | F12 Permission Slip | Readers self-tag in comments |
+| Policy/process change that's an upgrade | F13 Bait-and-Switch | Fake bad news then relief |
+| Thanking mentors / team / a departing colleague | F14 Named Gratitude | Named people amplify it |
+| Demystifying jargon | F15 Explain-to-Kids | Save-worthy reference |
+| Senior person wanting warmth, not distance | F16 Status-Strip | Prestige traded for relatability |
 
 ## Hook micro-rules
 

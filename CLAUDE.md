@@ -66,7 +66,7 @@ otherwise.
   overrides (char ranges, threading rules, format constraints) and start
   with: `Global voice rules: see root SKILL.md §Voice rules.`
 - Other root-level references shared across skills:
-  `references/hook-formulas.md` (10 canonical formulas) and
+  `references/hook-formulas.md` (16 canonical formulas) and
   `references/algorithm-heuristics.md`.
 - Skill-local references live in `skills/<skill>/references/`. Cite from
   the skill with bare `references/X.md`. Cite root from skills with

@@ -27,14 +27,16 @@ A markdown plan with:
 
 ### 7-day calendar
 
-| Day | Time | Pillar | Format | Hook formula | 1-line angle | CTA type |
-|---|---|---|---|---|---|---|
-| Mon | — | (commenting day) | — | — | — | — |
-| Tue | 8:00 AM local | Authority | Text | F7 Odd-Precision Money | "What 3 months of agent ops costs" | Question close |
-| Wed | 9:30 AM local | Narrative | Text | F4 Time-Anchor Confession | "Why I stopped publishing for 4 weeks" | Mirror question |
-| Thu | 8:00 AM local | Community | Poll | — | "Which metric matters most" | Poll |
-| Fri | 9:00 AM local | Authority | Carousel | F10 Contrarian Historical | "AI agencies have been dying since 2023" | Soft offer |
-| Sat/Sun | — | (off) | — | — | — | — |
+| Day | Time | Pillar | Format | Hook formula | 1-line angle | CTA type | Goal |
+|---|---|---|---|---|---|---|---|
+| Mon | — | (commenting day) | — | — | — | — | — |
+| Tue | 8:00 AM local | Authority | Text | F7 Odd-Precision Money | "What 3 months of agent ops costs" | Question close | Saves |
+| Wed | 9:30 AM local | Narrative | Text | F4 Time-Anchor Confession | "Why I stopped publishing for 4 weeks" | Mirror question | Comments |
+| Thu | 8:00 AM local | Community | Text | F14 Named Gratitude | "The 3 people who shaped our launch" | Tag + thanks | Reposts |
+| Fri | 9:00 AM local | Narrative | Text | F11 Emotional Cold-Open | "The night our first deploy failed" | Soft close | Likes |
+| Sat/Sun | — | (off) | — | — | — | — | — |
+
+The Goal column spans saves / comments / reposts / likes across the four posts, satisfying the Goal mix check below.
 
 ### Daily comment targets
 
@@ -51,6 +53,7 @@ For each posting day:
 - [ ] Comment strategy includes 70% peers, 20% aspirational, 10% prospects
 - [ ] No pillar >60% of the week's posts
 - [ ] No duplicate formula used twice in the same week
+- [ ] Goal mix spread: not every post chases the same reaction (see Goal mix below)
 
 ## Rules
 
@@ -65,10 +68,21 @@ For each posting day:
 
 | Pillar | Preferred formulas |
 |---|---|
-| Authority | F7 Odd-Precision Money, F10 Contrarian Historical, F8 Paid-vs-Free, F5 Self-Proving Meta |
-| Narrative | F4 Time-Anchor Confession, F3 Year-over-Year Pivot, F9 Curiosity-Gap |
-| Community | F6 Comment-Gate (use sparingly), poll posts, spotlight mentions |
-| Product/Offer | F2 R.I.P. Obituary (when pivoting category), F1 Anaphora (when framing product as fix) |
+| Authority | F7 Odd-Precision Money, F10 Contrarian Historical, F8 Paid-vs-Free, F5 Self-Proving Meta, F15 Explain-to-Kids |
+| Narrative | F4 Time-Anchor Confession, F3 Year-over-Year Pivot, F9 Curiosity-Gap, F11 Emotional Cold-Open, F16 Status-Strip |
+| Community | F6 Comment-Gate (use sparingly), F12 Permission Slip, F14 Named Gratitude, poll posts, spotlight mentions |
+| Product/Offer | F2 R.I.P. Obituary (when pivoting category), F1 Anaphora (when framing product as fix), F13 Bait-and-Switch (upgrade announcements) |
+
+## Goal mix (balance the week, not just the pillars)
+
+Every formula earns a primary reaction: comments, reposts, likes, or saves (see `../../references/hook-formulas.md` "Engagement-goal split"). A week that is all comment-bait or all repost-bait reads as engineered and flattens reach. Spread the goals across the week:
+
+| Goal | Formulas | Weekly target |
+|---|---|---|
+| Comments | F4, F10, F12, F9 | at least 1 |
+| Reposts | F14, F2, F8 | at least 1 |
+| Likes | F11, F13, F16 | at least 1 |
+| Saves | F15, F7, F8 | at least 1 |
 
 ## Steps
 

@@ -115,7 +115,7 @@ Every skill shows you a draft first and waits for your OK before doing anything.
 
 | Skill | What it does |
 |---|---|
-| **Post Writer** | Drafts viral-ready posts using 10 proven 2026 hook formulas (anaphora, R.I.P. obituary, year-over-year pivot, curiosity gap, and 6 more) |
+| **Post Writer** | Drafts viral-ready posts using 16 proven 2026 hook formulas (anaphora, R.I.P. obituary, year-over-year pivot, curiosity gap, emotional cold-open, named-gratitude, and 10 more), picked by engagement goal |
 | **Comment Drafter** | Drafts a comment on any LinkedIn post from its URL |
 | **Reply Handler** | Drafts a reply to any comment, correctly handling LinkedIn's 2-level thread flattening |
 | **Post Audit** | Checks your draft against 2026 algorithm rules and AI-detection patterns before you publish |
