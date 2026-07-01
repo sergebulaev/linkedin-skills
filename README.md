@@ -47,10 +47,10 @@ codex plugin add linkedin-skills@linkedin-skills
 ### Claude Desktop (Mac / Windows)
 
 1. Open Claude Desktop
-2. Open **Settings** (gear icon)
-3. Go to **Skills**
-4. Click **Add from GitHub**
-5. Paste: `sergebulaev/linkedin-skills`
+2. Click **Customize**
+3. Click the **+** next to **Personal plugins** → **Create plugin** → **Add marketplace**
+4. Choose **Add from a repository** and paste: `sergebulaev/linkedin-skills`
+5. Install the plugin
 6. Done. Start a new conversation and ask Claude to write a LinkedIn post.
 
 ### OpenClaw
