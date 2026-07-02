@@ -308,7 +308,16 @@ python lib/url_parser.py "https://www.linkedin.com/posts/<author-handle>_activit
 
 MIT. Powered by [Publora](https://publora.com).
 
-## Related
+## Related open-source skill bundles
 
-- [Anthropic Skills repo](https://github.com/anthropics/skills)
-- `awesome-claude-skills` directory
+Part of a family of AI social-media marketing skill bundles for Claude Code and Codex:
+
+- **linkedin-skills - LinkedIn (this repo)**
+- [x-skills](https://github.com/sergebulaev/x-skills) - X (Twitter)
+- [instagram-skills](https://github.com/sergebulaev/instagram-skills) - Instagram
+- [youtube-skills](https://github.com/sergebulaev/youtube-skills) - YouTube
+- [threads-skills](https://github.com/sergebulaev/threads-skills) - Threads
+- [tiktok-skills](https://github.com/sergebulaev/tiktok-skills) - TikTok
+- [facebook-skills](https://github.com/sergebulaev/facebook-skills) - Facebook Pages
+
+Also: [Anthropic Skills repo](https://github.com/anthropics/skills), the `awesome-claude-skills` directory.
