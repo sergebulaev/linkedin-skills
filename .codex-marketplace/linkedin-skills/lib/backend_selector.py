@@ -158,9 +158,8 @@ def publish(
             )
 
         if kind == "post":
-            platforms = kwargs.get("platforms") or [
-                {"platform": "linkedin", "platformId": platform_id}
-            ]
+            # Publora /create-post wants a list of platform ID strings, not dicts.
+            platforms = kwargs.get("platforms") or [platform_id]
             return client.create_post(
                 content=draft_text,
                 platforms=platforms,

@@ -168,19 +168,26 @@ class PubloraClient:
         self,
         *,
         content: str,
-        platforms: list[dict[str, str]],
+        platforms: list,
         scheduled_time: Optional[str] = None,
         media_urls: Optional[list[str]] = None,
     ) -> dict[str, Any]:
         """Create a cross-platform post.
 
-        `platforms` is a list of {"platform": "linkedin", "platformId": "linkedin-xxx"}
-        dicts. `scheduled_time` is ISO 8601 (UTC); if None, Publora schedules ~90s
-        in the future by default.
+        `platforms` is a list of platform connection ID STRINGS, e.g.
+        ["linkedin-xxx"]. The Publora /create-post endpoint requires string IDs;
+        passing the old {"platform","platformId"} dict shape returns HTTP 400
+        ("Invalid platform ID format"). For backward compatibility, dict entries
+        are normalized to their "platformId" here. `scheduled_time` is ISO 8601
+        (UTC); if None, the post is created as a draft.
         """
+        norm_platforms = [
+            p if isinstance(p, str) else (p.get("platformId") or p.get("platform"))
+            for p in platforms
+        ]
         payload: dict[str, Any] = {
             "content": content,
-            "platforms": platforms,
+            "platforms": norm_platforms,
         }
         if scheduled_time:
             payload["scheduledTime"] = scheduled_time
