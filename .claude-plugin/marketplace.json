@@ -1,0 +1,38 @@
+{
+  "name": "linkedin-skills",
+  "owner": {
+    "name": "Serge Bulaev",
+    "url": "https://github.com/sergebulaev"
+  },
+  "metadata": {
+    "description": "Claude Code and Codex skills for LinkedIn growth: post writing, comment drafting, reply handler, hook extractor, humanizer (with bundled audit + AI-detector spread tester + emoji detector + rule explainer), profile optimizer, content planner, employee advocacy, thread monitor (author-reply tracking), engager analytics (likers/commenters ICP segmentation)."
+  },
+  "plugins": [
+    {
+      "name": "linkedin-skills",
+      "source": "./",
+      "description": "Bundle of 10 LinkedIn marketing skills for Claude Code and Codex with verified 2026 hook formulas, comment + reply templates that earn author replies, a unified humanizer (rewrite + `--mode audit` pre-publish check, plus bundled emoji-detector, detector-spread tester, rule-explainer sub-tools), profile rewriter, content planner, employee advocacy playbook, thread monitor (warm-reply window author-reply tracking), and engager analytics (likers + commenters ICP segmentation).",
+      "version": "1.0.7",
+      "author": {
+        "name": "Serge Bulaev",
+        "url": "https://github.com/sergebulaev"
+      },
+      "homepage": "https://github.com/sergebulaev/linkedin-skills",
+      "license": "MIT",
+      "keywords": [
+        "linkedin",
+        "marketing",
+        "social-media",
+        "content-creation",
+        "claude-skills",
+        "codex-skills",
+        "anthropic",
+        "ai-agents",
+        "personal-branding",
+        "b2b",
+        "viral-content"
+      ],
+      "category": "productivity"
+    }
+  ]
+}
