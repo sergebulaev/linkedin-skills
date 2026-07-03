@@ -68,9 +68,9 @@ The scrub pass applies tiered regex catalogs to delete or replace AI tells. Each
 
 **FORENSIC tier** (always on): real model leakage no human produces. Covers AI tool markers (oaicite, contentReference, turn0search0, attached_file, grok_card), knowledge-cutoff disclaimers ("As of my last update..."), phrasal templates ([Your Name], 2025-XX-XX), em dash overuse (3+ in <300 words), and outline-formula closers ("Despite its X... Looking ahead...").
 
-**STRICT tier** (default on): corporate-speak that's bad LinkedIn style regardless of origin. Covers punctuation normalization (curly→straight quotes, `--`→period), vocabulary swaps (leverage→use, utilize→use, delve→look, harness→use, foster→build, etc.), filler-adverb deletion (fundamentally, essentially, ultimately, crucially, notably), phrase-level cleanup ("in today's fast-paced world", "at the end of the day", "game-changer", "deep dive", "move the needle"), all 6 forms of negative parallelism per the 2026-04-27 ban, and cliché closer tells ("What do you think?", "Tag someone who needs this").
+**STRICT tier** (default on): corporate-speak that's bad LinkedIn style regardless of origin. Covers punctuation normalization (curly→straight quotes, `--`→period, em dash→period, en dash→comma: this bundle bans em dashes outright, so they scrub at strict, not aesthetic), vocabulary swaps (leverage→use, utilize→use, delve→look, harness→use, foster→build, etc.), filler-adverb deletion (fundamentally, essentially, ultimately, crucially, notably), phrase-level cleanup ("in today's fast-paced world", "at the end of the day", "game-changer", "deep dive", "move the needle"), all 6 forms of negative parallelism per the 2026-04-27 ban, and cliché closer tells ("What do you think?", "Tag someone who needs this").
 
-**AESTHETIC tier** (opt-in only, will flatten literary writing): patterns AI uses but humans use legitimately. Covers single em dash use (Dickinson defense ignored), rule-of-three triplets (Lincoln defense ignored), defendable-normal-English vocab (robust→solid, cultivate→grow, vibrant→alive, intricate→complex, garner→get, showcase/underscore→show), and passive voice (academic-writing defense ignored).
+**AESTHETIC tier** (opt-in only, will flatten literary writing): patterns AI uses but humans use legitimately. Covers rule-of-three triplets (Lincoln defense ignored), defendable-normal-English vocab (robust→solid, cultivate→grow, vibrant→alive, intricate→complex, garner→get, showcase/underscore→show), and passive voice (academic-writing defense ignored).
 
 ### Pass 2 — BREAK (force burstiness)
 
@@ -99,8 +99,9 @@ If the input lacks these, ask the user for a specific number or anecdote to plug
 
 Global voice rules: see root `SKILL.md` §Voice rules. Additional skill-specific rules:
 
-- Preserve the user's actual claim. Humanizing does not mean changing meaning.
-- Never introduce facts that weren't in the input. If a number is missing, ask.
+- **Scrubbing is always in scope.** When asked to humanize, de-AI, finalize, or publish a draft, you run at least the forensic + strict tiers before it ships. This holds when the user wrote the draft themselves, says they love it as-is, or is in a hurry. Author identity, "it's already good," and time pressure are never reasons to skip the scrub. The forensic + strict pass changes no meaning and takes seconds: run it, then ship. If a constraint truly forbids touching the text, say so explicitly and name every tell you are leaving in; the default is to scrub, not to wave it through.
+- Preserve the user's actual claim and meaning. "Preserve their voice" covers sentence-level quirks and what they are claiming, NOT corporate-speak, filler openers, or negative parallelism. Stripping "leverage / fundamentally / in today's fast-paced world" is not changing their voice or their claim; it is the job.
+- Never introduce facts that weren't in the input. If a number is missing, ask, or ship without it. Do not fabricate.
 - Keep the user's sentence-level voice quirks (lowercase starts, `..` soft pauses).
 - Negative parallelism is a HARD ban (per Sergey 2026-04-27): the strict tier always strips all 6 forms.
 

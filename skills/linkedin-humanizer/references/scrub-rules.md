@@ -86,6 +86,11 @@ STRICT_PUNCT = [
     (r"“|”", '"'),                # curly quotes → straight
     (r"‘|’", "'"),                # curly apostrophes → straight (preserve apostrophe-in-contractions: don't / it's / you're)
     (r"--", ". "),                           # double dash → period
+    (r"\s*—\s*", ". "),                      # em dash → period. LinkedIn override: this bundle bans em dashes outright
+                                             #   (root SKILL.md §Voice rules, post-writer "No em dashes. Ever."), so a
+                                             #   single em dash is scrubbed at STRICT, not left to opt-in aesthetic tier.
+                                             #   The aesthetic Dickinson/McCarthy defense does not apply to LinkedIn output.
+    (r"\s*–\s*", ", "),                      # en dash → comma (same rationale; number ranges stay literal e.g. 7-9)
 ]
 ```
 
@@ -204,7 +209,10 @@ AESTHETIC_VOCAB_REPLACE = {
 ### Em dashes (single use)
 
 ```python
-# ONLY in aesthetic mode — Dickinson and McCarthy defense ignored
+# NOTE: for this LinkedIn bundle, em/en dashes already scrub at the STRICT tier
+# (see STRICT_PUNCT above) because the bundle bans them outright. This aesthetic
+# block is the general-purpose fallback for runtimes that disable strict punctuation;
+# on LinkedIn it is a redundant safety net — Dickinson and McCarthy defense ignored.
 AESTHETIC_PUNCT_STRIP = [
     (r"—", ". "),                       # all em dashes → periods
     (r"–", "-"),                        # all en dashes → hyphens
