@@ -4,6 +4,17 @@ Last updated: 2026-04-25
 
 Five primary detectors plus optional extras. Each entry covers: API endpoint, auth, known accuracy issues, and the citation that documents the issue.
 
+## Contents
+
+- 1. GPTZero
+- 2. Originality.ai
+- 3. ZeroGPT
+- 4. Sapling
+- 5. Copyleaks
+- Optional / extended detectors
+- Why the spread matters
+- Quick stats to drop in a reply
+
 ---
 
 ## 1. GPTZero

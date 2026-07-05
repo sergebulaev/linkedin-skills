@@ -9,6 +9,14 @@ Fifteen rules from the `linkedin-humanizer` package, sorted by what kind of evid
 
 **Defense strength:** how well the rule survives a "but a human wrote that" challenge. Low = the rule wins. High = the writer wins.
 
+## Contents
+
+- Tier 1 - Forensic (real AI signals)
+- Tier 2 - Strict (corporate-speak, easy ban)
+- Tier 3 - Aesthetic (overreach, defendable)
+- Summary table
+- Key citations
+
 ---
 
 ## Tier 1 — Forensic (real AI signals)

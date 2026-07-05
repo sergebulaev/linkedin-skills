@@ -6,6 +6,29 @@ F1-F10 are the original long-form thought-leadership set. F11-F16 were validated
 
 **Reading the reference numbers:** F1-F10 cite engagement with a baseline multiplier (a real format effect, e.g. "19.64x baseline"). F11-F16 cite absolute reach from the 2026 corpus, which can be inflated by reshares or a famous author. Treat F11-F16 numbers as a reach ceiling, not a like-for-like comparison against F1-F10. Where the reach was source-driven rather than format-driven, the formula says so.
 
+## Contents
+
+- F1 - Platform Risk Anaphora
+- F2 - R.I.P. Category Obituary
+- F3 - Year-over-Year Pivot
+- F4 - Time-Anchor Confession
+- F5 - Self-Proving Meta
+- F6 - Comment-Gate Lead Magnet
+- F7 - Odd-Precision Money Ledger
+- F8 - Paid-vs-Free Reversal
+- F9 - Curiosity-Gap Teaser
+- F10 - Contrarian + Historical Receipts
+- F11 - Emotional Cold-Open
+- F12 - Permission Slip
+- F13 - Bait-and-Switch Reversal
+- F14 - Named Gratitude / Tribute
+- F15 - Explain-to-Kids Simplification
+- F16 - Status-Strip Humility
+- Engagement-goal split
+- Choosing which formula to use
+- Hook micro-rules
+- Never do
+
 ---
 
 ## F1 — Platform Risk Anaphora

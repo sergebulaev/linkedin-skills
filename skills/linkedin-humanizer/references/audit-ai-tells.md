@@ -1,5 +1,17 @@
 # AI Tells — Complete Blacklist
 
+## Contents
+
+- Punctuation (regex)
+- Vocabulary blacklist
+- Phrase blacklist
+- Opening-line tells
+- Closing-line tells
+- Structural tells
+- 2026 dos-and-donts blockers (auto-fail)
+- Attention budget
+- Regex patterns (for audit implementation)
+
 ## Punctuation (regex)
 
 | Pattern | Why | Fix |

@@ -1,5 +1,21 @@
 # 3-Pillar Content Framework
 
+## Contents
+
+- Why publish from a personal profile (not the company page)
+- The pillars
+- Weekly mix guardrails
+- Content-to-inbound ratio targets
+- Growth-stage playbook (by follower count)
+- Alternative mix: funnel-weighted (for B2B founders selling one product)
+- 5 narrative types for the Personal pillar
+- Persona-specific pillar mixes
+- Recovery / cold-start 5-step protocol
+- Weekly cadence template
+- Team overlap prevention
+- Comment-first allocation
+- The comment strategy (not optional)
+
 ## Why publish from a personal profile (not the company page)
 
 Personal founder profiles outperform corporate pages by:

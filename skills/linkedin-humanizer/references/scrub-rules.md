@@ -2,6 +2,17 @@
 
 V2 (2026-04-27): rules split into **forensic / strict / aesthetic** tiers. See SKILL.md for tier philosophy.
 
+## Contents
+
+- TIER: FORENSIC (always on)
+- TIER: STRICT (default on)
+- TIER: AESTHETIC (opt-in only)
+- Pass 2 - Burstiness enforcement (all tiers)
+- Cliché opener / closer detection (strict tier)
+- Preserve these (user voice, don't scrub)
+- Comment-reply scrub (when replying to commenters on your own post)
+- Announcement-opener scrub (strict tier)
+
 ---
 
 ## TIER: FORENSIC (always on)

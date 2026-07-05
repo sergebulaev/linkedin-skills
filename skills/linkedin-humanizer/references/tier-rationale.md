@@ -2,6 +2,15 @@
 
 V1 of this humanizer applied every rule equally. We learned that some rules catch real AI output and some catch good human writing. V2 splits them into 3 tiers so users can pick which signals to trust.
 
+## Contents
+
+- The core insight
+- Tier 1 - FORENSIC (always on)
+- Tier 2 - STRICT (default on)
+- Tier 3 - AESTHETIC (opt-in only)
+- Recommended default
+- What this tiering rejects
+
 ## The core insight
 
 AI-detection rules cluster into 3 groups by their relationship to actual AI generation:

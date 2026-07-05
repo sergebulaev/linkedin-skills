@@ -2,6 +2,18 @@
 
 The fastest way to kill an advocacy program is a 24-hour review queue. The fastest way to embarrass the company is no review at all. This playbook is the middle path.
 
+## Contents
+
+- Core principle: review the risk surface, trust the voice surface
+- The 3-tier review queue
+- SLA commitments
+- What reviewers must NEVER edit
+- What reviewers MUST flag
+- Reviewer scorecard
+- Rolling 30-day audit
+- Bypass for incidents
+- Tooling expectations (not requirements)
+
 ## Core principle: review the risk surface, trust the voice surface
 
 Every post has two things in it:

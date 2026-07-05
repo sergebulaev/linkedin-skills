@@ -2,6 +2,21 @@
 
 Each template has a fill-in skeleton, a psychological reason it works, and a real example from the reference library.
 
+## Contents
+
+- T1 - Missing-Piece
+- T2 - Answer-the-Closing-Question
+- T3 - Data-First
+- T4 - Practitioner Observation
+- T5 - Counter-with-Concession
+- T6 - Quotable-Reframe
+- T7 - Ask-a-Sharper-Question
+- Anti-patterns (never ship these)
+- Reaction type heuristics
+- Length & Weight Rules
+- High-Weight Comment Structure (4-part)
+- Sales-oriented templates (new)
+
 ## T1 — Missing-Piece
 
 **Skeleton:**

@@ -2,6 +2,30 @@
 
 Based on 360Brew paper (arXiv 2501.16450), AuthoredUp 2026 reach data, Trust Insights Q1 2026 guide, and Social Media Today reporting on Gyanda Sachdeva's anti-pod measures.
 
+## Contents
+
+- Timing
+- Format reach multipliers (relative to single image)
+- Length
+- Hashtags
+- Link placement
+- Signal weights (reported; not officially confirmed)
+- First 60 minutes
+- Penalties
+- Native articles
+- 2026 AuthoredUp format benchmarks (absolute engagement rates)
+- Native video rules
+- Hook cutoff (device-specific)
+- Close mechanics
+- Save ratio absolute case
+- Engagement benchmarks by follower count
+- Comment-weight math (reach multipliers)
+- Pod / pattern detection (avoid)
+- External-link penalty (expanded)
+- Edit-safety window
+- Post-publish engagement windows
+- Pre-publish checklist
+
 ## Timing
 
 | Audience | Best window (local) |

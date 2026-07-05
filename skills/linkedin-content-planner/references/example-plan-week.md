@@ -2,6 +2,16 @@
 
 This is a filled-in plan the planner would emit for a real founder. Use it as the format reference for your own runs.
 
+## Contents
+
+- Inputs
+- 7-Day Calendar
+- Daily Comment Targets
+- Weekly Inbound-Readiness Check
+- CTA Type Vocabulary
+- Notes
+- Variations
+
 ## Inputs
 
 - **Theme:** Ship AI products without raising

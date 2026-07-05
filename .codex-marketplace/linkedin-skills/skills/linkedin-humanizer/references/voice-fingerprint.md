@@ -4,6 +4,15 @@ The humanizer is destructive by design. Every pass deletes or substitutes tokens
 
 This file lists the signals to preserve, even when they overlap with rules in `scrub-rules.md`.
 
+## Contents
+
+- Preserve unconditionally (do NOT scrub these)
+- Preserve when sample voice is provided
+- Conflict resolution
+- How to build a voice fingerprint from samples (sketch)
+- Examples
+- Don't fabricate
+
 ---
 
 ## Preserve unconditionally (do NOT scrub these)
