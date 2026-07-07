@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="104" fill="#0A66C2"/>
+  <!-- speech bubble -->
+  <path d="M110 132c0-24.3 19.7-44 44-44h204c24.3 0 44 19.7 44 44v152c0 24.3-19.7 44-44 44H230l-72 62c-8.4 7.2-21.4 1.2-21.4-9.9V328c-15.1-6.8-26.6-22.4-26.6-40V132z" fill="#FFFFFF"/>
+  <!-- rising bars inside bubble -->
+  <rect x="164" y="220" width="36" height="68" rx="10" fill="#0A66C2"/>
+  <rect x="222" y="184" width="36" height="104" rx="10" fill="#0A66C2"/>
+  <rect x="280" y="148" width="36" height="140" rx="10" fill="#0A66C2"/>
+  <!-- spark accent -->
+  <circle cx="366" cy="404" r="34" fill="#FFFFFF"/>
+  <path d="M366 382l7 15 15 7-15 7-7 15-7-15-15-7 15-7z" fill="#0A66C2"/>
+</svg>

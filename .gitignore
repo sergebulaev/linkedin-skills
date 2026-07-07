@@ -13,3 +13,6 @@ marketing/
 # local skill testing scratch area
 testing/
 
+
+# Playwright MCP session artifacts
+.playwright-mcp/

@@ -16,12 +16,17 @@ DEST = ROOT / ".codex-marketplace" / "linkedin-skills"
 
 PATHS_TO_COPY = [
     ".codex-plugin",
+    ".codexignore",
     "SKILL.md",
+    "README.md",
+    "SECURITY.md",
     "skills",
     "references",
     "lib",
     "scripts",
+    "assets",
     "requirements.txt",
+    "requirements-lock.txt",
     ".env.example",
     "LICENSE",
 ]
