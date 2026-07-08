@@ -84,6 +84,14 @@ git clone https://github.com/sergebulaev/linkedin-skills.git
 cd linkedin-skills
 ```
 
+### Any agent (skills CLI)
+
+One command that works across Claude Code, Codex, Cursor, and any other agent that reads SKILL.md files:
+
+```bash
+npx skills add sergebulaev/linkedin-skills
+```
+
 ## What you can do
 
 Once installed, just ask Claude Code or Codex for help with LinkedIn. The right skill activates automatically.
