@@ -1,7 +1,7 @@
 {
   "name": "linkedin-skills",
   "description": "10 Claude Code and Codex skills for LinkedIn marketing: post writing, comment drafting, reply handler, hook extractor, humanizer (rewrite + audit + emoji + detector + rules sub-tools), profile optimizer, content planner, employee advocacy, thread monitor (author replies), engager analytics (likers + commenters ICP segmentation).",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "author": {
     "name": "Serge Bulaev",
     "url": "https://github.com/sergebulaev"

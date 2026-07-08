@@ -84,6 +84,16 @@ git clone https://github.com/sergebulaev/linkedin-skills.git
 cd linkedin-skills
 ```
 
+### Hermes Agent
+
+Hermes Agent (Nous Research) follows the agentskills.io open standard and loads `skills/*/SKILL.md` directly. Clone the bundle into your Hermes skills folder:
+
+```bash
+git clone https://github.com/sergebulaev/linkedin-skills.git ~/.hermes/skills/linkedin-skills
+```
+
+Coming from OpenClaw? `hermes claw migrate` imports these skills automatically. Then call `/<skill-name>` from any of your Hermes chat surfaces.
+
 ### Any agent (skills CLI)
 
 One command that works across Claude Code, Codex, Cursor, and any other agent that reads SKILL.md files:
