@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/PRs-welcome-F59E0B.svg" alt="PRs Welcome">
 </p>
 
-10 skills that help Claude Code and Codex write LinkedIn posts, comments, and replies in your voice. They draft content, strip AI tells, and wait for your approval before anything gets published. No coding required.
+11 skills that help Claude Code and Codex write LinkedIn posts, comments, and replies in your voice. They draft content, strip AI tells, and wait for your approval before anything gets published. No coding required.
 
 ## Install
 
@@ -129,7 +129,7 @@ Once installed, just ask Claude Code or Codex for help with LinkedIn. The right 
 
 Every skill shows you a draft first and waits for your OK before doing anything. Nothing gets posted without your approval.
 
-## The 10 skills
+## The 11 skills
 
 | Skill | What it does |
 |---|---|
@@ -143,6 +143,7 @@ Every skill shows you a draft first and waits for your OK before doing anything.
 | **Engagement Monitor** | Two read-side workflows: (1) tracks your comment threads for author replies and drafts follow-ups in the 6-24h window; (2) pulls likers and commenters on any post and groups them by ICP fit (peer / aspirational / prospect). |
 | **Profile Optimizer** | Rewrites your headline, About section, Featured section, and Experience for 2026 conversion patterns |
 | **Employee Advocacy** | Plans a team LinkedIn program: 14-day launch, posting cadence, brand governance, ROI tracking |
+| **Repurposer** | Turns content from another platform (tweet, thread, YouTube video, blog, newsletter) into a native LinkedIn post: re-hooks for the fold, expands to the 900-1300 char sweet spot, moves links to the first comment, runs the humanizer |
 
 ## Optional: read LinkedIn data with Apify
 

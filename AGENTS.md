@@ -43,7 +43,7 @@ otherwise.
 
 ## Skill bundle invariants
 
-- **Exactly 10 skills.** Adding requires merging or splitting elsewhere
+- **Exactly 11 skills.** Adding requires merging or splitting elsewhere
   to stay at 10. The number is announced in plugin manifests and the README.
 - **Frontmatter `description:` target <= 400 chars** (some bundle-heavy
   skills land slightly higher when their scope is genuinely broad - keep
@@ -118,7 +118,7 @@ Run from repo root:
 python3 -c "from lib import publish, fetch_post, ApifyClient, PubloraClient; print('OK')"
 python3 scripts/sync_codex_marketplace.py
 wc -l SKILL.md skills/*/SKILL.md
-ls skills/ | wc -l        # must equal 10
+ls skills/ | wc -l        # must equal 11
 grep -nE '^description:' skills/*/SKILL.md SKILL.md | grep -P '\\x{2014}|\\x{2013}'   # must be empty
 python3 -m json.tool .codex-plugin/plugin.json >/dev/null
 python3 -m json.tool .agents/plugins/marketplace.json >/dev/null
