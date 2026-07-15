@@ -195,6 +195,8 @@ Comment "{keyword}" below + connect with me and I'll send the bundle.
 
 **Warning:** This is engagement bait. Ship only when the weekly goal is list-building, not thought leadership. LinkedIn suppresses pure "comment X" posts.
 
+**2026 status — gray zone, format-sensitive:** comment-gates still outperform link-in-body posts (they keep interaction on-platform), but keyword-only templated triggers are increasingly detected and suppressed. If shipped, the gate must sit inside a genuinely substantive post: real authority numbers, a named specific bundle, personalized framing — never a bare "comment X" line. For expert/technical audiences (developers, CTOs) the trust cost usually exceeds the reach gain; prefer F1-F5 there. Evidence: van der Blom Algorithm Insights 2026; LinkedIn's 2025 comment rate-limit policy; Social Media Today coverage of anti-pod enforcement.
+
 ---
 
 ## F7 — Odd-Precision Money Ledger
