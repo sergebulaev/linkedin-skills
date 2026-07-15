@@ -156,6 +156,13 @@ Triggers for suppression:
 
 Observed real consequence: one creator dropped from 8,500 to 340 impressions overnight after pod detection.
 
+**Templated bait vs. genuine prompts (2026 consensus):**
+- LinkedIn's official enforcement targets **automation and coordinated pods** (VP Product Gyanda Sachdeva, via Social Media Today), plus 2025 per-account comment rate limits, not organic CTAs per se
+- Van der Blom's Algorithm Insights 2026 (~1.3M posts): **semantic quality and depth of comment threads now outweigh raw count**. Three distinct professional perspectives beat ten "great post!" replies
+- Keyword-only templated triggers ("Comment YES", "Like for Part 2", bare "What do you think?") are broadly reported as detectable and down-ranked; a **specific, experience-anchored question** ("What's the worst rollback you had to do in production?") is the safe replacement
+- Curiosity-gap openers are **not** bait: the "see more" click remains one of the strongest positive signals. Earning attention with the hook is distinct from asking for a reflexive action
+- Circulating penalty percentages (e.g., "-60% for bait") propagate blog-to-blog without traceable primary studies, so treat them as directional
+
 **Recovery times:**
 - From pod detection: **6-8 weeks**
 - Already-credible account cold start: ~1 week
