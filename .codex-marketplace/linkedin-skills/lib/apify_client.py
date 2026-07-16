@@ -7,9 +7,12 @@ caller gets results back in a single HTTP request (no polling required).
 Auth: APIFY_TOKEN env var (or constructor arg).
 
 Actors used (all no-cookies, public, "$1-$5 per 1,000 results"):
-  - supreme_coder/linkedin-post
-      Fetch post body by URL. Cheapest ($1/1k). Use for hook extraction
-      and pre-comment context.
+  - apimaestro/linkedin-post-detail
+      Fetch post body, author, stats, and the reshare `share_urn` by post URL
+      (input key `post_urls`, no cookies). Output is nested and normalized to
+      the flat contract by `_normalize_post`. Use for hook extraction,
+      pre-comment context, and resolving the reshare parent URN. (Replaced
+      supreme_coder/linkedin-post, which started returning empty results.)
   - apimaestro/linkedin-post-comments-replies-engagements-scraper-no-cookies
       Fetch comments + replies on a post (by post ID or URL). Use for
       reply-handler thread structure and to avoid duplicate comment takes.
@@ -73,7 +76,7 @@ def _retry(attempts: int = 3, base_delay: float = 0.6):
 class ApifyClient:
     BASE_URL = "https://api.apify.com/v2"
 
-    POST_ACTOR = "supreme_coder~linkedin-post"
+    POST_ACTOR = "apimaestro~linkedin-post-detail"
     POST_COMMENTS_ACTOR = (
         "apimaestro~linkedin-post-comments-replies-engagements-scraper-no-cookies"
     )
@@ -104,15 +107,65 @@ class ApifyClient:
             force_refresh: If True, bypass cache and re-fetch from Apify.
 
         Returns:
-            Dict with keys: text, authorName, authorProfileUrl, urn, url,
-            numLikes, numComments, postedAtISO, plus extra metadata.
+            Dict with keys: text, authorName, authorProfileUrl, urn, shareUrn,
+            canShare, url, numLikes, numComments, numShares, postedAtISO, plus
+            extra metadata. `shareUrn` is the reshare parent URN
+            (`urn:li:share:*` / `urn:li:ugcPost:*`).
         """
         items = self._run_sync(
-            self.POST_ACTOR, {"urls": [post_url]}, force_refresh=force_refresh
+            self.POST_ACTOR, {"post_urls": [post_url]}, force_refresh=force_refresh
         )
         if not items:
             raise ApifyError(f"no post returned for {post_url}")
-        return items[0]
+        post = self._normalize_post(items[0])
+        if not post.get("text") and not post.get("authorName"):
+            # apimaestro returns a nulled shell (job_title "This post cannot be
+            # displayed") for private, removed, or login-walled posts. Treat it
+            # as unavailable so callers fall back to asking the user to paste.
+            raise ApifyError(
+                f"post not retrievable (private, removed, or login-walled): {post_url}"
+            )
+        return post
+
+    @staticmethod
+    def _normalize_post(raw: dict[str, Any]) -> dict[str, Any]:
+        """Flatten apimaestro/linkedin-post-detail's nested response to the flat
+        post contract the skills consume. Keeps the raw payload under `_raw`."""
+        post = raw.get("post") or {}
+        author = raw.get("author") or {}
+        stats = raw.get("stats") or {}
+        urn = post.get("urn") or {}
+
+        def _urn(prefix: str, value: Any) -> Optional[str]:
+            return f"{prefix}{value}" if value else None
+
+        share_urn = (
+            _urn("urn:li:share:", urn.get("share_urn"))
+            or _urn("urn:li:ugcPost:", urn.get("ugcPost_urn"))
+        )
+        activity_urn = _urn("urn:li:activity:", urn.get("activity_urn"))
+        return {
+            "text": post.get("text"),
+            "urn": activity_urn or share_urn,
+            "shareUrn": share_urn,
+            # apimaestro does not expose canShare; leave None so reshare only
+            # blocks on an explicit False (LinkedIn still rejects if disabled).
+            "canShare": None,
+            "url": post.get("url"),
+            "type": post.get("type"),
+            "authorName": author.get("name"),
+            "authorHeadline": author.get("headline"),
+            "authorProfileUrl": author.get("profile_url"),
+            "authorFollowers": author.get("followers"),
+            "numLikes": stats.get("total_reactions"),
+            "numComments": stats.get("comments"),
+            "numShares": stats.get("shares"),
+            "reactions": stats.get("reactions"),
+            "postedAtISO": post.get("created_at"),
+            "isReshare": raw.get("is_reshared"),
+            "resharedPost": raw.get("reshared_post"),
+            "_raw": raw,
+        }
 
     # ---- Post comments ----------------------------------------------------
 
