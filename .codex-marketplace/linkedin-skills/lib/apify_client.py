@@ -185,7 +185,7 @@ class ApifyClient:
             scrape_replies: If True, each comment's `replies` list is populated.
             force_refresh: Bypass cache.
         """
-        return self._run_sync(
+        items = self._run_sync(
             self.POST_COMMENTS_ACTOR,
             {
                 "postIds": [post_id],
@@ -194,6 +194,10 @@ class ApifyClient:
             },
             force_refresh=force_refresh,
         )
+        # The actor appends a run-summary object ({"summary": {...}}) alongside
+        # the comments (and returns it alone when a post has zero comments).
+        # Drop it so callers only ever see real comment records.
+        return [it for it in items if isinstance(it, dict) and "summary" not in it]
 
     # ---- Profile (user) recent comments ----------------------------------
 
@@ -223,7 +227,7 @@ class ApifyClient:
         """Return the people who liked or commented on a post."""
         return self._run_sync(
             self.POST_ENGAGERS_ACTOR,
-            {"url": post_url, "maxItems": max_items},
+            {"urls": [post_url], "maxItems": max_items},
             force_refresh=force_refresh,
         )
 
