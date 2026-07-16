@@ -5,6 +5,7 @@ Wraps the Publora API endpoints. As of 2026-05-11 Publora exposes:
 - POST /linkedin-comments        (top-level or reply via parentComment)
 - DELETE /linkedin-comments      (remove a comment we posted)
 - POST /linkedin-reactions       (react to a post or comment)
+- POST /linkedin-reshare         (reshare/repost a post, optional commentary)
 
 There is no read-side endpoint at this time (no GET /posts, no list, no
 delete-scheduled-post). Post scheduling is fire-and-forget; cancellation
@@ -194,6 +195,39 @@ class PubloraClient:
         if media_urls:
             payload["mediaUrls"] = media_urls
         return self._post("/create-post", payload)
+
+    # ---- Reshare (repost) -------------------------------------------------
+
+    def create_reshare(
+        self,
+        *,
+        parent: str,
+        platform_id: str,
+        commentary: Optional[str] = None,
+        visibility: str = "PUBLIC",
+    ) -> dict[str, Any]:
+        """Reshare (repost) an existing LinkedIn post to the connection's feed.
+
+        `parent` is the URN of the ORIGINAL post and must be
+        `urn:li:share:<id>` or `urn:li:ugcPost:<id>` (NOT `urn:li:activity:<id>`,
+        which the endpoint rejects). Apify's `fetch_post` returns this directly
+        as `shareUrn`; prefer it over converting an activity id, since the two
+        numbers can differ.
+
+        `commentary` (<=3000 chars) is the text shown above the reshare ("repost
+        with your thoughts"); omit it for a plain reshare. `visibility` is
+        `PUBLIC` or `CONNECTIONS`. The endpoint returns HTTP 201; the new reshare
+        URN is `result["reshare"]["id"]`.
+        """
+        payload: dict[str, Any] = {
+            "platformId": platform_id,
+            "parent": parent,
+        }
+        if commentary:
+            payload["commentary"] = commentary
+        if visibility:
+            payload["visibility"] = visibility.upper()
+        return self._post("/linkedin-reshare", payload)
 
     # ---- Internals --------------------------------------------------------
 

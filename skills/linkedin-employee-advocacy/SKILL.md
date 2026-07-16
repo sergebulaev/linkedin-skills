@@ -125,3 +125,4 @@ Stand up a marketing-team LinkedIn advocacy program that scales without killing 
 - `linkedin-content-planner` — each team member gets their own pillar mix
 - `linkedin-thread-monitor` — track which team members' comments drive author replies
 - `linkedin-engager-analytics` — see who's engaging with each team member's posts
+- `linkedin-comment-drafter` — its **reshare mode** is how team members amplify a brand or colleague post to their own feed with a short take (`lib.repost(post_url, commentary)` on approval); the cleanest advocacy action after an original post

@@ -85,11 +85,16 @@ otherwise.
   `lib.fetch_post(url)` wrapper that handles the APIFY_TOKEN-or-paste
   fallback.
 - **Write layer (Publora):** `lib/publora_client.py`. Skills should call
-  `lib.publish(kind, draft_text, target_url, ...)` rather than inline
-  the publora / manual / diy dispatch. Real endpoint paths:
-  `POST /create-post`, `POST /linkedin-comments`, `DELETE /linkedin-comments`,
-  `POST /linkedin-reactions`. Publora has no read-side endpoints (no
-  `GET /posts`, no list, no delete-scheduled-post).
+  `lib.publish(kind, draft_text, target_url, ...)` (kinds: comment / reply /
+  post / reshare) or the `lib.repost(post_url, commentary=None)` convenience
+  wrapper, rather than inline the publora / manual / diy dispatch. Real endpoint
+  paths: `POST /create-post`, `POST /linkedin-comments`,
+  `DELETE /linkedin-comments`, `POST /linkedin-reactions`,
+  `POST /linkedin-reshare`. Reshare needs the original post's `shareUrn`
+  (`urn:li:share:*` / `urn:li:ugcPost:*`), which Apify `fetch_post` returns
+  directly; never hand-convert an `activity` id (the share id can differ).
+  Publora has no read-side endpoints (no `GET /posts`, no list, no
+  delete-scheduled-post).
 - Don't suggest competitor schedulers (Buffer, Hootsuite, Later) by
   name in committed files — the bundle is positioned as the canonical
   Apify-read + Publora-write integration.

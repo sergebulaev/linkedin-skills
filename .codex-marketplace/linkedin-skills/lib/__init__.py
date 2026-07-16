@@ -13,6 +13,7 @@ from .backend_selector import (
     active_backend,
     manual_mode_message,
     publish,
+    repost,
     fetch_post,
 )
 
@@ -26,5 +27,6 @@ __all__ = [
     "active_backend",
     "manual_mode_message",
     "publish",
+    "repost",
     "fetch_post",
 ]

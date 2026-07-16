@@ -1,6 +1,6 @@
 ---
 name: linkedin-comment-drafter
-description: Draft a LinkedIn comment on someone else's post from its URL. Use when the user pastes a post URL and asks to comment, engage, or be first commenter. Produces 1-3 variants in the user's voice, picks a reaction, and schedules via Publora on approval. Not for replying to existing comments (use linkedin-reply-handler).
+description: Draft a LinkedIn comment on someone else's post from its URL, or reshare (repost) it to your feed with optional commentary. Use when the user pastes a post URL and asks to comment, engage, be first commenter, or repost with their thoughts. Produces 1-3 variants in the user's voice, picks a reaction, and publishes via Publora on approval. Not for replying to existing comments (use linkedin-reply-handler).
 ---
 
 # LinkedIn Comment Drafter
@@ -12,6 +12,7 @@ Produce conversation-provoking comments on any LinkedIn post from a URL. The ski
 - User pastes a LinkedIn post URL and says "comment on this", "draft me a comment", "engage with this post"
 - User wants to be among the first 3 commenters on a viral post
 - User wants to reply to a closing question the author asked
+- User wants to **reshare/repost** a post to their own feed, with or without a one-line take ("repost this with my thoughts", "reshare this")
 
 ## Input
 
@@ -36,6 +37,33 @@ Then waits for user approval. On "post", calls Publora to react + comment.
 5. **Run the humanizer pass.** Strip em dashes, AI vocab, uniform sentence rhythm. Add a specific number or named entity if missing.
 6. **Present drafts for approval** using `lib.approval.render_approval_card`. Include: target URL, each variant, reaction suggestion, a one-line "why this template fits".
 7. **On approval.** Call `lib.publish(kind="comment", draft_text=<approved>, target_url=<post_url>, post_urn=<urn>, platform_id=<id>, reaction_type=<chosen>)`. The wrapper handles Publora / manual / diy routing.
+
+## Reshare mode (repost with your thoughts)
+
+Same input as commenting (a post URL), but instead of commenting on the post you
+reshare it to the user's own feed, optionally with a short take above it. Use
+this when the ask is "repost", "reshare", or "share this with my network".
+
+1. **Fetch the post** the same way (`lib.fetch_post(url)`), and check it is
+   reshareable: the Apify payload exposes `canShare` and the `shareUrn`
+   (`urn:li:share:*` / `urn:li:ugcPost:*`). If `canShare` is `False`, tell the
+   user the author disabled resharing and stop.
+2. **Draft the commentary** (optional). Keep it to one or two sentences in the
+   user's voice: a genuine take, endorsement, or the reason this is worth a
+   colleague's time. Run the same humanizer pass (no em dashes, no AI vocab). A
+   plain reshare with no commentary is also valid; skip the draft if the user
+   just wants to amplify.
+3. **Present for approval** with the original post URL and the drafted commentary
+   (or "plain reshare, no commentary").
+4. **On approval.** Call `lib.repost(post_url, commentary=<approved or None>)`.
+   The wrapper resolves the correct `shareUrn` from Apify (do not hand-convert an
+   `activity` id, the share id can differ), refuses posts with resharing off, and
+   routes Publora / manual / diy. Manual tier returns copy-paste steps ("Repost
+   with your thoughts"). The new reshare URN is `result["reshare"]["id"]`.
+
+Commentary cap is 3000 chars (LinkedIn), but a tight one or two sentences
+outperforms a wall of text. This is the tool `linkedin-employee-advocacy` uses
+to reshare brand and colleague posts.
 
 ## Templates (see `references/comment-templates.md` for full list)
 
@@ -77,3 +105,4 @@ Global voice rules: see root `SKILL.md` §Voice rules. Additional skill-specific
 - `linkedin-reply-handler` — if you're replying to a comment (not posting top-level)
 - `linkedin-humanizer` — for aggressive AI-tell scrubbing
 - `linkedin-hook-extractor` — if you want to use the author's own hook as the basis for your reply
+- `linkedin-employee-advocacy` — the program that uses reshare mode to amplify brand and colleague posts across a team

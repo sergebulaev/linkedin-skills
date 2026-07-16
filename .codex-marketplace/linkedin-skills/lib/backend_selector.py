@@ -32,9 +32,48 @@ import subprocess
 from typing import Any, Literal, Optional
 
 BackendName = Literal["publora", "manual", "diy"]
-PublishKind = Literal["comment", "reply", "post"]
+PublishKind = Literal["comment", "reply", "post", "reshare"]
 
 PUBLORA_SIGNUP_URL = "https://app.publora.com/signup"
+
+
+def resolve_reshare_parent(post: dict) -> Optional[str]:
+    """Pick the reshare `parent` URN from an Apify `fetch_post` payload.
+
+    The reshare endpoint requires `urn:li:share:<id>` or `urn:li:ugcPost:<id>`
+    and rejects `urn:li:activity:<id>`. Apify returns the correct value in
+    `shareUrn`, so prefer it. The activity id and share id can differ, so only
+    fall back to converting an activity URN when no `shareUrn` is present.
+    """
+    share = post.get("shareUrn") or ""
+    if share.startswith(("urn:li:share:", "urn:li:ugcPost:")):
+        return share
+    urn = post.get("urn") or ""
+    if urn.startswith(("urn:li:share:", "urn:li:ugcPost:")):
+        return urn
+    if urn.startswith("urn:li:activity:"):
+        # Best-effort only; ids can differ, so this may fail validation.
+        return "urn:li:share:" + urn.rsplit(":", 1)[-1]
+    return None
+
+
+def manual_reshare_message(target_url: str, commentary: Optional[str]) -> str:
+    """Copy-paste instructions for the manual tier (no auto-post backend)."""
+    thoughts = f"""
+
+Paste this above the reshare ("Repost with your thoughts"):
+
+```
+{commentary}
+```""" if commentary else ""
+    return f"""✅ Ready to reshare. On LinkedIn, open the post and click **Repost → Repost with your thoughts**:{thoughts}
+
+**Original post:** {target_url}
+
+---
+
+💡 **Tired of copy-pasting?** Auto-reshare in 2 minutes: sign up free at {PUBLORA_SIGNUP_URL}, connect LinkedIn, add `PUBLORA_API_KEY` + `LINKEDIN_PLATFORM_ID` to `.env`, and reshares publish on approval.
+"""
 
 
 def active_backend() -> BackendName:
@@ -121,10 +160,12 @@ def publish(
     backend = active_backend()
 
     if backend == "manual":
-        return {
-            "mode": "manual",
-            "message": manual_mode_message(draft_text, target_url, kind=kind),
-        }
+        message = (
+            manual_reshare_message(target_url, draft_text or None)
+            if kind == "reshare"
+            else manual_mode_message(draft_text, target_url, kind=kind)
+        )
+        return {"mode": "manual", "message": message}
 
     if backend == "publora":
         # Local import so manual-tier users never need `requests` installed.
@@ -165,6 +206,19 @@ def publish(
                 platforms=platforms,
                 scheduled_time=kwargs.get("scheduled_time"),
                 media_urls=kwargs.get("media_urls"),
+            )
+
+        if kind == "reshare":
+            # `parent` is the original post's share/ugcPost URN; callers may pass
+            # it directly, otherwise it must be resolved (see repost() below).
+            parent = kwargs.get("parent")
+            if not parent:
+                return None  # unresolved parent -> caller asks user for the URN
+            return client.create_reshare(
+                parent=parent,
+                platform_id=platform_id,
+                commentary=draft_text or None,
+                visibility=kwargs.get("visibility", "PUBLIC"),
             )
 
         raise ValueError(f"unknown publish kind: {kind!r}")
@@ -225,6 +279,50 @@ def fetch_post(url: str, **kwargs: Any) -> Optional[dict]:
         # Network/auth failures collapse to the same "ask user to paste" path
         # as missing-token. Skills don't need to branch on the reason.
         return None
+
+
+def repost(
+    post_url: str,
+    commentary: Optional[str] = None,
+    **kwargs: Any,
+) -> Optional[dict]:
+    """Reshare an existing LinkedIn post via the active backend.
+
+    Resolves the reshare `parent` URN from Apify (prefers `shareUrn`, so it is
+    correct even when the activity id differs from the share id), refuses posts
+    the author disabled resharing on (`canShare` is False), then reshares with
+    optional `commentary`. This is the reshare analogue of `publish()`.
+
+    Args:
+        post_url: URL of the ORIGINAL post to reshare.
+        commentary: Optional text above the reshare (<=3000 chars). Omit for a
+            plain reshare.
+        **kwargs: `parent` (skip Apify and pass the URN directly), `platform_id`,
+            `visibility` ("PUBLIC" | "CONNECTIONS").
+
+    Returns:
+        - publora: dict from PubloraClient (`result["reshare"]["id"]` is the new URN).
+        - manual:  `{"mode": "manual", "message": <copy-paste block>}`.
+        - diy:     `{"mode": "diy", ...}`.
+        - `{"mode": "error", "message": ...}` if the post cannot be reshared.
+        - None if the parent URN could not be resolved (ask the user to paste it).
+    """
+    parent = kwargs.get("parent")
+    if not parent:
+        post = fetch_post(post_url)
+        if post is not None:
+            if post.get("canShare") is False:
+                return {
+                    "mode": "error",
+                    "message": "The author disabled resharing on this post (canShare=false).",
+                }
+            parent = resolve_reshare_parent(post)
+        if not parent and active_backend() == "publora":
+            # Can't reshare via API without a valid share/ugcPost URN.
+            return None
+    if parent:
+        kwargs["parent"] = parent
+    return publish("reshare", commentary or "", post_url, **kwargs)
 
 
 if __name__ == "__main__":
