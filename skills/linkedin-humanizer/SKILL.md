@@ -1,6 +1,6 @@
 ---
 name: linkedin-humanizer
-description: 'Scrub AI tells from any text draft OR audit a finished post against the 2026 algorithm heuristic checklist. Tier-based rewriter (forensic / strict / aesthetic / all) plus `--mode audit` for detection-only pass-fail review covering length, hook, CTA, format penalties, AI vocab. Sub-tools: emoji-pattern detector, multi-detector spread tester (GPTZero, Originality.ai, ZeroGPT, Sapling, Copyleaks), rule explainer. Triggers on "humanize", "de-AI", "review this draft", "audit before posting", "is this ready".'
+description: 'Scrub AI tells from any text draft OR audit a finished post against the 2026 algorithm heuristic checklist. Tier-based rewriter (forensic / strict / aesthetic / all) plus `--mode audit` for detection-only pass-fail review covering length, hook, CTA, format penalties, AI vocab. Also `--mode profile` builds a reusable Voice and Brand Profile from a few of the user's real posts, so every writing skill drafts in their voice. Sub-tools: emoji-pattern detector, multi-detector spread tester (GPTZero, Originality.ai, ZeroGPT, Sapling, Copyleaks), rule explainer. Triggers on "humanize", "de-AI", "review this draft", "audit before posting", "is this ready", "build my voice profile", "learn my voice".'
 ---
 
 # LinkedIn Humanizer V2
@@ -58,6 +58,12 @@ linkedin-humanizer --mode all <text>
 # Runs the 2026 algorithm checklist: length, hook, CTA, structure, AI tells.
 # Returns Blockers + Warnings + suggested fixes. See sub-skills/post-audit.md.
 linkedin-humanizer --mode audit <text>
+
+# Profile — build/update the user's Voice & Brand Profile so every writing
+# skill drafts in their real voice. Learns from 3-6 pasted posts (portable, no
+# token) or, if APIFY_TOKEN is set, from pulled activity. Writes
+# references/voice-profile.md. See sub-skills/voice-profile.md.
+linkedin-humanizer --mode profile
 ```
 
 ## The three passes
@@ -135,6 +141,7 @@ See `references/examples.md` for worked examples.
 - `sub-skills/rules-explainer.md` — when to defend a flagged rule (em dash, rule of three, passive voice)
 - `sub-skills/emoji-detector.md` — scan / score / suggest workflow for emoji density
 - `sub-skills/detector-tester.md` — run text through 5 AI detectors in parallel and report disagreement
+- `sub-skills/voice-profile.md` — build/update the user's Voice & Brand Profile (`--mode profile`); the filled `references/voice-profile.md` is then read by every writing skill so drafts match the user's real voice
 - `scripts/test_detectors.py` — runs the parallel detector test (supports `--demo` for offline mode)
 - `scripts/requirements.txt` — Python deps for the detector script (`requests`, `python-dotenv`)
 - `scripts/detectors.env.example` — template for the 5 detector API keys

@@ -26,6 +26,8 @@ A LinkedIn URL containing `commentUrn=urn:li:comment:(activity:POST,COMMENT_ID)`
 
 ## Steps
 
+**Voice profile first (all drafts).** If `../../references/voice-profile.md` has `filled: yes`, load it and match the user's voice fingerprint, hard rules, and CTA/link style throughout. If it is not filled, mention once that `linkedin-humanizer --mode profile` can learn their voice from a few posts, then proceed with the generic voice rules.
+
 1. **Parse the URL.** `lib.url_parser.parse_linkedin_url` returns `post_urn`, `comment_id`, `comment_urn`.
 2. **Determine thread structure.** If `APIFY_TOKEN` is set, call `lib.ApifyClient.fetch_post_comments(post_id=post_urn, max_items=50, scrape_replies=True)` and locate the comment by `comment_id`. Otherwise ask the user to paste the relevant slice of the thread. Figure out whether the target is:
    - a top-level comment (parentComment = this comment's URN when replying)
