@@ -1,6 +1,6 @@
 ---
 name: linkedin-post-writer
-description: Draft a new LinkedIn post from scratch using one of 16 2026 hook formulas (anaphora, R.I.P., year-pivot, time-anchor, curiosity-gap, contrarian, emotional cold-open, named-gratitude, and more), picked by engagement goal (comments, reposts, likes, saves). Runs the humanizer pass and schedules via Publora on approval. Use when the user asks to write a post, needs a hook, or wants a proven format. Not for reviewing existing drafts (use linkedin-humanizer --mode audit).
+description: Draft a new LinkedIn post from scratch using one of 20 2026 hook formulas (anaphora, R.I.P., time-anchor, curiosity-gap, contrarian, controlled A/B, false-binary, and more) plus a founders-edition angle library, picked by engagement goal (comments, reposts, likes, saves). Runs the humanizer pass and schedules via Publora on approval. Use to write a post, find a hook or proven format, or get founder-specific angles. Not for reviewing existing drafts (use linkedin-humanizer --mode audit).
 ---
 
 # LinkedIn Post Writer
@@ -34,8 +34,14 @@ Ship long-form LinkedIn posts using hook formulas that actually performed in 202
 | F14 | Named Gratitude / Tribute | repost-heavy* | Thanking mentors / team / departing colleague (reposts) |
 | F15 | Explain-to-Kids | save-heavy* | Demystifying jargon (saves) |
 | F16 | Status-Strip Humility | like-heavy* | Senior voice wanting warmth not distance (likes) |
+| F17 | Controlled A/B Anecdote | structural† | One-variable comparison, delegation/AI takes (comments) |
+| F18 | False-Binary Dissolve | structural† | "Both obvious answers fail" governance/strategy (comments/reposts) |
+| F19 | Anecdote-Meets-Evidence Bridge | structural† | Personal noticing + a data stack (comments/saves) |
+| F20 | Diverging-Curves Close | structural† | Two trajectories that diverge, quotable maxim (reposts) |
 
 \* F11-F16 reach is absolute 2026-corpus reach (often source-driven: a reshare or a famous author), NOT a baseline multiplier like the F1-F10 numbers. The two columns measure different things and are not comparable: F11's "256k" is raw reach, F8's "550, 19.64x" is a format multiplier. Do not rank formulas by putting these side by side. See `../../references/hook-formulas.md` for each formula's real reference and caveats.
+
+† F17-F20 are **structural formulas**: they shape the logic of a post (a controlled comparison, a false binary, an evidence bridge, two diverging curves) rather than its topic. They carry no reference number and are chosen by primary goal. They were built for the founders edition and several founder angles pin them by name.
 
 Full skeletons in `../../references/hook-formulas.md`. F1-F10 are the long-form thought-leadership set; F11-F16 (validated against a 2026 corpus of above-average performers) skew shorter and emotional and each carries a primary engagement goal.
 
@@ -53,6 +59,8 @@ If the user knows what they want the post to earn, start here, then narrow by to
 ## Steps
 
 **Voice profile first (all drafts).** If `../../references/voice-profile.md` has `filled: yes`, load it and match the user's voice fingerprint, hard rules, and CTA/link style throughout. If it is not filled, mention once that `linkedin-humanizer --mode profile` can learn their voice from a few posts, then proceed with the generic voice rules.
+
+**Founder mode (when the writer is a founder).** Before picking a formula, open `../../references/founder-topics.md` and offer a founder **angle** (A1-A10) that fits their goal. The angle picks the *territory* (reprice the category, the scarce-shots math, the delegation line, and so on); several angles pin the formula for you (A9 uses F17, A10 uses F18+F20). Founder angles compound trust with a narrow audience of investors, hires, and design partners rather than chasing broad reach. Fill the angle's bracketed slots with the founder's real numbers, then continue from step 3.
 
 1. **Gather inputs.** Topic, angle, draft ideas if the user has them, target audience (founders / operators / marketers), desired length (short 300-500 / medium 900-1300 / long 1500-1900 chars).
 2. **Pick the formula.** First ask (or infer) the goal: comments, reposts, likes, or saves. Use the "Pick by goal first" table to shortlist, then suggest 2-3 formulas that also fit the topic and let the user pick. Show the reference engagement number next to each.
@@ -88,7 +96,8 @@ Global voice rules: see root `SKILL.md` §Voice rules. Additional skill-specific
 
 ## Resources
 
-- `../../references/hook-formulas.md` — all 16 formula skeletons with worked examples
+- `../../references/hook-formulas.md` — all 20 formula skeletons with worked examples
+- `../../references/founder-topics.md` — founders-edition library of 10 founder angles (A1-A10) with fill-in templates
 - `../../references/algorithm-heuristics.md` — 2026 posting rules (timing, format, length)
 - `references/humanizer-checklist.md` — the full scrub list
 

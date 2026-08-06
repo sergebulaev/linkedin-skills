@@ -21,6 +21,16 @@ A bundle of 11 focused skills for LinkedIn content ops in 2026, built for Claude
 - **Running an employee advocacy program across a marketing team** → use `linkedin-employee-advocacy`
 - **Adapting content from another platform (tweet, video, blog) into a native LinkedIn post** → use `linkedin-repurposer`
 
+## Founders edition
+
+For founders building trust with investors, hires, and design partners, the bundle ships a dedicated founder layer:
+
+- **`references/founder-topics.md`** — 10 founder content **angles** (A1-A10) as fill-in templates: reprice the category, content-to-pipeline, audience of one, the scarce-shots math, the unglamorous bet, the limit of delegation, designed serendipity, the evasive-sentence test, the delegation line, the learning gate. Each maps to a primary goal and a hook formula.
+- **4 structural formulas (F17-F20)** in `references/hook-formulas.md` — controlled A/B anecdote, false-binary dissolve, anecdote-meets-evidence bridge, diverging-curves close. They shape a post's logic rather than its topic and back the founder angles.
+- **A founders-edition pillar set** (Conviction / Building in public / The math / Proof) in `linkedin-content-planner`.
+
+`linkedin-post-writer` offers a founder angle before picking a formula when the writer is a founder; `linkedin-content-planner` asks "founder plan or general plan?" and swaps the pillar set. The founder angles compound trust with a narrow, high-value audience instead of chasing broad reach.
+
 ## Core pattern
 
 Every action-taking skill follows three steps:

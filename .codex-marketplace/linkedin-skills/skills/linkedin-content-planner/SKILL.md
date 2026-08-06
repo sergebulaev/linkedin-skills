@@ -73,6 +73,19 @@ For each posting day:
 | Community | F6 Comment-Gate (use sparingly), F12 Permission Slip, F14 Named Gratitude, poll posts, spotlight mentions |
 | Product/Offer | F2 R.I.P. Obituary (when pivoting category), F1 Anaphora (when framing product as fix), F13 Bait-and-Switch (upgrade announcements) |
 
+## Founders edition (alternative pillar set)
+
+When the whole plan is for a **founder** building trust with investors, hires, and design partners, swap the default pillar mix for the founder set from `../../references/founder-topics.md`. It maps each pillar to founder **angles** (A1-A10) instead of generic topics, and leans on the structural formulas F17-F20.
+
+| Pillar | Share | Founder angles | Preferred formulas |
+|---|---|---|---|
+| **Conviction** (POV, category, product philosophy) | 30-40% | A1 Reprice, A7 Designed Serendipity, A8 Evasive-Sentence | F10, F18, F5 |
+| **Building in public** (the real, unglamorous work) | 30-40% | A5 Unglamorous Bet, A6 Limit of Delegation, A9 Delegation Line | F7, F4, F17 |
+| **The math** (how a founder actually decides) | 15-20% | A4 Scarce-Shots, A10 Learning Gate | F10, F18, F20 |
+| **Proof** (relationships and wins, told narrowly) | 10-15% | A2 Content-to-Pipeline, A3 Audience of One | F9, F11, F5 |
+
+Same guardrails apply: 3-5 posts/week, no pillar above 60%, no formula repeated inside 7 days, spread the goal across the week. Ask the user "founder plan or general plan?" when the audience is a founder building a company, and default to this set if they say founder.
+
 ## Goal mix (balance the week, not just the pillars)
 
 Every formula earns a primary reaction: comments, reposts, likes, or saves (see `../../references/hook-formulas.md` "Engagement-goal split"). A week that is all comment-bait or all repost-bait reads as engineered and flattens reach. Spread the goals across the week:
@@ -107,6 +120,7 @@ See `references/example-plan-week.md` for a filled-in 7-day plan.
 - `SKILL.md` — this file
 - `references/example-plan-week.md` — worked example
 - `references/pillars-framework.md` — the 3-pillar discipline explained
+- `../../references/founder-topics.md` — founders-edition angle library (A1-A10) and founder pillar set
 
 ## Related skills
 

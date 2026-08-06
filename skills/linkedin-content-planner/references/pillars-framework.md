@@ -171,6 +171,8 @@ Different audiences need different pillar distributions. Start from the default 
 ### Founders (when wearing the exec hat)
 Same as Executives, but with leeway to include more behind-the-scenes content if shipping in public.
 
+For a dedicated founder plan, use the **founders-edition pillar set** (Conviction / Building in public / The math / Proof) and the 10 founder angles in `../../references/founder-topics.md` instead of the generic Authority / Narrative / Community / Product mix. It is built for founders raising, hiring, and landing design partners, where a narrow high-trust audience matters more than reach.
+
 ## Recovery / cold-start 5-step protocol
 
 Use when an account has been dormant, shadowbanned, or reset after a pod-detection penalty.

@@ -1,6 +1,6 @@
 # Pinned dependency lockfile generated from requirements.txt
 # (python3 -m venv + pip install -r requirements.txt + pip freeze)
-certifi==2026.6.17
+certifi==2026.7.22
 charset-normalizer==3.4.9
 idna==3.18
 python-dotenv==1.2.2

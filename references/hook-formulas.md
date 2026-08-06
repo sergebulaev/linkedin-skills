@@ -1,10 +1,12 @@
-# 16 LinkedIn Hook Formulas — 2026 Edition
+# 20 LinkedIn Hook Formulas — 2026 Edition
 
 Each formula has a skeleton, why it works, and a reference engagement multiplier from the original post that defined it. Canonical draft filenames (e.g. `01-platform-risk-anaphora.md`) refer to the curator's private notebook of source posts and are NOT shipped in this public repo. The skeletons + reference posts below are sufficient to apply each formula.
 
-F1-F10 are the original long-form thought-leadership set. F11-F16 were validated in 2026 against a large corpus of above-average performers across 10 verticals; they skew shorter and more emotional, and each is tagged with its primary engagement goal (comments / reposts / likes / saves). Pick by goal first (see "Engagement-goal split" below), then by topic.
+F1-F10 are the original long-form thought-leadership set. F11-F16 were validated in 2026 against a large corpus of above-average performers across 10 verticals; they skew shorter and more emotional, and each is tagged with its primary engagement goal (comments / reposts / likes / saves). F17-F20 are **structural formulas**: they shape the *logic* of a post (a controlled comparison, a false binary, an evidence bridge, two diverging curves) rather than its topic, and they recur across the best-performing founder posts. Pick by goal first (see "Engagement-goal split" below), then by topic.
 
-**Reading the reference numbers:** F1-F10 cite engagement with a baseline multiplier (a real format effect, e.g. "19.64x baseline"). F11-F16 cite absolute reach from the 2026 corpus, which can be inflated by reshares or a famous author. Treat F11-F16 numbers as a reach ceiling, not a like-for-like comparison against F1-F10. Where the reach was source-driven rather than format-driven, the formula says so.
+**Reading the reference numbers:** F1-F10 cite engagement with a baseline multiplier (a real format effect, e.g. "19.64x baseline"). F11-F16 cite absolute reach from the 2026 corpus, which can be inflated by reshares or a famous author. Treat F11-F16 numbers as a reach ceiling, not a like-for-like comparison against F1-F10. F17-F20 carry no single reference post; they were distilled from repeated high-performers, so they are tagged by primary goal only.
+
+**Founder angles:** for founder-specific *territory* (what to write about, not just how to shape it), pair these formulas with `founder-topics.md`. F17-F20 were built alongside that library and several founder angles call them by name.
 
 ## Contents
 
@@ -24,6 +26,10 @@ F1-F10 are the original long-form thought-leadership set. F11-F16 were validated
 - F14 - Named Gratitude / Tribute
 - F15 - Explain-to-Kids Simplification
 - F16 - Status-Strip Humility
+- F17 - Controlled A/B Anecdote
+- F18 - False-Binary Dissolve
+- F19 - Anecdote-Meets-Evidence Bridge
+- F20 - Diverging-Curves Close
 - Engagement-goal split
 - Choosing which formula to use
 - Hook micro-rules
@@ -436,16 +442,110 @@ At home, none of that survives {the humbling moment}.
 
 ---
 
+## F17 — Controlled A/B Anecdote
+
+**Reference:** structural formula, no single source post. Primary goal: **comments**. Built for founder angle A9 (Delegation Line).
+
+```
+{Action A} → {outcome A}.
+{The identical action, one variable changed} → {the opposite outcome B}.
+
+Same {constant 1}. Same {constant 2}. The only variable is {the one thing}.
+
+[What you first thought it meant — one line.]
+[The reframe: what the comparison actually reveals.]
+
+[Optional: the rule you now live by, one line.]
+[An operational question that makes the reader test their own variable.]
+```
+
+**Why:** A controlled comparison reads as evidence, not opinion. When two situations differ by exactly one thing, the reader cannot argue the conclusion, only their own version of it, which is what drives real comments.
+
+**Warning:** The two situations must differ by **exactly one** variable. Change two things and it collapses from a controlled experiment into a story. Do not stack variables to make the contrast look bigger.
+
+---
+
+## F18 — False-Binary Dissolve
+
+**Reference:** structural formula, no single source post. Primary goal: **comments / reposts**. Built for founder angle A10 (Learning Gate).
+
+```
+Everyone reaches for one of two answers to {problem}.
+
+{Option A}? {One line that kills it.}
+{Option B}? {One line that kills it.}
+
+Both fail for the same reason: {the shared flaw}.
+
+So we built a third option: {the synthesis}.
+
+[How it works — 2-3 concrete lines.]
+[The one-line principle that makes the third option obviously better.]
+[Question: how do you handle {problem} today — A, B, or something else?]
+```
+
+**Why:** Naming and killing the two obvious options earns the right to the third. Readers who already tried A or B feel seen, and the closing question invites them to defend their own choice.
+
+**Warning:** The two options must be the ones the reader would genuinely reach for. A strawman binary reads as a manipulation setup and kills trust faster than no post at all.
+
+---
+
+## F19 — Anecdote-Meets-Evidence Bridge
+
+**Reference:** structural formula, no single source post. Primary goal: **comments / saves**.
+
+```
+[A small, first-person thing you noticed — one or two concrete lines.]
+
+I thought I'd discovered something. Turns out it was {measured / known} already:
+
+→ {evidence 1, with a number}
+→ {evidence 2, with a number}
+→ {evidence 3, with a number}
+
+[The line that names what the pattern really is.]
+
+[What you did about it — the decision, not the theory.]
+[Operational question: what would you do / never do here?]
+```
+
+**Why:** A personal noticing earns attention; the evidence stack earns belief. The arrow-list is skimmable and screenshot-friendly, so it gets saved and quoted.
+
+**Warning:** Real numbers only. If you don't have evidence, use F4 Confession instead — a fabricated stat stack is the fastest way to lose a founder/operator audience that checks sources.
+
+---
+
+## F20 — Diverging-Curves Close
+
+**Reference:** structural formula, no single source post. Primary goal: **reposts**. Often a *closing* move for F17/F18/F7 rather than a full-post hook; can also drive a short standalone post. Built for founder angle A10.
+
+```
+[Setup: two things that look similar today.]
+
+{Approach A}: {what it does over time — grows / decays / heavies}.
+{Approach B}: {what it does over time — the opposite}.
+
+[Anchor it to a timeline: "Month one, X. Month six, Y."]
+
+{One-line maxim contrasting the two trajectories.}
+```
+
+**Why:** Two opposite trajectories on a time axis make an idea feel inevitable, and the maxim ("a queue grows with headcount, a learning system shrinks") is the repost trigger.
+
+**Warning:** The curves must genuinely diverge. If both trend the same way there is no maxim, so don't force the shape onto a comparison that doesn't have one.
+
+---
+
 ## Engagement-goal split
 
 Pick the formula by what you want the post to earn. This split held across all 10 verticals in the 2026 corpus:
 
 | Goal | Earned by | Formulas |
 |---|---|---|
-| **Comments** | questions, contrarian/unpopular takes, vulnerability, self-tagging | F4 Confession, F10 Contrarian, F12 Permission Slip, F9 Curiosity-Gap |
-| **Reposts** | quotable maxims, tributes, "X isn't Y" distinctions | F14 Named Gratitude, F2 R.I.P., F8 Paid-vs-Free |
+| **Comments** | questions, contrarian/unpopular takes, vulnerability, self-tagging, controlled comparisons, false binaries | F4 Confession, F10 Contrarian, F12 Permission Slip, F9 Curiosity-Gap, F17 Controlled A/B, F18 False-Binary |
+| **Reposts** | quotable maxims, tributes, "X isn't Y" distinctions, diverging curves | F14 Named Gratitude, F2 R.I.P., F8 Paid-vs-Free, F18 False-Binary, F20 Diverging-Curves |
 | **Likes** | emotional stories, celebrations, status-strip, spectacle | F11 Emotional Cold-Open, F13 Bait-and-Switch, F16 Status-Strip |
-| **Saves** | simplifications, exact how-to, frameworks | F15 Explain-to-Kids, F7 Odd-Precision Money, F8 Paid-vs-Free |
+| **Saves** | simplifications, exact how-to, frameworks, evidence stacks | F15 Explain-to-Kids, F7 Odd-Precision Money, F8 Paid-vs-Free, F19 Evidence Bridge |
 
 ## Choosing which formula to use
 
@@ -464,6 +564,12 @@ Pick the formula by what you want the post to earn. This split held across all 1
 | Thanking mentors / team / a departing colleague | F14 Named Gratitude | Named people amplify it |
 | Demystifying jargon | F15 Explain-to-Kids | Save-worthy reference |
 | Senior person wanting warmth, not distance | F16 Status-Strip | Prestige traded for relatability |
+| One variable flipped the outcome | F17 Controlled A/B Anecdote | A one-variable comparison reads as proof |
+| Two obvious answers both fail | F18 False-Binary Dissolve | Killing A and B earns the third option |
+| Personal noticing backed by data | F19 Anecdote-Meets-Evidence | Story earns attention, stats earn belief |
+| Two approaches diverge over time | F20 Diverging-Curves Close | A quotable trajectory maxim gets reshared |
+
+**Founder territory:** when the writer is a founder, pick the *angle* from `founder-topics.md` first (A1-A10), then let it name the formula. Several founder angles (A9, A10) are built directly on F17-F20.
 
 ## Hook micro-rules
 

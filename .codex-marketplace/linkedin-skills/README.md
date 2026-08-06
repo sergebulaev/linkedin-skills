@@ -135,7 +135,7 @@ Every skill shows you a draft first and waits for your OK before doing anything.
 
 | Skill | What it does |
 |---|---|
-| **Post Writer** | Drafts viral-ready posts using 16 proven 2026 hook formulas (anaphora, R.I.P. obituary, year-over-year pivot, curiosity gap, emotional cold-open, named-gratitude, and 10 more), picked by engagement goal |
+| **Post Writer** | Drafts viral-ready posts using 20 proven 2026 hook formulas (anaphora, R.I.P. obituary, year-over-year pivot, curiosity gap, emotional cold-open, controlled A/B, false-binary, and 13 more) plus a founders-edition angle library, picked by engagement goal |
 | **Comment Drafter** | Drafts a comment on any LinkedIn post from its URL |
 | **Reply Handler** | Drafts a reply to any comment, correctly handling LinkedIn's 2-level thread flattening |
 | **Post Audit** | Checks your draft against 2026 algorithm rules and AI-detection patterns before you publish |
@@ -146,6 +146,16 @@ Every skill shows you a draft first and waits for your OK before doing anything.
 | **Profile Optimizer** | Rewrites your headline, About section, Featured section, and Experience for 2026 conversion patterns |
 | **Employee Advocacy** | Plans a team LinkedIn program: 14-day launch, posting cadence, brand governance, ROI tracking |
 | **Repurposer** | Turns content from another platform (tweet, thread, YouTube video, blog, newsletter) into a native LinkedIn post: re-hooks for the fold, expands to the 900-1300 char sweet spot, moves links to the first comment, runs the humanizer |
+
+## Built for founders
+
+If you are a founder, the bundle ships a dedicated founder layer. Your real constraint is rarely reach. It is a small number of high-stakes readers: the next investor, the next hire, the design partner who becomes a case study. The founder layer optimizes for trust with that narrow audience instead of impressions.
+
+- **10 founder angles** (`references/founder-topics.md`) as fill-in templates: reprice the category, content-to-pipeline, audience of one, the scarce-shots math, the unglamorous bet, the limit of delegation, designed serendipity, the evasive-sentence test, the delegation line, the learning gate. Each maps to an engagement goal and a hook formula.
+- **4 structural hook formulas (F17-F20)** that shape a post's logic: controlled A/B anecdote, false-binary dissolve, anecdote-meets-evidence bridge, diverging-curves close.
+- **A founders-edition content plan** (Conviction / Building in public / The math / Proof) in the Content Planner.
+
+Just tell the Post Writer you are a founder, or ask the Content Planner for a "founder plan," and the skills reach for these first.
 
 ## Optional: read LinkedIn data with Apify
 
