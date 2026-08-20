@@ -364,6 +364,28 @@ def image_backend() -> Literal["pixfaro", "manual"]:
     return "manual"
 
 
+_PIXFARO_CLIENT = None
+_PIXFARO_CLIENT_KEY = None
+
+
+def _pixfaro_client():
+    """Lazily build and reuse ONE PixfaroClient, so its LRU cache and HTTP
+    session persist across illustrate/refine/available_models calls (a fresh
+    client per call would make the cache always miss and re-bill).
+
+    Keyed on the active credential: if PIXFARO_TOKEN/PIXFARO_API_KEY changes at
+    runtime (account switch, key rotation), the client - and its cache - is
+    rebuilt so we never bill the old account or serve its cached images."""
+    global _PIXFARO_CLIENT, _PIXFARO_CLIENT_KEY
+    token = os.getenv("PIXFARO_TOKEN") or os.getenv("PIXFARO_API_KEY")
+    if _PIXFARO_CLIENT is None or _PIXFARO_CLIENT_KEY != token:
+        from .pixfaro_client import PixfaroClient
+
+        _PIXFARO_CLIENT = PixfaroClient()
+        _PIXFARO_CLIENT_KEY = token
+    return _PIXFARO_CLIENT
+
+
 def manual_illustration_message(prompt: str, aspect_ratio: str) -> str:
     """Shown when no Pixfaro key is set: hand the drafted prompt to the user."""
     return (
@@ -403,6 +425,7 @@ def _image_result(data: dict, model: str) -> dict[str, Any]:
         "model": model,
         "balance_after": balance,
         "low_balance": low,
+        "premium": model in PREMIUM_MODELS,
     }
 
 
@@ -445,9 +468,7 @@ def illustrate(
     if image_backend() == "manual":
         return {"backend": "manual", "message": manual_illustration_message(prompt, ar)}
 
-    from .pixfaro_client import PixfaroClient
-
-    client = PixfaroClient()
+    client = _pixfaro_client()
     used_model = model or "nano-banana-2"
     data = client.generate(
         prompt,
@@ -482,9 +503,7 @@ def refine(
     if image_backend() == "manual":
         return {"backend": "manual", "message": manual_edit_message(instruction)}
 
-    from .pixfaro_client import PixfaroClient
-
-    client = PixfaroClient()
+    client = _pixfaro_client()
     used_model = model or "nano-banana-2"
     data = client.edit(
         image_id,
@@ -504,10 +523,8 @@ def available_models() -> Optional[list[dict[str, Any]]]:
     hard-coding it."""
     if image_backend() == "manual":
         return None
-    from .pixfaro_client import PixfaroClient
-
     try:
-        return PixfaroClient().list_models()
+        return _pixfaro_client().list_models()
     except Exception:
         return None
 

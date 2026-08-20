@@ -38,7 +38,9 @@ import requests
 
 
 class PixfaroError(RuntimeError):
-    pass
+    def __init__(self, message: str, status_code: Optional[int] = None):
+        super().__init__(message)
+        self.status_code = status_code
 
 
 BASE_URL = "https://api.pixfaro.com/v1"
@@ -58,8 +60,7 @@ def _retry(attempts: int = 3, base_delay: float = 0.6):
                 try:
                     return fn(*args, **kwargs)
                 except PixfaroError as e:
-                    msg = str(e)
-                    retryable = any(f"HTTP {s}" in msg for s in RETRYABLE_STATUSES)
+                    retryable = getattr(e, "status_code", None) in RETRYABLE_STATUSES
                     if not retryable or attempt == attempts - 1:
                         raise
                     last_exc = e
@@ -81,6 +82,7 @@ class PixfaroClient:
                 "Sign up at https://pixfaro.com."
             )
         self.timeout = timeout
+        self._session = requests.Session()
         self._cache: "OrderedDict[str, tuple[float, dict]]" = OrderedDict()
 
     # ---- cache helpers (mirror apify_client) ----
@@ -200,7 +202,7 @@ class PixfaroClient:
         """GET /v1/models — live model catalog + per-tier pricing."""
         url = f"{BASE_URL}/models"
         try:
-            r = requests.get(url, headers=self._headers(), timeout=self.timeout)
+            r = self._session.get(url, headers=self._headers(), timeout=self.timeout)
         except requests.RequestException as e:
             raise PixfaroError(f"request failed: {e}") from e
         out = self._handle(r)
@@ -216,7 +218,7 @@ class PixfaroClient:
     def _post(self, path: str, json_body: dict[str, Any]) -> dict[str, Any]:
         url = f"{BASE_URL}{path}"
         try:
-            r = requests.post(url, json=json_body, headers=self._headers(), timeout=self.timeout)
+            r = self._session.post(url, json=json_body, headers=self._headers(), timeout=self.timeout)
         except requests.RequestException as e:
             raise PixfaroError(f"request failed: {e}") from e
         return self._handle(r)
@@ -229,7 +231,7 @@ class PixfaroClient:
                 detail = json.dumps(r.json())
             except Exception:
                 detail = r.text[:300]
-            raise PixfaroError(f"HTTP {r.status_code}: {detail}")
+            raise PixfaroError(f"HTTP {r.status_code}: {detail}", status_code=r.status_code)
         try:
             return r.json()
         except ValueError as e:

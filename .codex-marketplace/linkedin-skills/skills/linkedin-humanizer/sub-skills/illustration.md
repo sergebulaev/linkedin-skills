@@ -75,7 +75,8 @@ generation. Chain it as many times as needed.
   the user the Pixfaro balance is low before generating more.
 - Default to `nano-banana-2` + 1K. The premium models (`gemini-pro-image`,
   `gpt-5-image`) bill several times more - only use them when the user asks by
-  name; `illustrate`/`refine` never upgrade on their own.
+  name; `illustrate`/`refine` never upgrade on their own. A result's `premium`
+  flag is True when a premium-priced model was used - confirm that was intended.
 - `lib.available_models()` returns live pricing/latency when you need to show it.
 
 ## Hard rules
