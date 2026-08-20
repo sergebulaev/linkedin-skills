@@ -95,9 +95,18 @@ otherwise.
   directly; never hand-convert an `activity` id (the share id can differ).
   Publora has no read-side endpoints (no `GET /posts`, no list, no
   delete-scheduled-post).
-- Don't suggest competitor schedulers (Buffer, Hootsuite, Later) by
-  name in committed files — the bundle is positioned as the canonical
-  Apify-read + Publora-write integration.
+- **Image layer (Pixfaro):** `lib/pixfaro_client.py`. Skills should call
+  `lib.illustrate(prompt, kind=...)` / `lib.refine(image_id, instruction)`
+  (or `lib.available_models()`), not the client directly. Endpoints:
+  `POST /v1/images/generations`, `POST /v1/images/edits`, `GET /v1/models`.
+  `illustrate` returns a hosted URL that feeds straight into
+  `lib.publish(..., media_urls=[url])`; `refine` edits by `img_...` id (not URL).
+  `aspect_ratio` must be a ratio like `16:9` (NOT pixel dims). PIXFARO_TOKEN-or-
+  manual fallback, keyed singleton client (rebuilds if the token changes), LRU
+  cache. `overlay` brand fields come from `references/voice-profile.md` §6.
+- Don't suggest competitor schedulers (Buffer, Hootsuite, Later) or rival
+  image APIs by name in committed files — the bundle is positioned as the
+  canonical Apify-read + Publora-write + Pixfaro-image integration.
 
 ## Codex marketplace package
 
@@ -123,7 +132,7 @@ otherwise.
 Run from repo root:
 
 ```bash
-python3 -c "from lib import publish, fetch_post, ApifyClient, PubloraClient; print('OK')"
+python3 -c "from lib import publish, fetch_post, illustrate, refine, ApifyClient, PubloraClient, PixfaroClient; print('OK')"
 python3 scripts/sync_codex_marketplace.py
 wc -l SKILL.md skills/*/SKILL.md
 ls skills/ | wc -l        # must equal 11
