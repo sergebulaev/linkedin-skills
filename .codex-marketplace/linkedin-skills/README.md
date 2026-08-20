@@ -221,6 +221,14 @@ pip install requests python-dotenv
 
 If Publora returns a scheduled-post ID, you're set. Cancel the post in the Publora dashboard before the scheduled time. If you get HTTP 401, your API key is wrong. If you get HTTP 400 about a missing platformId, your `LINKEDIN_PLATFORM_ID` isn't set. See [Troubleshooting](#troubleshooting).
 
+## Optional: generate illustrations with Pixfaro
+
+Posts with a visual get more dwell time. The Post Writer can generate an illustration for a draft (a feed image, a carousel slide, or a quote-card of your hook) and attach it automatically when publishing. Without a key it drafts the image prompt and asks you to generate it yourself, so nothing breaks.
+
+[Pixfaro](https://pixfaro.com) is a single image API over multiple models (from `flux-schnell` at $0.004 to `gpt-5-image`). It composites your handle, brand color, or logo onto the image as a **pixel-exact overlay**, so a cheap base model still renders crisp text on a quote-card or thumbnail. Pull those brand fields from your [Voice & Brand Profile](references/voice-profile.md) (section 6) and every asset stays on-brand.
+
+Setup: drop `PIXFARO_TOKEN=pf_live_...` into your `.env`. The thin client at `lib/pixfaro_client.py` and the wrappers `lib.illustrate(prompt, kind=...)` / `lib.refine(image_id, instruction)` return a hosted URL that flows straight into `lib.publish(..., media_urls=[url])`. `refine` edits a prior image by its id (cheaper than regenerating); results carry `cost`, `balance_after`, and a `premium` flag so the skills never quietly spend on a pricey model.
+
 ## Voice rules
 
 Every skill follows these rules automatically:
@@ -304,6 +312,11 @@ engagers = apify.fetch_post_engagers(post_url="https://www.linkedin.com/posts/..
 # Write side (Publora)
 client = PubloraClient()  # reads PUBLORA_API_KEY from env
 client.create_comment(post_urn=parsed["post_urn"], message="draft", platform_id="linkedin-xxx")
+
+# Image side (Pixfaro) — optional, reads PIXFARO_TOKEN from env
+from lib import illustrate
+img = illustrate("Minimal flat-vector lighthouse, calm blue palette", kind="wide")
+# img["url"] -> pass to publish(..., media_urls=[img["url"]])
 ```
 
 ## URL handling

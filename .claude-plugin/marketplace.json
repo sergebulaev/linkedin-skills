@@ -11,8 +11,8 @@
     {
       "name": "linkedin-skills",
       "source": "./",
-      "description": "Bundle of 10 LinkedIn marketing skills for Claude Code and Codex with verified 2026 hook formulas, comment + reply templates that earn author replies, a unified humanizer (rewrite + `--mode audit` pre-publish check, plus bundled emoji-detector, detector-spread tester, rule-explainer sub-tools), profile rewriter, content planner, employee advocacy playbook, thread monitor (warm-reply window author-reply tracking), and engager analytics (likers + commenters ICP segmentation).",
-      "version": "1.0.23",
+      "description": "Bundle of 11 LinkedIn marketing skills for Claude Code and Codex with verified 2026 hook formulas, comment + reply templates that earn author replies, a unified humanizer (rewrite + `--mode audit` pre-publish check, plus bundled emoji-detector, detector-spread tester, rule-explainer sub-tools), profile rewriter, content planner, employee advocacy playbook, thread monitor (warm-reply window author-reply tracking), and engager analytics (likers + commenters ICP segmentation).",
+      "version": "1.0.24",
       "author": {
         "name": "Serge Bulaev",
         "url": "https://github.com/sergebulaev"
