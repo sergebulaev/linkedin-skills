@@ -53,6 +53,31 @@ media. Runs on any agent (Claude Code, Codex, OpenClaw).
 6. **Manual mode.** If `r["backend"] == "manual"`, show `r["message"]` (the drafted
    prompt + aspect) and ask for a pasted URL to attach.
 
+## Refine instead of regenerating
+
+When the user wants a tweak ("make the sky darker", "swap the headline", "more
+whitespace"), do NOT regenerate from scratch. Keep the `id` from the previous
+result and edit it:
+
+```python
+from lib import illustrate, refine
+first = illustrate("<scene>", kind="wide")     # -> {"id": "img_...", "url": ...}
+fixed = refine(first["id"], "make the background darker and increase contrast")
+```
+
+`refine` edits by `img_...` id (not URL), inherits the source shape/tier when you
+omit `aspect_ratio`/`resolution`, and is cheaper + more consistent than a fresh
+generation. Chain it as many times as needed.
+
+## Cost-guard
+
+- Each result carries `cost` and `balance_after`; if `low_balance` is True, tell
+  the user the Pixfaro balance is low before generating more.
+- Default to `nano-banana-2` + 1K. The premium models (`gemini-pro-image`,
+  `gpt-5-image`) bill several times more - only use them when the user asks by
+  name; `illustrate`/`refine` never upgrade on their own.
+- `lib.available_models()` returns live pricing/latency when you need to show it.
+
 ## Hard rules
 
 - One image per request (`n>1` is unsupported); for a carousel, generate slides

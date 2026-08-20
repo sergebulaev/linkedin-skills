@@ -18,6 +18,8 @@ from .backend_selector import (
     repost,
     fetch_post,
     illustrate,
+    refine,
+    available_models,
 )
 
 __all__ = [
@@ -36,4 +38,6 @@ __all__ = [
     "repost",
     "fetch_post",
     "illustrate",
+    "refine",
+    "available_models",
 ]

@@ -333,6 +333,14 @@ def repost(
 
 PIXFARO_SIGNUP_URL = "https://pixfaro.com"
 
+# Warn (don't block) when the prepaid balance drops below this, so a run
+# doesn't silently drain the account.
+LOW_BALANCE_USD = 1.00
+
+# Cost-guard: these bill materially more per image. `illustrate`/`refine` never
+# pick them on their own - the caller must ask by name.
+PREMIUM_MODELS = {"gemini-pro-image", "gpt-5-image"}
+
 # kind -> aspect_ratio (w:h). Callers can override with aspect_ratio=.
 ILLUSTRATION_ASPECTS = {
     "post": "1:1",         # generic square feed image
@@ -340,8 +348,8 @@ ILLUSTRATION_ASPECTS = {
     "portrait": "4:5",     # LinkedIn/IG feed portrait
     "carousel": "4:5",     # carousel/document slide
     "quote": "4:5",        # quote-card
-    "wide": "1200:628",    # link-preview / OG image (~1.91:1)
-    "link": "1200:628",
+    "wide": "16:9",        # link-preview / wide feed image
+    "link": "16:9",
     "thumbnail": "16:9",   # YouTube thumbnail
     "landscape": "16:9",
     "story": "9:16",       # story / TikTok cover
@@ -369,6 +377,35 @@ def manual_illustration_message(prompt: str, aspect_ratio: str) -> str:
     )
 
 
+def manual_edit_message(instruction: str) -> str:
+    """Shown when no Pixfaro key is set and the user asks to edit an image."""
+    return (
+        "No Pixfaro key set, so I can't edit the image for you.\n"
+        "Re-generate or edit it yourself, then paste the new URL.\n\n"
+        "Edit instruction:\n"
+        f"{instruction}"
+    )
+
+
+def _image_result(data: dict, model: str) -> dict[str, Any]:
+    """Shape a Pixfaro generate/edit response + attach the cost-guard flag."""
+    balance = data.get("balance_after")
+    low = False
+    try:
+        low = balance is not None and float(balance) < LOW_BALANCE_USD
+    except (TypeError, ValueError):
+        low = False
+    return {
+        "backend": "pixfaro",
+        "url": data.get("url"),
+        "id": data.get("id"),
+        "cost": data.get("cost"),
+        "model": model,
+        "balance_after": balance,
+        "low_balance": low,
+    }
+
+
 def illustrate(
     prompt: str,
     kind: str = "post",
@@ -392,7 +429,7 @@ def illustrate(
         aspect_ratio: Explicit "w:h" override (wins over `kind`).
         model: Pixfaro model id. Defaults to nano-banana-2 (balanced). Use
             gemini-flash-lite for cheap high volume, gemini-pro-image for
-            text-heavy premium.
+            text-heavy premium (PREMIUM_MODELS bill more - ask before using).
         resolution: "1K" | "2K" | "4K".
         overlay: Pixel-exact branding composite {text|logo_id, position,
             opacity, font, color}. Feed brand fields from the Voice & Brand
@@ -400,7 +437,8 @@ def illustrate(
             cheap base model (it is composited, not model-generated).
 
     Returns:
-        - pixfaro: {"backend": "pixfaro", "url", "cost", "id", "model"}.
+        - pixfaro: {"backend": "pixfaro", "url", "id", "cost", "model",
+          "balance_after", "low_balance"}. Keep `id` to `refine()` later.
         - manual:  {"backend": "manual", "message": <prompt block>}.
     """
     ar = aspect_ratio or ILLUSTRATION_ASPECTS.get(kind, "1:1")
@@ -419,13 +457,59 @@ def illustrate(
         overlay=overlay,
         force_refresh=kwargs.get("force_refresh", False),
     )
-    return {
-        "backend": "pixfaro",
-        "url": data.get("url"),
-        "cost": data.get("cost"),
-        "id": data.get("id"),
-        "model": used_model,
-    }
+    return _image_result(data, used_model)
+
+
+def refine(
+    image_id: str,
+    instruction: str,
+    *,
+    model: Optional[str] = None,
+    aspect_ratio: Optional[str] = None,
+    resolution: Optional[str] = None,
+    overlay: Optional[dict[str, Any]] = None,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    """Iteratively edit a prior illustration by its `id` (not URL).
+
+    Pass the `id` returned by `illustrate()` (or a previous `refine()`) plus a
+    natural-language `instruction` ("make the sky darker", "swap the headline").
+    Cheaper and more on-brand than regenerating. Omit `aspect_ratio`/`resolution`
+    to keep the source shape and billing tier.
+
+    Returns the same shape as `illustrate()` (pixfaro) or a manual message.
+    """
+    if image_backend() == "manual":
+        return {"backend": "manual", "message": manual_edit_message(instruction)}
+
+    from .pixfaro_client import PixfaroClient
+
+    client = PixfaroClient()
+    used_model = model or "nano-banana-2"
+    data = client.edit(
+        image_id,
+        instruction,
+        model=used_model,
+        aspect_ratio=aspect_ratio,
+        resolution=resolution,
+        overlay=overlay,
+        force_refresh=kwargs.get("force_refresh", False),
+    )
+    return _image_result(data, used_model)
+
+
+def available_models() -> Optional[list[dict[str, Any]]]:
+    """Live Pixfaro model catalog (id, best_for, latency, price tiers), or None
+    in manual mode / on error. Use this to show current pricing instead of
+    hard-coding it."""
+    if image_backend() == "manual":
+        return None
+    from .pixfaro_client import PixfaroClient
+
+    try:
+        return PixfaroClient().list_models()
+    except Exception:
+        return None
 
 
 if __name__ == "__main__":

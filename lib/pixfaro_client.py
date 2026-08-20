@@ -144,6 +144,58 @@ class PixfaroClient:
         return data
 
     @_retry()
+    def edit(
+        self,
+        image_id: str,
+        instruction: str,
+        *,
+        model: str = DEFAULT_MODEL,
+        aspect_ratio: Optional[str] = None,
+        resolution: Optional[str] = None,
+        overlay: Optional[dict[str, Any]] = None,
+        force_refresh: bool = False,
+    ) -> dict[str, Any]:
+        """Iteratively edit a prior generation. Returns {id, url, cost, ...}.
+
+        `image_id` must be the `img_...` id returned by a previous `generate`
+        (or `edit`) call - hosted URLs are NOT accepted as the source. Omitting
+        `aspect_ratio` keeps the source shape; omitting `resolution` inherits
+        (and bills at) the source tier. Cheaper and more consistent than
+        regenerating from scratch when the user wants "make the sky darker".
+        """
+        if not image_id or not str(image_id).startswith("img_"):
+            raise PixfaroError(
+                "edit requires a source image id (img_...) from a prior "
+                "generation; hosted URLs are not accepted"
+            )
+        if not instruction or not instruction.strip():
+            raise PixfaroError("instruction cannot be empty")
+        if len(instruction) > 4000:
+            raise PixfaroError("instruction exceeds 4000 characters")
+
+        payload: dict[str, Any] = {
+            "model": model,
+            "image": image_id,
+            "instruction": instruction,
+        }
+        if aspect_ratio:
+            payload["aspect_ratio"] = aspect_ratio
+        if resolution:
+            payload["resolution"] = resolution
+        if overlay:
+            payload["overlay"] = overlay
+
+        key = "edit:" + json.dumps(payload, sort_keys=True)
+        if not force_refresh:
+            cached = self._cache_get(key)
+            if cached is not None:
+                return cached
+
+        data = self._post("/images/edits", payload)
+        self._cache_put(key, data)
+        return data
+
+    @_retry()
     def list_models(self) -> list[dict[str, Any]]:
         """GET /v1/models — live model catalog + per-tier pricing."""
         url = f"{BASE_URL}/models"
