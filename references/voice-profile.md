@@ -52,3 +52,14 @@ writing skills mirror the rhythm and word choice of these, not a generic voice.
 -
 -
 -
+
+## 6. Brand assets (for illustrations)
+
+Used by the illustration step (`lib.illustrate`) to keep every generated image
+on-brand via a pixel-exact overlay. All optional; leave blank to skip the overlay.
+
+- Handle to stamp on images: (e.g. @yourname)
+- Brand color (hex): (e.g. #0A66C2)
+- Logo: (path or Pixfaro `logo_id`, if you have one)
+- Overlay position: (e.g. bottom-right)
+- Visual style default: (e.g. minimal flat vector; bold editorial; muted photo)

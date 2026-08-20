@@ -325,8 +325,112 @@ def repost(
     return publish("reshare", commentary or "", post_url, **kwargs)
 
 
+# ─────────────────────────────────────────────────────────────────
+# IMAGE LAYER (Pixfaro) — the third integration alongside read (Apify)
+# and write (Publora). Generate an illustration, get a hosted URL, hand
+# that URL straight to `publish(..., media_urls=[url])`.
+# ─────────────────────────────────────────────────────────────────
+
+PIXFARO_SIGNUP_URL = "https://pixfaro.com"
+
+# kind -> aspect_ratio (w:h). Callers can override with aspect_ratio=.
+ILLUSTRATION_ASPECTS = {
+    "post": "1:1",         # generic square feed image
+    "square": "1:1",
+    "portrait": "4:5",     # LinkedIn/IG feed portrait
+    "carousel": "4:5",     # carousel/document slide
+    "quote": "4:5",        # quote-card
+    "wide": "1200:628",    # link-preview / OG image (~1.91:1)
+    "link": "1200:628",
+    "thumbnail": "16:9",   # YouTube thumbnail
+    "landscape": "16:9",
+    "story": "9:16",       # story / TikTok cover
+    "cover": "9:16",
+}
+
+
+def image_backend() -> Literal["pixfaro", "manual"]:
+    """`pixfaro` when PIXFARO_TOKEN (or PIXFARO_API_KEY) is set, else `manual`."""
+    if os.getenv("PIXFARO_TOKEN") or os.getenv("PIXFARO_API_KEY"):
+        return "pixfaro"
+    return "manual"
+
+
+def manual_illustration_message(prompt: str, aspect_ratio: str) -> str:
+    """Shown when no Pixfaro key is set: hand the drafted prompt to the user."""
+    return (
+        "No Pixfaro key set, so I can't generate the image for you.\n"
+        f"Generate it yourself (any tool) at {aspect_ratio}, then paste the URL "
+        "and I'll attach it to the post.\n\n"
+        "Image prompt:\n"
+        f"{prompt}\n\n"
+        f"Tip: a Pixfaro key ({PIXFARO_SIGNUP_URL}) lets me generate + attach "
+        "the illustration in one step, with your brand handle/color overlaid."
+    )
+
+
+def illustrate(
+    prompt: str,
+    kind: str = "post",
+    *,
+    aspect_ratio: Optional[str] = None,
+    model: Optional[str] = None,
+    resolution: str = "1K",
+    overlay: Optional[dict[str, Any]] = None,
+    **kwargs: Any,
+) -> dict[str, Any]:
+    """Generate an illustration via the active image backend.
+
+    This is the image analogue of `publish()`. On success with a Pixfaro key it
+    returns the hosted URL, which you pass straight to
+    `publish("post", text, url, media_urls=[result["url"]])`.
+
+    Args:
+        prompt: The image description (1-4000 chars).
+        kind: Semantic size hint mapped via ILLUSTRATION_ASPECTS
+            (post/portrait/carousel/quote/wide/thumbnail/story/cover).
+        aspect_ratio: Explicit "w:h" override (wins over `kind`).
+        model: Pixfaro model id. Defaults to nano-banana-2 (balanced). Use
+            gemini-flash-lite for cheap high volume, gemini-pro-image for
+            text-heavy premium.
+        resolution: "1K" | "2K" | "4K".
+        overlay: Pixel-exact branding composite {text|logo_id, position,
+            opacity, font, color}. Feed brand fields from the Voice & Brand
+            Profile so every asset is on-brand. Text here is crisp even on a
+            cheap base model (it is composited, not model-generated).
+
+    Returns:
+        - pixfaro: {"backend": "pixfaro", "url", "cost", "id", "model"}.
+        - manual:  {"backend": "manual", "message": <prompt block>}.
+    """
+    ar = aspect_ratio or ILLUSTRATION_ASPECTS.get(kind, "1:1")
+    if image_backend() == "manual":
+        return {"backend": "manual", "message": manual_illustration_message(prompt, ar)}
+
+    from .pixfaro_client import PixfaroClient
+
+    client = PixfaroClient()
+    used_model = model or "nano-banana-2"
+    data = client.generate(
+        prompt,
+        model=used_model,
+        aspect_ratio=ar,
+        resolution=resolution,
+        overlay=overlay,
+        force_refresh=kwargs.get("force_refresh", False),
+    )
+    return {
+        "backend": "pixfaro",
+        "url": data.get("url"),
+        "cost": data.get("cost"),
+        "id": data.get("id"),
+        "model": used_model,
+    }
+
+
 if __name__ == "__main__":
     print(f"Active backend: {active_backend()}")
+    print(f"Image backend:  {image_backend()}")
     if active_backend() == "manual":
         print("\nExample manual message:")
         print("-" * 60)
