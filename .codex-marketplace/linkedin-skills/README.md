@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://shared.co.actor/img/linkedin-skills-hero.jpg" alt="10 Claude Code and Codex skills for LinkedIn marketing — open source, MIT licensed" width="900" />
+  <img src="assets/linkedin-skills-hero.png" alt="11 Claude Code and Codex skills for LinkedIn marketing — open source, MIT licensed" width="900" />
 </p>
 
 # LinkedIn Marketing Skills for Claude Code and Codex
