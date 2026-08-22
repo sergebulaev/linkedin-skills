@@ -79,10 +79,26 @@ generation. Chain it as many times as needed.
   flag is True when a premium-priced model was used - confirm that was intended.
 - `lib.available_models()` returns live pricing/latency when you need to show it.
 
+## Multi-image grid (LinkedIn, up to 10)
+
+LinkedIn posts can carry up to 10 images in a grid layout (not a swipeable
+carousel, which the API does not support). Generate a set and attach them all:
+
+```python
+from lib import illustrate_set, publish
+shots = illustrate_set(["scene A prompt", "scene B prompt", "scene C prompt"],
+                       kind="wide", overlay={"text": "@handle", "color": "#0A66C2"})
+urls = [s["url"] for s in shots if s.get("url")]
+publish("post", draft_text, target_url, media_urls=urls)
+```
+
+`illustrate_set` takes 2-10 prompts and returns a list of `illustrate()` results
+in order. LinkedIn cannot mix images with video in one post.
+
 ## Hard rules
 
-- One image per request (`n>1` is unsupported); for a carousel, generate slides
-  one prompt at a time.
+- One image per request (`n>1` is unsupported); for a multi-image grid, use
+  `illustrate_set` (it generates one prompt at a time under the hood).
 - Keep real words in the `overlay`, not baked into the prompt art.
 - Respect the user's cost: default to the cheap model + 1K resolution unless asked.
 - Never attach an image the user has not seen and approved.

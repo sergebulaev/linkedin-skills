@@ -481,6 +481,32 @@ def illustrate(
     return _image_result(data, used_model)
 
 
+LINKEDIN_MAX_IMAGES = 10  # LinkedIn multi-image grid cap (swipeable carousels are API-unsupported)
+
+
+def illustrate_set(prompts, **kwargs) -> list[dict[str, Any]]:
+    """Generate several illustrations for a LinkedIn multi-image grid post.
+
+    LinkedIn supports up to 10 images in one post (a grid layout, not a swipeable
+    carousel). Pass 2-10 prompts; get back a list of `illustrate()` results in
+    order. Collect the pixfaro URLs and attach them all in one publish:
+
+        shots = illustrate_set([p1, p2, p3], kind="wide", overlay=brand)
+        urls = [s["url"] for s in shots if s.get("url")]
+        publish("post", text, target, media_urls=urls)
+
+    Each item is a normal `illustrate()` dict (pixfaro or manual). `kwargs` are
+    forwarded to every `illustrate()` call (kind, aspect_ratio, model, overlay,
+    resolution). Note LinkedIn cannot mix images with video in one post.
+    """
+    prompts = list(prompts)
+    if len(prompts) < 2:
+        raise ValueError("illustrate_set is for a 2-10 image grid; use illustrate() for a single image")
+    if len(prompts) > LINKEDIN_MAX_IMAGES:
+        raise ValueError(f"LinkedIn allows at most {LINKEDIN_MAX_IMAGES} images per post")
+    return [illustrate(p, **kwargs) for p in prompts]
+
+
 def refine(
     image_id: str,
     instruction: str,
