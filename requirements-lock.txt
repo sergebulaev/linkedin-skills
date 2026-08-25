@@ -2,7 +2,7 @@
 # (python3 -m venv + pip install -r requirements.txt + pip freeze)
 certifi==2026.7.22
 charset-normalizer==3.5.1
-idna==3.18
+idna==3.19
 python-dotenv==1.2.2
 requests==2.34.2
 urllib3==2.7.0
