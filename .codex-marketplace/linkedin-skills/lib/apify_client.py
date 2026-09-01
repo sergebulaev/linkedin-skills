@@ -4,7 +4,9 @@ Replaces the previous private HarvestAPI dependency. Each method wraps one
 public Apify actor and uses the run-sync-get-dataset-items endpoint, so the
 caller gets results back in a single HTTP request (no polling required).
 
-Auth: APIFY_TOKEN env var (or constructor arg).
+Auth: APIFY_TOKEN env var (or constructor arg), sent as an
+`Authorization: Bearer` header (never as a `?token=` query parameter, which
+would leak the credential into proxy logs and error traces).
 
 Actors used (all no-cookies, public, "$1-$5 per 1,000 results"):
   - apimaestro/linkedin-post-detail
@@ -277,14 +279,17 @@ class ApifyClient:
     def _do_request(
         self, actor_id: str, payload: dict[str, Any]
     ) -> Any:
-        url = (
-            f"{self.BASE_URL}/acts/{actor_id}/run-sync-get-dataset-items"
-            f"?token={self.token}"
-        )
+        # The token goes in the Authorization header, never the query string.
+        # A token in the URL leaks into proxy logs, shell history, error traces
+        # and Referer headers; a header does not.
+        url = f"{self.BASE_URL}/acts/{actor_id}/run-sync-get-dataset-items"
         r = self._session.post(
             url,
             json=payload,
-            headers={"Content-Type": "application/json"},
+            headers={
+                "Authorization": f"Bearer {self.token}",
+                "Content-Type": "application/json",
+            },
             timeout=self.timeout,
         )
         if r.status_code >= 400:

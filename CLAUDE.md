@@ -66,8 +66,11 @@ otherwise.
   overrides (char ranges, threading rules, format constraints) and start
   with: `Global voice rules: see root SKILL.md §Voice rules.`
 - Other root-level references shared across skills:
-  `references/hook-formulas.md` (16 canonical formulas) and
-  `references/algorithm-heuristics.md`.
+  `references/hook-formulas.md` (16 canonical formulas),
+  `references/algorithm-heuristics.md`, and
+  `references/untrusted-content.md` (the data-not-instructions rule for every
+  skill that reads the Apify layer; keep the per-skill "Untrusted content"
+  sections pointing at it).
 - Skill-local references live in `skills/<skill>/references/`. Cite from
   the skill with bare `references/X.md`. Cite root from skills with
   `../../references/X.md`.
