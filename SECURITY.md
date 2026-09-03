@@ -35,8 +35,14 @@ disclosure decision within 14 days.
 - This bundle never ships hardcoded credentials. API tokens (Apify,
   Publora) are read from environment variables or `.env` files that are
   gitignored; see `.env.example`.
-- Scripts in `lib/` and `scripts/` perform HTTP calls only to the Apify
-  and Publora APIs and never execute shell commands built from remote
-  content.
+- Scripts in `lib/` and `scripts/` perform HTTP calls only to the Apify,
+  Publora and Pixfaro APIs, and never build a command from remote content.
+  One code path does execute a command: the optional Tier 2 "DIY" backend
+  runs whatever `LINKEDIN_SKILLS_CUSTOM_POSTER` names, via `subprocess`
+  with no shell. That variable is unset by default; anything able to write
+  it gains code execution on the next approved publish, so treat it as a
+  credential.
+- Content fetched from LinkedIn through the Apify read layer is untrusted
+  input to the agent. See `references/untrusted-content.md`.
 - Please do not test vulnerabilities against third-party services
   (LinkedIn, Apify, Publora) outside their own disclosure programs.
