@@ -1,11 +1,11 @@
 ---
 name: linkedin-marketing
-description: Plan, draft, audit, and publish LinkedIn posts and comments. Use when the user wants to write a viral LinkedIn post, draft a comment or reply on any LinkedIn post URL, audit a draft against 2026 algorithm heuristics, remove AI tells, extract hook formulas from viral posts, or plan a week of content. Powered by the Publora API for publishing. User provides post/comment URLs, skill drafts content, user approves, then publishes.
+description: Plan, draft, audit, and publish LinkedIn posts and comments. Use when the user wants to write a viral LinkedIn post, draft a comment or reply on any LinkedIn post URL, audit a draft against 2026 algorithm heuristics, remove AI tells, extract hook formulas from viral posts, plan a week of content, or draft a connection-request note and follow-up messages for one-to-one outreach. Powered by the Publora API for publishing. User provides post/comment URLs, skill drafts content, user approves, then publishes.
 ---
 
 # LinkedIn Marketing Skills
 
-A bundle of 11 focused skills for LinkedIn content ops in 2026, built for Claude Code and Codex. Each skill is single-purpose, follows the draft → approval → publish pattern, and uses the [Publora API](https://publora.com) for posting.
+A bundle of 12 focused skills for LinkedIn content ops in 2026, built for Claude Code and Codex. Each skill is single-purpose, follows the draft → approval → publish pattern, and uses the [Publora API](https://publora.com) for posting.
 
 ## When to use this bundle
 
@@ -20,6 +20,7 @@ A bundle of 11 focused skills for LinkedIn content ops in 2026, built for Claude
 - **Auditing / rewriting a LinkedIn profile** → use `linkedin-profile-optimizer`
 - **Running an employee advocacy program across a marketing team** → use `linkedin-employee-advocacy`
 - **Adapting content from another platform (tweet, video, blog) into a native LinkedIn post** → use `linkedin-repurposer`
+- **Reaching one person directly (connection-request note, follow-up after they accept)** → use `linkedin-outreach`
 
 ## Founders edition
 
@@ -38,6 +39,8 @@ Every action-taking skill follows three steps:
 1. **Parse the input.** User provides a LinkedIn URL (post or comment). The skill uses `lib/url_parser.py` to extract the post URN and any comment ID.
 2. **Draft the content.** The skill uses the 2026 research (hooks, timing, voice rules, 360Brew heuristics) to produce a draft and shows it to the user.
 3. **Wait for approval.** The user replies with "post", "yes", or suggests edits. Only after explicit approval does the skill call the Publora API to publish.
+
+`linkedin-outreach` is the exception to step 3: LinkedIn has no API for connection requests or direct messages, so it stops at the approved draft and the user sends it by hand.
 
 ## Prerequisites
 

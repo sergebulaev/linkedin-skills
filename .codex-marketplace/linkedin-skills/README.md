@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/linkedin-skills-hero.png" alt="11 Claude Code and Codex skills for LinkedIn marketing — open source, MIT licensed" width="900" />
+  <img src="assets/linkedin-skills-hero.png" alt="12 Claude Code and Codex skills for LinkedIn marketing — open source, MIT licensed" width="900" />
 </p>
 
 # LinkedIn Marketing Skills for Claude Code and Codex
@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/PRs-welcome-F59E0B.svg" alt="PRs Welcome">
 </p>
 
-**Claude skills for LinkedIn.** 11 Claude Code and Codex skills that write LinkedIn posts, comments, and replies in your voice. They draft content, strip AI tells, and wait for your approval before anything gets published. No coding required.
+**Claude skills for LinkedIn.** 12 Claude Code and Codex skills that write LinkedIn posts, comments, and replies in your voice. They draft content, strip AI tells, and wait for your approval before anything gets published. No coding required.
 
 > **On another platform too?** The same team ships matching marketing skill bundles for [X (Twitter)](https://github.com/sergebulaev/x-skills) · [Instagram](https://github.com/sergebulaev/instagram-skills) · [YouTube](https://github.com/sergebulaev/youtube-skills) · [TikTok](https://github.com/sergebulaev/tiktok-skills) · [Threads](https://github.com/sergebulaev/threads-skills) · [Facebook](https://github.com/sergebulaev/facebook-skills). Same voice engine, same approve-before-publish flow.
 
@@ -131,9 +131,12 @@ Once installed, just ask Claude Code or Codex for help with LinkedIn. The right 
 **Remove AI tells from any text:**
 > "Humanize this text: [paste AI-generated draft]"
 
+**Reach someone directly:**
+> "Write a connection-request note for this recruiter, and a follow-up for after they accept."
+
 Every skill shows you a draft first and waits for your OK before doing anything. Nothing gets posted without your approval.
 
-## The 11 skills
+## The 12 skills
 
 | Skill | What it does |
 |---|---|
@@ -148,6 +151,7 @@ Every skill shows you a draft first and waits for your OK before doing anything.
 | **Profile Optimizer** | Rewrites your headline, About section, Featured section, and Experience for 2026 conversion patterns |
 | **Employee Advocacy** | Plans a team LinkedIn program: 14-day launch, posting cadence, brand governance, ROI tracking |
 | **Repurposer** | Turns content from another platform (tweet, thread, YouTube video, blog, newsletter) into a native LinkedIn post: re-hooks for the fold, expands to the 900-1300 char sweet spot, moves links to the first comment, runs the humanizer |
+| **Outreach** | Drafts personalized connection-request notes (300-char cap) and multi-step follow-up messages for one-to-one outreach to recruiters, hiring managers, prospects, and peers. Draft only, you send it (LinkedIn has no invite or DM API). Ships 10 note templates and 3 follow-up cadences with stop rules |
 
 ## Built for founders
 

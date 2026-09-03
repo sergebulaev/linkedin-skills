@@ -5,14 +5,14 @@
     "url": "https://github.com/sergebulaev"
   },
   "metadata": {
-    "description": "Claude Code and Codex skills for LinkedIn growth: post writing, comment drafting, reply handler, hook extractor, humanizer (with bundled audit + AI-detector spread tester + emoji detector + rule explainer), profile optimizer, content planner, employee advocacy, thread monitor (author-reply tracking), engager analytics (likers/commenters ICP segmentation)."
+    "description": "Claude Code and Codex skills for LinkedIn growth: post writing, comment drafting, reply handler, hook extractor, humanizer (with bundled audit + AI-detector spread tester + emoji detector + rule explainer), profile optimizer, content planner, employee advocacy, thread monitor (author-reply tracking), engager analytics (likers/commenters ICP segmentation), outreach (connection-request notes + follow-up sequences)."
   },
   "plugins": [
     {
       "name": "linkedin-skills",
       "source": "./",
-      "description": "Bundle of 11 LinkedIn marketing skills for Claude Code and Codex with verified 2026 hook formulas, comment + reply templates that earn author replies, a unified humanizer (rewrite + `--mode audit` pre-publish check, plus bundled emoji-detector, detector-spread tester, rule-explainer sub-tools), profile rewriter, content planner, employee advocacy playbook, thread monitor (warm-reply window author-reply tracking), and engager analytics (likers + commenters ICP segmentation).",
-      "version": "1.0.26",
+      "description": "Bundle of 12 LinkedIn marketing skills for Claude Code and Codex with verified 2026 hook formulas, comment + reply templates that earn author replies, a unified humanizer (rewrite + `--mode audit` pre-publish check, plus bundled emoji-detector, detector-spread tester, rule-explainer sub-tools), profile rewriter, content planner, employee advocacy playbook, thread monitor (warm-reply window author-reply tracking), engager analytics (likers + commenters ICP segmentation), and outreach (connection-request notes + accepted-but-silent follow-up sequences).",
+      "version": "1.0.27",
       "author": {
         "name": "Serge Bulaev",
         "url": "https://github.com/sergebulaev"
