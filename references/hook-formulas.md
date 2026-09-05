@@ -1,6 +1,6 @@
 # 20 LinkedIn Hook Formulas — 2026 Edition
 
-Each formula has a skeleton, why it works, and a reference engagement multiplier from the original post that defined it. Canonical draft filenames (e.g. `01-platform-risk-anaphora.md`) refer to the curator's private notebook of source posts and are NOT shipped in this public repo. The skeletons + reference posts below are sufficient to apply each formula.
+Each formula has a skeleton, why it works, and a reference engagement multiplier from the original post that defined it. Canonical draft labels (e.g. `01-platform-risk-anaphora`) refer to the curator's private notebook of source posts and are NOT shipped in this public repo. The skeletons + reference posts below are sufficient to apply each formula.
 
 F1-F10 are the original long-form thought-leadership set. F11-F16 were validated in 2026 against a large corpus of above-average performers across 10 verticals; they skew shorter and more emotional, and each is tagged with its primary engagement goal (comments / reposts / likes / saves). F17-F20 are **structural formulas**: they shape the *logic* of a post (a controlled comparison, a false binary, an evidence bridge, two diverging curves) rather than its topic, and they recur across the best-performing founder posts. Pick by goal first (see "Engagement-goal split" below), then by topic.
 
@@ -51,7 +51,7 @@ The headline finding: **98-100% of the top 100 human creators still use the flag
 
 ## F1 — Platform Risk Anaphora
 
-**Reference:** 4,240 eng. Canonical draft: `01-platform-risk-anaphora.md`.
+**Reference:** 4,240 eng. Canonical draft: `01-platform-risk-anaphora`.
 
 ```
 {Platform1} can {restrict|shadowban|throttle} you {timing}.
@@ -83,7 +83,7 @@ So I changed how I work:
 
 ## F2 — R.I.P. Category Obituary
 
-**Reference:** 3,822 eng. Canonical draft: `02-rip-obituary.md`.
+**Reference:** 3,822 eng. Canonical draft: `02-rip-obituary`.
 
 ```
 R.I.P. {category}.
@@ -116,7 +116,7 @@ The winners in 2026 aren't {old-winner-type}. They're {new-winner-type}.
 
 ## F3 — Year-over-Year Pivot
 
-**Reference:** 494 eng (3.74x baseline). Canonical draft: `03-year-over-year-pivot.md`.
+**Reference:** 494 eng (3.74x baseline). Canonical draft: `03-year-over-year-pivot`.
 
 ```
 In {last year}, I {humble benchmark}.
@@ -140,7 +140,7 @@ In {this year}, I'm {transformational goal}.
 
 ## F4 — Time-Anchor Confession
 
-**Reference:** 1,519+ eng. Canonical draft: `04-time-anchor-confession.md`.
+**Reference:** 1,519+ eng. Canonical draft: `04-time-anchor-confession`.
 
 ```
 {N} {days|months|years} ago, I stopped {behavior}.
@@ -170,7 +170,7 @@ What surprised me: [counterintuitive upside, specific wins]
 
 ## F5 — Self-Proving Meta
 
-**Reference:** 1,082 eng / 435 comments. Canonical draft: `05-self-proving-meta.md`.
+**Reference:** 1,082 eng / 435 comments. Canonical draft: `05-self-proving-meta`.
 
 ```
 Most LinkedIn posts die in the first 30 minutes.
@@ -199,7 +199,7 @@ If it's wrong, I owe you a post admitting it.
 
 ## F6 — Comment-Gate Lead Magnet
 
-**Reference:** 717-3,008 eng. Canonical draft: `06-comment-gate-leadmagnet.md`.
+**Reference:** 717-3,008 eng. Canonical draft: `06-comment-gate-leadmagnet`.
 
 ```
 [Authority number: "We've helped creators publish 47,000+ posts in 14 months"]
@@ -231,7 +231,7 @@ Free. No email wall. [Light scarcity — "48 hours only, I'll DM the link person
 
 ## F7 — Odd-Precision Money Ledger
 
-**Reference:** 1,755 eng (9.4x baseline). Canonical draft: `07-odd-precision-money.md`.
+**Reference:** 1,755 eng (9.4x baseline). Canonical draft: `07-odd-precision-money`.
 
 ```
 {Odd, specific dollar number — "$873.47"}
@@ -259,7 +259,7 @@ Here is every line item, from the ledger, nothing rounded:
 
 ## F8 — Paid-vs-Free Reversal
 
-**Reference:** 550 eng (19.64x baseline, highest multiplier in the set). Canonical draft: `08-paid-vs-free-reversal.md`.
+**Reference:** 550 eng (19.64x baseline, highest multiplier in the set). Canonical draft: `08-paid-vs-free-reversal`.
 
 ```
 I charge {audience} $X for {service}.
@@ -288,7 +288,7 @@ That's the {framework}. Run it today. Most {audience} find 3 fixes in the first 
 
 ## F9 — Curiosity-Gap Teaser
 
-**Reference:** 306 eng (4.25x baseline). Canonical draft: `09-curiosity-gap-teaser.md`.
+**Reference:** 306 eng (4.25x baseline). Canonical draft: `09-curiosity-gap-teaser`.
 
 ```
 Yesterday, our {system} did something.
@@ -314,7 +314,7 @@ Something we didn't program it to do.
 
 ## F10 — Contrarian + Historical Receipts
 
-**Reference:** 3,083 eng. Canonical draft: `10-contrarian-historical.md`.
+**Reference:** 3,083 eng. Canonical draft: `10-contrarian-historical`.
 
 ```
 {Sacred cow} has been dying since {year}.

@@ -92,7 +92,7 @@ pip install -r requirements.txt
 ## Related skills
 
 - `linkedin-humanizer` — rewrites text after a high score (or before, defensively)
-- `sub-skills/post-audit.md` (sibling) — pre-publish check that catches AI tells without relying on detectors
+- `post-audit.md` (sibling) — pre-publish check that catches AI tells without relying on detectors
 
 ## What this skill is not
 

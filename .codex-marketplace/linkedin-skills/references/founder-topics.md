@@ -363,7 +363,7 @@ design partners. Map each pillar to the angles above.
 | **The math** (how a founder actually decides) | 15-20% | A4 Scarce-Shots, A10 Learning Gate | comments |
 | **Proof** (relationships and wins, told narrowly) | 10-15% | A2 Content-to-Pipeline, A3 Audience of One | likes / saves |
 
-Guardrails carry over from `pillars-framework.md`: 3-5 posts/week, no pillar
+Guardrails carry over from `../skills/linkedin-content-planner/references/pillars-framework.md`: 3-5 posts/week, no pillar
 above 60%, no formula repeated inside 7 days, and spread the primary goal across
 the week so it never reads as engineered.
 

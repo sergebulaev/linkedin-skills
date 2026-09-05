@@ -100,5 +100,5 @@ Default mode is between the two: flag if score >20.
 ## Related skills
 
 - `linkedin-humanizer` — runs after emoji detector to scrub AI vocabulary and rhythm
-- `sub-skills/post-audit.md` (sibling) — broader pre-publish check (calls this internally)
+- `post-audit.md` (sibling) — broader pre-publish check (calls this internally)
 - `linkedin-post-writer` — generates drafts that already avoid AI-pattern emojis
