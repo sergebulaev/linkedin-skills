@@ -28,7 +28,7 @@ Not for a blank-page draft (use `linkedin-post-writer`) and not for reviewing a 
 4. **Expand to LinkedIn length.** X compresses; LinkedIn breathes. Grow the spine into the 900 to 1300 char sweet spot: short paragraphs, double line breaks between ideas, one concrete detail per beat. A dense tweet becomes 4 to 6 short paragraphs, not a wall.
 5. **Add the LinkedIn shape.** Whitespace between ideas, a moment of real stakes or vulnerability (pure-insight posts do not land in 2026), and one clear closing question or CTA.
 6. **Fix links and artifacts.** Move any external link to the first comment (in-body links suppress reach). Strip off-platform artifacts: hashtag walls, "link in bio", "smash subscribe", X @-handles, "as I tweeted" throat-clearing. 0 to 2 hashtags at the end.
-7. **Humanizer pass.** Run the scrub: em dashes, AI vocab, rule-of-three, generic openers. Keep the user's real numbers and named entities from the source.
+7. **Humanizer pass.** Run the scrub: 2026 AI vocab by density, em dashes above the cap (about one per 100 words), stacked rule-of-three triads, generic openers and reveal bridges. Keep the user's real numbers and named entities from the source.
 8. **Approval card.** Show: source -> LinkedIn mapping (what became what), formula used, char count, suggested posting window (Tue/Wed/Thu 7:30 to 9:00 AM local), the link-in-first-comment note.
 9. **On approval.** Publish via `lib.publish(kind="post", draft_text=<approved>, target_url="https://www.linkedin.com/post/new/", platforms=[{"platform":"linkedin","platformId":<id>}], scheduled_time=<iso_or_None>)`. The wrapper handles Publora / manual / diy routing.
 
@@ -57,7 +57,7 @@ Global voice rules: see root `SKILL.md` §Voice rules. Additional skill-specific
 - Keeping the source platform's artifacts ("link in bio", "smash subscribe", hashtag walls).
 - Shipping a tweet-length post with no whitespace or expansion.
 - All-caps first line ("THIS CHANGED EVERYTHING").
-- Em dashes anywhere.
+- Em dashes above the cap (more than about one per 100 words), or an em dash swapped for a period.
 - Rule-of-three lists without receipts.
 - "leverage", "fundamentally", "game-changer", "deep dive".
 - External links in the body.

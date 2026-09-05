@@ -21,7 +21,7 @@ A LinkedIn post URL in any of the standard shapes (see the top-level `SKILL.md` 
 ## Output
 
 1-3 draft comment variants, each with:
-- 200-350 char body, 1-2 short paragraphs, no em dashes, no hashtags
+- 200-350 char body, 1-2 short paragraphs, em dashes capped (about one per 100 words), no hashtags
 - Assigned reaction type: `LIKE`, `PRAISE`, `EMPATHY`, `INTEREST`, `APPRECIATION`, or `ENTERTAINMENT`
 - Pattern label (which of the 7 templates was used)
 - Estimated engagement fit based on what the author typically responds to
@@ -36,7 +36,7 @@ Then waits for user approval. On "post", calls Publora to react + comment.
 2. **Fetch the post body.** If `APIFY_TOKEN` is set, call `lib.ApifyClient.fetch_post(url)` for the post body and `fetch_post_comments(post_id=..., max_items=10)` for the top existing comments (so your draft doesn't duplicate an existing take). Both actors are no-cookies and cost roughly $0.001 + $0.005 per call on the Apify free tier. If `APIFY_TOKEN` is not set, ask the user to paste the post text and (optionally) top comments.
 3. **Detect the author's closing question.** If the post ends with a "?" line, the Answer-the-Closing-Question template usually wins.
 4. **Draft comment variants.** Pick 2-3 templates from `references/comment-templates.md` that fit the post's topic. Fill them with user-voice phrasing.
-5. **Run the humanizer pass.** Strip em dashes, AI vocab, uniform sentence rhythm. Add a specific number or named entity if missing.
+5. **Run the humanizer pass.** Scrub 2026 AI vocab by paragraph density, cap em dashes (about one per 100 words, never swap one for a period), fix only machine-flat rhythm without manufacturing variance, and add an odd-precision number with a named referent if missing. Canonical rules: `linkedin-humanizer` V3.
 6. **Present drafts for approval** using `lib.approval.render_approval_card`. Include: target URL, each variant, reaction suggestion, a one-line "why this template fits".
 7. **On approval.** Call `lib.publish(kind="comment", draft_text=<approved>, target_url=<post_url>, post_urn=<urn>, platform_id=<id>, reaction_type=<chosen>)`. The wrapper handles Publora / manual / diy routing.
 
@@ -52,7 +52,7 @@ this when the ask is "repost", "reshare", or "share this with my network".
    user the author disabled resharing and stop.
 2. **Draft the commentary** (optional). Keep it to one or two sentences in the
    user's voice: a genuine take, endorsement, or the reason this is worth a
-   colleague's time. Run the same humanizer pass (no em dashes, no AI vocab). A
+   colleague's time. Run the same humanizer pass (em dashes capped, no AI vocab). A
    plain reshare with no commentary is also valid; skip the draft if the user
    just wants to amplify.
 3. **Present for approval** with the original post URL and the drafted commentary

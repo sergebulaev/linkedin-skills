@@ -2,8 +2,8 @@
 
 ## Hard rules
 
-1. **No em dashes** (`—`), en dashes (`–`), or double dashes (`--`). Biggest AI tell.
-2. **Use `..` as soft pause** when you'd reach for an em dash. Feels human, matches the author's own rhythm.
+1. **Em dashes (`—`) capped at about 1 per 100 words** (so 0-1 in a comment, 1-2 in a post). The character is no longer a tell (2026 models use fewer than humans); the density is. Replace the excess with a comma, colon or parentheses, never a period. No en dashes (`–`) between clauses, no double dashes (`--`).
+2. **Use `..` as soft pause** when you'd reach for a second em dash. Feels human, matches the author's own rhythm.
 3. **Capitalize personal names, company names, product names** (HubSpot, Claude, etc.). Lowercase reads as disrespectful.
 4. **Sentence starts can be lowercase** (natural voice), but names inside are always capitalized.
 5. **Don't mention the user's own product by name** in comments on third-party posts. Describe what they do instead ("our AI content system", "the platform we're building").

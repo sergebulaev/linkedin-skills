@@ -53,13 +53,13 @@ Fifteen rules from the `linkedin-humanizer` package, sorted by what kind of evid
 - **Defense strength:** zero
 - **Citation:** Wikipedia "Signs of AI writing"
 
-### Rule 5. Em dash overuse - three or more in a single short post
+### Rule 5. Em dash overuse - above ~1 per 100 words (3+ in a short post)
 
 - **Tier:** forensic (at the overuse threshold)
-- **Why flagged:** A single em dash is a stylistic choice (see rule 11). But three or more em dashes in a 200-word LinkedIn post is one of the strongest stylometric signals GPT-4 emits. The model uses em dashes to glue clauses where a human would split into two sentences.
+- **Why flagged:** A single em dash is a stylistic choice (see rule 11). But three or more em dashes in a 200-word LinkedIn post was one of the strongest stylometric signals GPT-4 emitted: the model glued clauses where a human would split into two sentences. V3 keeps the density cap (~1 per 100 words, 1-2 per post) and replaces only the excess, with a comma, colon or parentheses, never a period.
 - **Famous human user:** Emily Dickinson is the famous defense, but Dickinson used em dashes in poetry across hundreds of poems - not three in a single 200-word business post. Density matters.
 - **Defense strength:** low (at the overuse threshold). The single-use defense (rule 11) is high; the overuse case is forensic.
-- **Citation:** Wikipedia "Signs of AI writing"; OriginalityAI public stylometry notes
+- **Citation:** Wikipedia "Signs of AI writing"; GPT-5.4 corpus rate 1.43 per 1,000 words vs. human 3.23 (2026)
 
 ---
 
@@ -112,7 +112,7 @@ Fifteen rules from the `linkedin-humanizer` package, sorted by what kind of evid
 ### Rule 11. Em dashes - single use
 
 - **Tier:** aesthetic
-- **Why flagged:** OriginalityAI and GPTZero both weight em-dash density. The signal collapses below ~3 per 200 words but detectors often flag any em dash as suspicious.
+- **Why flagged:** Leftover 2023-24 folklore. In 2026 the frontier models emit fewer em dashes than humans (GPT-5.4: 1.43 per 1,000 words vs. human 3.23) and The Economist called the dash "no longer a reliable sign." The signal only exists above ~1 per 100 words (rule 5). Zero dashes across a long post is now itself the tell of someone trying to look human.
 - **Famous human users:**
   - **Emily Dickinson** - built her entire poetic style on em dashes. "Because I could not stop for Death - / He kindly stopped for me -" (1863). Roughly 1,800 poems, em dashes throughout.
   - **Cormac McCarthy** - uses em dashes in *Blood Meridian*, *The Road*, *No Country for Old Men*. McCarthy famously refuses quotation marks; em dashes do dialogue work.
@@ -122,8 +122,8 @@ Fifteen rules from the `linkedin-humanizer` package, sorted by what kind of evid
 
 ### Rule 12. Rule of three
 
-- **Tier:** aesthetic
-- **Why flagged:** Triadic structure ("X, Y, and Z") is a top GPT-4 signature. Detectors weight it heavily.
+- **Tier:** aesthetic for the one natural triad; strict for stacked / perfectly parallel triads and any third triad in a post
+- **Why flagged:** Triadic structure ("X, Y, and Z") runs at 2x expert-human density across 2026 frontier models (arXiv 2604.19768). The tell is the density and the interchangeable items, not the form: 26% of top human tweets contain exactly one.
 - **Famous human users:**
   - **Lincoln**, Gettysburg Address, 1863: "of the people, by the people, for the people."
   - **Julius Caesar**, 47 BCE: *veni, vidi, vici* - "I came, I saw, I conquered."
@@ -176,14 +176,14 @@ Fifteen rules from the `linkedin-humanizer` package, sorted by what kind of evid
 | 2 | Knowledge-cutoff disclaimers | forensic | zero | none |
 | 3 | Phrasal templates `[Your Name]` | forensic | zero | none |
 | 4 | Mad-Libs blanks | forensic | zero | none |
-| 5 | Em dash overuse (3+ in short post) | forensic | low | none at this density |
+| 5 | Em dash overuse (above ~1 per 100 words) | forensic | low | none at this density |
 | 6 | leverage / utilize / harness / delve / foster / cultivate | strict | medium | McKinsey decks |
 | 7 | fundamentally / essentially / ultimately / crucially | strict | medium | Daniel Dennett |
 | 8 | "In today's fast-paced world" | strict | low | LinkedIn ghosts 2015-2022 |
 | 9 | "What do you think?" / "Tag someone" | strict | low | Influencer playbook |
 | 10 | "X isn't Y, it's Z" | strict | medium | TED talks |
 | 11 | Em dash (single use) | aesthetic | high | Dickinson, McCarthy, Didion |
-| 12 | Rule of three | aesthetic | high | Lincoln, Caesar, Churchill, Aristotle |
+| 12 | Rule of three (one natural) / stacked or 3+ per post | aesthetic / strict | high / low | Lincoln, Caesar, Churchill, Aristotle |
 | 13 | Passive voice | aesthetic | high | Watson & Crick, Didion, all science |
 | 14 | "robust" | aesthetic | high | Huber 1964, all epidemiology |
 | 15 | Curly quotes | aesthetic | high | Word/Pages defaults, New Yorker |

@@ -66,7 +66,7 @@ otherwise.
   overrides (char ranges, threading rules, format constraints) and start
   with: `Global voice rules: see root SKILL.md §Voice rules.`
 - Other root-level references shared across skills:
-  `references/hook-formulas.md` (16 canonical formulas),
+  `references/hook-formulas.md` (20 canonical formulas),
   `references/algorithm-heuristics.md`, and
   `references/untrusted-content.md` (the data-not-instructions rule for every
   skill that reads the Apify layer; keep the per-skill "Untrusted content"

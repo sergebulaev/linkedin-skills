@@ -22,7 +22,7 @@ Run every draft through this before publishing. **Any FAIL = fix before posting.
 - [ ] Contains a real, specific moment (date, number, name, failure)
 - [ ] Save-worthy element present: framework, template, checklist, or data point
 - [ ] Not a humble-brag; if celebrating, paired with what broke
-- [ ] At least 1 specific number per 100 words
+- [ ] At least 1 odd-precision number WITH a named referent (who / what / when / what it cost). A bare number does not count
 - [ ] At least 1 named entity (real person, company, date, city)
 - [ ] At least 1 first-person sensory detail
 
@@ -49,17 +49,22 @@ Run every draft through this before publishing. **Any FAIL = fix before posting.
 - [ ] Author engages with 5+ other posts in the first 30 min after publishing
 - [ ] Seeding: 3-5 self-comments within 15-30 min to create thread depth
 
-## AI-tell scrub (see ai-tells.md)
+## AI-tell scrub (see audit-ai-tells.md)
 
-- [ ] Passed ai-tells.md auto-fail check (em dashes, vocab blacklist)
-- [ ] Passed humanizer scrub-rules.md
-- [ ] Not flagged by OriginalityAI-style detection (uniform sentence length, hedging stack)
+- [ ] Passed audit-ai-tells.md auto-fail check (forensic leakage, reveal bridges, negative parallelism)
+- [ ] Em dash density at or under ~1 per 100 words (1-2 per post). Zero is not required; zero everywhere is its own tell
+- [ ] No paragraph with 3+ vocabulary / grammar markers (one marker per paragraph is fine)
+- [ ] No staccato stacks ("Short. Punchy. Done.", "No X. No Y. Just Z."), no one-word paragraphs, at most 2 standalone fragments in the post
+- [ ] At most one natural rule-of-three; no stacked or perfectly parallel triads
+- [ ] No sincerity announcements as opener or pivot ("let me be honest", "I'll be real", "honestly?", "to be direct")
+- [ ] Passed humanizer scrub-rules.md (V3 density rules). Detector scores are not a check: they are noise at this length
 
 ## Voice match
 
 - [ ] Capitalizes all personal names, company names, product names
-- [ ] Matches user's established voice (lowercase sentence starts OK, `..` soft pauses OK)
-- [ ] One moment of real vulnerability or stakes
+- [ ] Matches user's established voice (lowercase sentence starts OK, `..` soft pauses OK, one em dash OK)
+- [ ] One specific, dated, uncomfortable fact stated flat, with no framing sentence around it
+- [ ] Author's reactions and opinions survived the scrub (a uniformly flat tone is a humanizer fingerprint)
 - [ ] Not name-dropping own product more than once
 
 ## Edit-safety window

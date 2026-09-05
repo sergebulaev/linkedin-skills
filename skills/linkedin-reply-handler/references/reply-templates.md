@@ -75,6 +75,6 @@ if [scenario A], I'd answer [X]. if [scenario B], closer to [Y]. which side are 
 - 150-300 chars. Tighter than top-level comments.
 - Capitalize the counterpart's first name (sign of respect).
 - Lead with a word that's not "thanks" unless there's a specific reason to acknowledge the favor.
-- No em dashes. Use `..` for soft pauses.
+- Em dashes capped (a reply is short, so at most one); use `..` for soft pauses.
 - Single line-break between sentence 1 and sentence 2 for mobile scan.
 - Match reaction to the tone: APPRECIATION for earned compliments, INTEREST for intellectual engagement, EMPATHY for personal moments.

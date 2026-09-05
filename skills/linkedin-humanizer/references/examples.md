@@ -10,9 +10,9 @@
 >
 > **Diff:**
 > - FORENSIC: removed "As of my last update in January 2024" disclaimer
-> - FORENSIC: removed em dash overuse
-> - STRICT: removed "in today's fast-paced landscape" opener
-> - STRICT: removed "fundamentally", "leverage", "unlock"
-> - STRICT: removed "It's not just X, it's Y" negative parallelism, replaced with paired declaratives
-> - PASS 3: added specific number (35k) and named entity (LinkedIn)
-> - AESTHETIC was NOT applied — "robust" stays if it was actually there in source
+> - STRICT: paragraph scored 5 markers (fast-paced landscape, fundamentally, leverage, unlock, robust) = rewrite the paragraph, not word-by-word
+> - STRICT: removed "It's not just X, it's Y" negative parallelism (single-hit rule), replaced with paired declaratives
+> - PASS 1: the one em dash was under the cap (~1 per 100 words); it went only because the sentence around it was rewritten. It was not replaced with a period
+> - PASS 3: added a number with a referent (35k LinkedIn profiles, daily) from the user's own input; nothing fabricated, no hedge, no "let me be honest" frame
+> - PASS 4: two fragments in the output ("adoption is the easy part." "transformation is the actual work.") are within the 2-per-post cap and are paired declaratives, not a "The result?" reveal; left as is
+> - AESTHETIC was NOT applied

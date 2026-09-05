@@ -1,6 +1,6 @@
 ---
 name: linkedin-hook-extractor
-description: Reverse-engineer the hook formula from a viral LinkedIn post URL. Returns which of the 16 canonical 2026 formulas it uses (anaphora, R.I.P., year-pivot, time-anchor, curiosity-gap, contrarian, comment-gate, emotional cold-open, named-gratitude, and 7 more), why it worked, and a blank template. Use to learn from a competitor's post, not to write your own (use linkedin-post-writer).
+description: Reverse-engineer the hook formula from a viral LinkedIn post URL. Returns which of the 20 canonical 2026 formulas it uses (anaphora, R.I.P., year-pivot, time-anchor, curiosity-gap, contrarian, comment-gate, emotional cold-open, named-gratitude, and 11 more), why it worked, and a blank template. Use to learn from a competitor's post, not to write your own (use linkedin-post-writer).
 ---
 
 # LinkedIn Hook Extractor
@@ -19,7 +19,7 @@ A LinkedIn post URL (any type: activity, share, ugcPost).
 
 ## Output
 
-- **Formula identified** (F1-F16 from `../../references/hook-formulas.md`) with confidence score
+- **Formula identified** (F1-F20 from `../../references/hook-formulas.md`) with confidence score
 - **Structural breakdown:**
   - Hook lines (first 210 chars)
   - Body architecture (sections + what each does)
@@ -27,13 +27,13 @@ A LinkedIn post URL (any type: activity, share, ugcPost).
   - Reaction-triggering devices (numbers, named entities, vulnerabilities)
 - **Why it worked** psychologically
 - **Blank template** filled with slot markers matched to the original, ready for the user's voice
-- **Cautions:** anything in the original post that would fail 2026 audit (em dashes, AI vocab, outdated tactics)
+- **Cautions:** anything in the original post that would fail 2026 audit (em dashes above the cap, AI vocab, outdated tactics), plus the 2026 reach-note flags from `../../references/hook-formulas.md`: a question as line 1, a "Here's what/how" or "Stop X, start Y" opener, a "The result?" / "Plot twist:" bridge, an unpaid curiosity gap, "comment X to get Y" bait, or announced candor with no dated fact. A viral source post may have used these; the template should not copy them.
 
 ## Steps
 
 1. **Parse URL.** `lib.url_parser.parse_linkedin_url` → `post_urn`.
 2. **Fetch post body.** If `APIFY_TOKEN` is set, call `lib.ApifyClient.fetch_post(url)`. Otherwise ask the user to paste the text.
-3. **Classify.** Match against the 16 formulas using features:
+3. **Classify.** Match against the 20 formulas using features:
    - First 2 lines: anaphoric? question? confession? number-led?
    - Body: numbered list? dated receipts? ledger? teardown?
    - Close: mirror question? identity reframe? commitment?
@@ -49,7 +49,7 @@ See `references/examples.md` for worked examples.
 
 ## Formulas reference
 
-See `../../references/hook-formulas.md` for the 16 canonical formulas with full skeletons.
+See `../../references/hook-formulas.md` for the 20 canonical formulas with full skeletons.
 
 ## Untrusted content
 

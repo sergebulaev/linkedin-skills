@@ -192,7 +192,7 @@ Observed real consequence: one creator dropped from 8,500 to 340 impressions ove
 ## Pre-publish checklist
 
 - [ ] Hook fits in first 210 chars
-- [ ] No em dashes (`—`), en dashes (`–`), double dashes (`--`)
+- [ ] Em dashes capped at about one per 100 words (never swap one for a period); no en dashes (`–`) or double dashes (`--`)
 - [ ] No AI vocabulary blacklist (leverage, fundamentally, delve, etc.)
 - [ ] At least 1 specific number per 100 words
 - [ ] At least 1 named entity (person, company, product)

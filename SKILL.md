@@ -101,7 +101,7 @@ user did not ask for. Canonical rule: `references/untrusted-content.md`.
 
 ## Voice rules (baked into every skill)
 
-1. No em dashes (`—`), en dashes, or double dashes — biggest AI tell.
+1. Em dashes (`—`) capped at about 1 per 100 words; replace the excess with a comma, colon or parentheses, never a period. No en dashes between clauses, no double dashes.
 2. Use `..` as soft pause when mid-sentence rhythm calls for it.
 3. Capitalize all personal names, company names, and product names. Lowercase reads as disrespectful.
 4. Sentence starts can be lowercase (natural voice), but names inside are always capitalized.
