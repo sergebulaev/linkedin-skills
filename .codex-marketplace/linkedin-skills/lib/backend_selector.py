@@ -31,8 +31,13 @@ import shlex
 import subprocess
 from typing import Any, Literal, Optional
 
+from ._env import load_env
+
+load_env()
+
 BackendName = Literal["publora", "manual", "diy"]
 PublishKind = Literal["comment", "reply", "post", "reshare"]
+
 
 PUBLORA_SIGNUP_URL = "https://app.publora.com/signup"
 
