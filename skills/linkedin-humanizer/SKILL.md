@@ -62,7 +62,7 @@ linkedin-humanizer --mode audit <text>
 # Profile — build/update the user's Voice & Brand Profile so every writing
 # skill drafts in their real voice. Learns from 3-6 pasted posts (portable, no
 # token) or, if APIFY_TOKEN is set, from pulled activity. Writes
-# references/voice-profile.md. See sub-skills/voice-profile.md.
+# ../../references/voice-profile.md. See sub-skills/voice-profile.md.
 linkedin-humanizer --mode profile
 ```
 
@@ -141,7 +141,7 @@ See `references/examples.md` for worked examples.
 - `sub-skills/rules-explainer.md` — when to defend a flagged rule (em dash, rule of three, passive voice)
 - `sub-skills/emoji-detector.md` — scan / score / suggest workflow for emoji density
 - `sub-skills/detector-tester.md` — run text through 5 AI detectors in parallel and report disagreement
-- `sub-skills/voice-profile.md` — build/update the user's Voice & Brand Profile (`--mode profile`); the filled `references/voice-profile.md` is then read by every writing skill so drafts match the user's real voice
+- `sub-skills/voice-profile.md` — build/update the user's Voice & Brand Profile (`--mode profile`); the filled `../../references/voice-profile.md` is then read by every writing skill so drafts match the user's real voice
 - `scripts/test_detectors.py` — runs the parallel detector test (supports `--demo` for offline mode)
 - `scripts/requirements.txt` — Python deps for the detector script (`requests`, `python-dotenv`)
 - `scripts/detectors.env.example` — template for the 5 detector API keys

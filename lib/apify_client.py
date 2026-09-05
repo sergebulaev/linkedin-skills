@@ -39,6 +39,8 @@ from typing import Any, Optional
 
 import requests
 
+from ._env import load_env
+
 
 class ApifyError(RuntimeError):
     pass
@@ -88,7 +90,9 @@ class ApifyClient:
     )
 
     def __init__(self, token: Optional[str] = None, timeout: float = 180.0):
+        load_env()
         self.token = token or os.getenv("APIFY_TOKEN")
+
         if not self.token:
             raise ApifyError(
                 "APIFY_TOKEN not set. Export it or pass token= explicitly."

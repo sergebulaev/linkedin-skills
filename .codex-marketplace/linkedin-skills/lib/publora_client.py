@@ -26,6 +26,8 @@ from typing import Any, Optional
 
 import requests
 
+from ._env import load_env
+
 
 class PubloraError(RuntimeError):
     pass
@@ -67,7 +69,9 @@ class PubloraClient:
     BASE_URL = "https://api.publora.com/api/v1"
 
     def __init__(self, api_key: Optional[str] = None, timeout: float = 30.0):
+        load_env()
         self.api_key = api_key or os.getenv("PUBLORA_API_KEY")
+
         if not self.api_key:
             raise PubloraError(
                 "PUBLORA_API_KEY not set. Export it or pass api_key= explicitly."
