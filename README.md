@@ -159,6 +159,14 @@ If you are a founder, the bundle ships a dedicated founder layer. Your real cons
 
 Just tell the Post Writer you are a founder, or ask the Content Planner for a "founder plan," and the skills reach for these first.
 
+## Community skills
+
+Standalone skills built by other people on this bundle's conventions (same voice rules, same approval-card flow, same `Not for X (use Y)` disambiguation). They live in their authors' repos, so the core stays at 11 skills and one read/write pipeline. Install them next to this bundle the same way.
+
+- [linkedin-outreach](https://github.com/smfardeen7/linkedin-skills/tree/add-linkedin-outreach-skill/skills/linkedin-outreach) by [@smfardeen7](https://github.com/smfardeen7) - drafts 300-character connection-request notes (10 scenario templates) and post-accept follow-up sequences with day offsets and stop rules. Draft-only: LinkedIn has no invite or DM API, you paste and send.
+
+Built one? Open a PR that adds a single line here.
+
 ## Optional: read LinkedIn data with Apify
 
 Four of the skills (Comment Drafter, Reply Handler, Hook Extractor, Engagement Monitor) can read post bodies, comment threads, your own recent comments, and the people who liked or commented on any post. Without an Apify token they fall back to asking you to paste the relevant text. With one, they fetch automatically.
