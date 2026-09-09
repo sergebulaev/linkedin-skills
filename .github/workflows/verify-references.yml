@@ -13,7 +13,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check no credentials are tracked
         run: python3 scripts/check_no_secrets.py
       - name: Install YAML parser
