@@ -11,7 +11,7 @@ A bundle of 11 focused skills for LinkedIn content ops in 2026, built for Claude
 
 - **Writing a viral post** → use `linkedin-post-writer`
 - **Commenting on someone else's post** → use `linkedin-comment-drafter`
-- **Replying to a comment** (yours or someone else's) → use `linkedin-reply-handler`
+- **Replying to a comment** (yours or someone else's), or sweeping and replying to an entire comment thread from just the post URL → use `linkedin-reply-handler`
 - **Reviewing a draft before publishing, removing AI tells, scoring AI emoji density, defending a flagged rule, or running 5 AI detectors in parallel** → use `linkedin-humanizer` (rewrite + `--mode audit` pre-publish review; folds in the former post-audit, emoji-detector, rules-explainer, and detector-tester sub-tools)
 - **Extracting a hook formula from a viral post** → use `linkedin-hook-extractor`
 - **Planning a week of LinkedIn content** → use `linkedin-content-planner`

@@ -139,7 +139,7 @@ Every skill shows you a draft first and waits for your OK before doing anything.
 |---|---|
 | **Post Writer** | Drafts viral-ready posts using 20 proven 2026 hook formulas (anaphora, R.I.P. obituary, year-over-year pivot, curiosity gap, emotional cold-open, controlled A/B, false-binary, and 13 more) plus a founders-edition angle library, picked by engagement goal |
 | **Comment Drafter** | Drafts a comment on any LinkedIn post from its URL |
-| **Reply Handler** | Drafts a reply to any comment, correctly handling LinkedIn's 2-level thread flattening |
+| **Reply Handler** | Drafts a reply to any comment, correctly handling LinkedIn's 2-level thread flattening. Or give it just a post URL and it sweeps the whole thread — every top-level comment and reply — filters out low-value ones, and drafts the rest in one batch |
 | **Post Audit** | Checks your draft against 2026 algorithm rules and AI-detection patterns before you publish |
 | **Humanizer** | Removes the AI tells human readers and LinkedIn's slop filter react to: 2026 AI vocabulary scored by paragraph density, reveal bridges, staccato fragment stacks, stacked triads, performed sincerity; caps em dashes instead of banning them. Does not promise to beat detectors (no edit reliably does). Bundles three sub-tools: AI-emoji density scorer, multi-detector spread tester (GPTZero, Originality.ai, ZeroGPT, Sapling, Copyleaks) that documents how much they disagree, and a rule-explainer reference for defending stylistic choices. |
 | **Hook Extractor** | Reverse-engineers the hook formula from any viral post. Returns a blank template you can fill with your own topic |
