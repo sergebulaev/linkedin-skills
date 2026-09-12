@@ -132,7 +132,8 @@ DENSITY_PATTERNS = {
     "adverb_filler": r"(?i)\b(fundamentally|essentially|ultimately|arguably|certainly|definitely|undoubtedly)\b",
     "ing_opener": r"(?m)^[\s>*\-]*[A-Z][a-z]+ing\b[^.\n]{0,60},",
     "nominalisation": r"(?i)\bthe \w+(?:tion|sion|ment|ance|ence|ization|isation) of\b",
-    "linkedin_2026": r"(?i)\b(quietly|compound(s|ing)?|(a|the) signal|the work|built different|load-bearing|doing the heavy lifting)\b|(?m)^\w+ matters\.$",
+    "linkedin_2026": r"(?i)\b(quietly|compound(s|ing)?|(a|the) signal|the work|built different|load-bearing|doing the heavy lifting)\b",
+    "linkedin_2026_matters": r"(?im)^\w+ matters\.$",
     "decaying_2024": r"(?i)\b(delve|delving|tapestry|realm|intricate|journey|paradigm)\b",
 }
 
@@ -176,6 +177,12 @@ assert re.search(DENSITY_PATTERNS["vocab_verbs"], "We harnessed cross-functional
 assert re.search(DENSITY_PATTERNS["vocab_verbs"], "We fostered alignment.")
 assert re.search(DENSITY_PATTERNS["vocab_verbs"], "We unlocked 47% gains.")
 assert re.search(DENSITY_PATTERNS["ing_opener"], "Leveraging our data, we cut churn.")
+assert re.search(DENSITY_PATTERNS["linkedin_2026"], "The work quietly compounds.")
+assert re.search(DENSITY_PATTERNS["linkedin_2026_matters"], "Consistency matters.")
+# Inline (?i)/(?m) flags are only legal at position 0 from Python 3.11 on; a mid-pattern
+# flag raises re.error at import and takes the whole audit down before it scores anything.
+for _name, _pat in {**DENSITY_PATTERNS, **AI_PATTERNS}.items():
+    re.compile(_pat)
 assert re.search(AI_PATTERNS["closer_filler"], "What are your thoughts?")
 assert re.search(AI_PATTERNS["closer_filler"], "What's your take?")
 assert re.search(AI_PATTERNS["reveal_bridge"], "The result? We doubled.")
