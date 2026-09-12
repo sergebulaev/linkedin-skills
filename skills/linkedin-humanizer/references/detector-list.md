@@ -86,7 +86,9 @@ Five primary detectors plus optional extras. Each entry covers: API endpoint, au
 - **Web**: https://copyleaks.com/ai-content-detector
 - **API docs**: https://api.copyleaks.com/documentation/v3/writer-detector/submit
 - **Auth**: 2-step. POST to `/v3/account/login` with email + key, get bearer token, then POST to `/v2/writer-detector/{scanId}/check`.
-- **Returns**: `summary.ai` (0-100), per-paragraph breakdown.
+- **Returns**: `summary.ai`, which Copyleaks has documented both as a 0-1 probability and as a
+  0-100 percentage. `test_detectors.py` normalises either shape and rejects anything that still
+  falls outside 0-100. Per-paragraph breakdown alongside it.
 
 **Known issues:**
 - Adelphi University used Copyleaks-style detector output as the sole evidence in the case that became *Newby v. Adelphi University* (Oct 2025). Federal court ordered the violation expunged.
@@ -99,7 +101,8 @@ Five primary detectors plus optional extras. Each entry covers: API endpoint, au
 
 ## Optional / extended detectors
 
-These can be added via `--extra` flag. None have free APIs.
+None of these have a free API, so the script cannot call them. Run them by hand and enter the
+scores with `--manual`; there is no `--extra` flag.
 
 - **Turnitin AI Writing** — disabled by Vanderbilt, Cambridge, others. No public API; institutional only.
 - **Winston AI** — https://gowinston.ai. Paid only.

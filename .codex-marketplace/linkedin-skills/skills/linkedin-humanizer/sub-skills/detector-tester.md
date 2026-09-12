@@ -92,7 +92,7 @@ cat draft.txt | python3 scripts/test_detectors.py --stdin
 
 Most detectors gate their API behind paid plans. The script supports three modes:
 
-1. **API mode** — copy `.env.example` to `.env` and fill the keys you have (`GPTZERO_API_KEY`, `ORIGINALITY_API_KEY`, `ZEROGPT_API_KEY`, `SAPLING_API_KEY`, `COPYLEAKS_API_KEY` + `COPYLEAKS_EMAIL`). Detectors with valid keys run automatically; missing-key detectors are dropped from the report.
+1. **API mode** — copy `../scripts/detectors.env.example` to `.env` and fill the keys you have (`GPTZERO_API_KEY`, `ORIGINALITY_API_KEY`, `ZEROGPT_API_KEY`, `SAPLING_API_KEY`, `COPYLEAKS_API_KEY` + `COPYLEAKS_EMAIL`). Detectors with valid keys run automatically; missing-key detectors are dropped from the report.
 2. **Manual paste mode** (`--manual`) — opens each detector's web UI, prompts the user to paste the score back. Slower but free, and captures detectors with no API.
 3. **Demo mode** (`--demo`) — offline. Returns deterministic canned scores derived from a hash of the input. No API calls, no keys needed. Use to smoke-test the workflow or to demonstrate the divergence pattern without spending API credit.
 

@@ -263,33 +263,61 @@ NEG_PARALLEL_PATTERNS = [
 Tricolon runs at 2x expert-human density across 2026 frontier models (arXiv 2604.19768). The tell is the stacked or perfectly parallel triad and the repeat, not the form: 26% of top human tweets contain exactly one.
 
 ```python
+NO_NO_JUST = r"\b(no \w+)[,.] (no \w+)[,.] ((?:just|only) \w+)"   # "No X. No Y. Just Z." / "no X, no Y, just Z"
+
 def detect_triads(text: str) -> list:
     patterns = [
         r"(\w+), (\w+),? and (\w+)",                       # word triplets
         r"(\w+ \w+), (\w+ \w+),? and (\w+ \w+)",           # short-phrase triplets
         r"(?m)^(\w+)\. (\w+)\. (\w+)\.$",                  # "Simple. Effective. Easy." (also a Pass 2 staccato hit)
-        r"\b(no \w+)[,.] (no \w+)[,.] (just|only) \w+",    # "No X. No Y. Just Z." (also a Pass 2 hit)
+        NO_NO_JUST,                                        # staged construction, never a natural triad (also a Pass 2 hit)
     ]
     return [m for p in patterns for m in re.finditer(p, text, flags=re.I)]
 
+HOLLOW_ADJECTIVES = {"dynamic", "vibrant", "innovative", "faster", "cheaper", "better", "simple",
+                     "effective", "easy", "bold", "clear", "focused", "scalable", "powerful", "aesthetic"}
+ABSTRACT_NOUNS = {"growth", "impact", "value", "alignment", "innovation", "efficiency", "results", "success",
+                  "clarity", "freedom", "scale", "momentum", "consistency", "mindset", "strategy", "vision"}
+
+def hollow(t: "re.Match", text: str) -> bool:
+    """A triad is hollow when its items are interchangeable: every item is an abstract adjective or an
+    abstract noun, and none carries a receipt (a proper name, a number, a $ or %). Equal word counts are
+    NOT a tell on their own: "Stripe invoices, Vercel logs, and GitHub alerts" is a natural concrete triad.
+    Capitalization alone is never a receipt: a capital that opens a sentence ("Simple, effective, and easy",
+    "Simple. Effective. Easy.") is sentence case, not a name. A name is a capital that does NOT open a sentence."""
+    def opens_sentence(pos: int) -> bool:
+        return re.search(r"(?:^|[.!?\n])\s*$", text[:pos]) is not None
+    def has_receipt() -> bool:
+        for g in range(1, t.lastindex + 1):
+            pos = t.start(g)
+            for w in t.group(g).split():
+                if re.search(r"[0-9$%]", w):
+                    return True
+                if w[:1].isupper() and not opens_sentence(pos):
+                    return True
+                pos += len(w) + 1
+        return False
+    items = t.groups()
+    all_abstract = all(x.lower().strip() in HOLLOW_ADJECTIVES or x.lower().strip() in ABSTRACT_NOUNS
+                       or x.lower().split()[-1] in ABSTRACT_NOUNS for x in items)
+    return (not has_receipt()) and all_abstract
+
 def triad_action(triads: list, text: str) -> list:
-    """STRICT: scrub any triad whose three items are interchangeable or perfectly parallel
-    (same part of speech, same length, no receipts), and every triad beyond the second in a post.
-    Leave ONE natural triad with concrete, non-interchangeable items.
-    AESTHETIC: scrub the last remaining one too."""
+    """Call once per post with that post's triads (from detect_triads(text)). Scrub any hollow triad on
+    sight. Natural (concrete, non-interchangeable) triads are a density call, on the SAME threshold the audit
+    uses: one or two pass; at 3+ triads in the post scrub down to the FIRST natural one. Rewrite mode is
+    never harsher than audit mode. Threads are not pooled: the threshold is per post."""
     actions = []
-    for i, t in enumerate(triads):
-        items = t.groups()
-        parallel = len(set(len(x.split()) for x in items)) == 1
-        hollow = all(x.lower() in HOLLOW_ADJECTIVES for x in items) if len(items) == 3 else False
-        if parallel or hollow or i >= 2:
+    over_density = len(triads) >= 3
+    kept_one = False
+    for t in triads:
+        staged = t.re.pattern == NO_NO_JUST          # "no X, no Y, just Z" is a staged tell in either punctuation, always rewritten
+        if hollow(t, text) or staged or (over_density and kept_one):
             actions.append((t, "REWRITE_AS_TWO_OR_FOUR"))   # 2 items, or 4 with one that breaks the pattern
         else:
             actions.append((t, "LEAVE"))
+            kept_one = True
     return actions
-
-HOLLOW_ADJECTIVES = {"dynamic", "vibrant", "innovative", "faster", "cheaper", "better", "simple",
-                     "effective", "easy", "bold", "clear", "focused", "scalable", "powerful"}
 ```
 
 ### Phrase-level cleanup

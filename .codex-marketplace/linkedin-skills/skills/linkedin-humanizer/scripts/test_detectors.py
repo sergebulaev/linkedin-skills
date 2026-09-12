@@ -160,8 +160,18 @@ def detect_copyleaks(text: str) -> DetectorResult:
         )
         r.raise_for_status()
         data = r.json()
-        score = data["summary"]["ai"]   # 0-1
-        return DetectorResult("Copyleaks", round(score * 100, 1))
+        raw = float(data["summary"]["ai"])
+        # Copyleaks has documented this field both as a 0-1 probability and as a
+        # 0-100 percentage, and our own reference said 0-100 while this code
+        # assumed 0-1. Multiplying a percentage gave scores like 7500%, which
+        # then poisoned the spread and the verdict while looking like a success.
+        # Normalise rather than trust either contract.
+        score = raw * 100 if raw <= 1 else raw
+        if not 0 <= score <= 100:
+            return DetectorResult(
+                "Copyleaks", None, f"score outside 0-100 after normalising: {raw}"
+            )
+        return DetectorResult("Copyleaks", round(score, 1))
     except Exception as e:
         return DetectorResult("Copyleaks", None, str(e))
 
