@@ -24,7 +24,7 @@ Not for a blank-page draft (use `linkedin-post-writer`) and not for reviewing a 
 
 1. **Take the source.** Any format: a tweet or thread, a video or script, a blog paragraph, a caption, a transcript, a bullet list, a link to read. Ask for the source and the goal (comments / reposts / likes / saves) if not given.
 2. **Extract the spine.** Strip the source platform's shell and pull out the one claim, story, or number worth keeping. Repurposing fails when it keeps the words instead of the point.
-3. **Re-hook for LinkedIn.** The hook must land in the first 210 characters, before the "...see more" fold. The source's hook rarely survives; write a new first line using one of the 16 formulas in `../../references/hook-formulas.md`, picked by the goal.
+3. **Re-hook for LinkedIn.** The hook must land in the first 210 characters, before the "...see more" fold. The source's hook rarely survives; write a new first line using one of the 20 formulas in `../../references/hook-formulas.md`, picked by the goal.
 4. **Expand to LinkedIn length.** X compresses; LinkedIn breathes. Grow the spine into the 900 to 1300 char sweet spot: short paragraphs, double line breaks between ideas, one concrete detail per beat. A dense tweet becomes 4 to 6 short paragraphs, not a wall.
 5. **Add the LinkedIn shape.** Whitespace between ideas, a moment of real stakes or vulnerability (pure-insight posts do not land in 2026), and one clear closing question or CTA.
 6. **Fix links and artifacts.** Move any external link to the first comment (in-body links suppress reach). Strip off-platform artifacts: hashtag walls, "link in bio", "smash subscribe", X @-handles, "as I tweeted" throat-clearing. 0 to 2 hashtags at the end.
@@ -65,7 +65,7 @@ Global voice rules: see root `SKILL.md` §Voice rules. Additional skill-specific
 
 ## Resources
 
-- `../../references/hook-formulas.md` - the 16 formula skeletons to re-hook with
+- `../../references/hook-formulas.md` - the 20 formula skeletons to re-hook with
 - `../../references/algorithm-heuristics.md` - 2026 posting rules (timing, format, length)
 
 ## Related skills

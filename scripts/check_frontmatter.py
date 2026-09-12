@@ -16,6 +16,7 @@ Usage: python3 scripts/check_frontmatter.py
 
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
@@ -37,6 +38,19 @@ def documents() -> list[Path]:
     if root.is_file():
         docs.append(root)
     return docs
+
+
+def declared_skill_count() -> int | None:
+    """The skill count the plugin manifest publishes, from its description."""
+    manifest = ROOT / ".claude-plugin" / "plugin.json"
+    if not manifest.is_file():
+        return None
+    try:
+        description = json.loads(manifest.read_text(encoding="utf-8"))["description"]
+    except (json.JSONDecodeError, KeyError, OSError):
+        return None
+    match = re.match(r"\s*(\d+)\b", description)
+    return int(match.group(1)) if match else None
 
 
 def main() -> int:
@@ -71,8 +85,21 @@ def main() -> int:
         return 1
 
     skills = [d for d in docs if d.parent != ROOT]
+
+    # Counting what happens to be there proves nothing: a bundle that loses a
+    # skill still passes, and `ls skills/ | wc -l` can be satisfied by a stray
+    # file that is not a skill at all. Compare against the number the plugin
+    # manifest publishes, which is the number users are promised.
+    declared = declared_skill_count()
+    if declared is not None and declared != len(skills):
+        print(f"Skill count mismatch: the manifest promises {declared} skills, "
+              f"{len(skills)} directories contain a loadable SKILL.md.")
+        return 1
+
     print(f"OK: {len(skills)} skills plus the root document parse and declare "
-          f"name and description.")
+          f"name and description"
+          + (f", matching the {declared} the manifest promises." if declared
+             else "."))
     return 0
 
 
