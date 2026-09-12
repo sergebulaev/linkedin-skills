@@ -76,6 +76,20 @@ otherwise.
   `scripts/` for runnable tools. Don't duplicate this pattern in other
   skills without a clear reason.
 
+## .claude/skills mirror
+
+- `.claude/skills/<name>` is a **relative symlink** to `../../skills/<name>`, one per
+  skill. Claude Code discovers project skills at `.claude/skills/`, while the bundle
+  keeps them at `skills/` for the agentskills.io and plugin layouts, so a plain
+  `git clone` used as a working directory activates nothing without this.
+- `skills/` stays the single source of truth. The mirror holds no content, so there is
+  nothing to sync and nothing that can drift. Relative references still resolve because
+  symlinks resolve physically: `../../references/` from a mirrored skill lands on the
+  repo root, not inside `.claude/`.
+- **Adding or renaming a skill means adding or renaming its symlink.** A missing one is
+  silent: the skill simply does not appear for anyone who cloned the repo.
+- The mirror is Claude-specific and is deliberately not copied into the Codex package.
+
 ## Layer separation
 
 - **Read layer (Apify):** `lib/apify_client.py`. Four methods -
@@ -134,6 +148,7 @@ wc -l SKILL.md skills/*/SKILL.md
 ls skills/ | wc -l        # must equal 11
 python3 scripts/check_frontmatter.py   # parses; a dir count does not prove a skill loads
 python3 scripts/check_no_secrets.py    # .gitignore does not stop a rename of a tracked file
+python3 scripts/check_config.py --offline   # credential wiring; --offline skips the live API calls
 grep -nE '^description:' skills/*/SKILL.md SKILL.md | grep -P '\\x{2014}|\\x{2013}'   # must be empty
 python3 -m json.tool .codex-plugin/plugin.json >/dev/null
 python3 -m json.tool .agents/plugins/marketplace.json >/dev/null

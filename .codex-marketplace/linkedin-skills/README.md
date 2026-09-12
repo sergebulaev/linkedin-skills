@@ -83,12 +83,14 @@ codex plugin add linkedin-skills@linkedin-skills
 /plugin install linkedin-skills@linkedin-skills
 ```
 
-Or clone the repo and open it as your working directory:
+Or clone the repo and open it as your working directory — the skills activate with no plugin install, which is the route to use where `/plugin` is unavailable:
 
 ```bash
 git clone https://github.com/sergebulaev/linkedin-skills.git
 cd linkedin-skills
 ```
+
+The repo ships a `.claude/skills/` mirror of symlinks, so Claude Code finds all 11 skills on its own.
 
 ### Hermes Agent
 
