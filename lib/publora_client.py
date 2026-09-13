@@ -200,6 +200,26 @@ class PubloraClient:
             payload["mediaUrls"] = media_urls
         return self._post("/create-post", payload)
 
+    def delete_post(self, *, post_group_id: str) -> dict[str, Any]:
+        """Delete a draft or scheduled post by its `postGroupId`.
+
+        `postGroupId` is what `create_post` returns. This is the only way to
+        cancel a post the skills have scheduled: without it an approved-then-
+        reconsidered post can only be stopped from the Publora dashboard.
+
+        Note the path shape. Deletion is `DELETE /delete-post/<id>`, with the id
+        in the path and no body, unlike `delete_comment`, which is a DELETE to a
+        plural collection with a JSON body. A post group that is already gone
+        returns HTTP 404 ("Post group not found"), which surfaces here as a
+        `PubloraError` rather than a silent success, so callers can tell "I
+        deleted it" from "it was not there".
+        """
+        r = self._session.delete(
+            f"{self.BASE_URL}/delete-post/{post_group_id}",
+            timeout=self.timeout,
+        )
+        return self._handle(r)
+
     # ---- Reshare (repost) -------------------------------------------------
 
     def create_reshare(
