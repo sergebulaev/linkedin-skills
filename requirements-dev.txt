@@ -1,0 +1,11 @@
+# Maintainer tooling only. The bundle itself runs on requirements.txt alone:
+# nothing in lib/ imports any of this, and no skill needs it at runtime.
+#
+#     pip install -r requirements.txt -r requirements-dev.txt
+#     python3 scripts/selftest.py
+
+-r requirements.txt
+
+# scripts/check_frontmatter.py parses SKILL.md frontmatter strictly, so that a
+# file which looks fine but does not load is caught here rather than by a user.
+PyYAML>=6.0

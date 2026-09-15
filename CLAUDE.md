@@ -120,7 +120,9 @@ otherwise.
 - **Image layer (Pixfaro):** `lib/pixfaro_client.py`. Skills should call
   `lib.illustrate(prompt, kind=...)` / `lib.refine(image_id, instruction)`
   (or `lib.available_models()`), not the client directly. Endpoints:
-  `POST /v1/images/generations`, `POST /v1/images/edits`, `GET /v1/models`.
+  `POST /v1/images/generations`, `POST /v1/images/edits`, `GET /v1/models`,
+  `GET /v1/key` (verify the configured key: any scope, free — `/v1/models`
+  is public and says nothing about the key).
   `illustrate` returns a hosted URL that feeds straight into
   `lib.publish(..., media_urls=[url])`; `refine` edits by `img_...` id (not URL).
   `aspect_ratio` must be a ratio like `16:9` (NOT pixel dims). PIXFARO_TOKEN-or-
@@ -169,6 +171,15 @@ ls skills/ | wc -l        # must equal 12
 python3 scripts/check_frontmatter.py   # parses; a dir count does not prove a skill loads
 python3 scripts/check_no_secrets.py    # .gitignore does not stop a rename of a tracked file
 python3 scripts/check_config.py --offline   # credential wiring; --offline skips the live API calls
+python3 scripts/check_actor_inputs.py  # Apify ignores unknown input keys; this catches a renamed one
+python3 -m unittest discover -s tests    # contracts: docs vs code, response shapes, client behaviour
+python3 scripts/selftest.py              # the whole picture: install, accounts, tests, what works now
+
+Behaviour, not plumbing: `python3 evals/run_evals.py` runs the agent against
+fixtures and grades what comes back (one model call per case, `--list` to see
+them). Graders must have a right answer - the parentComment for a nested reply,
+whether a scrub kept the user's figures. A grader that needs taste will drift,
+and a wrong grader fails the skill for the grader's mistake.
 grep -nE '^description:' skills/*/SKILL.md SKILL.md | grep -E '—|–'   # must be empty
 ```
 

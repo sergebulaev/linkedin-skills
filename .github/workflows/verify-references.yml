@@ -16,9 +16,25 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Check no credentials are tracked
         run: python3 scripts/check_no_secrets.py
-      - name: Install YAML parser
-        run: python3 -m pip install --quiet pyyaml
+      - name: Install maintainer tooling
+        run: python3 -m pip install --quiet -r requirements-dev.txt
       - name: Check SKILL.md frontmatter parses
         run: python3 scripts/check_frontmatter.py
+      - name: Offline test suite
+        run: python3 -m unittest discover -s tests -v
       - name: Check relative Markdown references
         run: python3 scripts/check_markdown_references.py
+      - name: Check Apify actor input keys against their schemas
+        # Exit 2 means the schemas were unreachable, not that the inputs are
+        # wrong. Apify being down must not read as a passing build, nor fail
+        # an unrelated PR, so it is reported and skipped.
+        run: |
+          set +e
+          python3 scripts/check_actor_inputs.py
+          status=$?
+          set -e
+          if [ "$status" -eq 2 ]; then
+            echo "::warning::Apify schemas unreachable, actor input check skipped"
+            exit 0
+          fi
+          exit "$status"

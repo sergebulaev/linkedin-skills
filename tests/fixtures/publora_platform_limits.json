@@ -1,0 +1,52 @@
+{
+ "source": "@publora/platform-limits",
+ "limitsLastUpdated": "2026-03-11",
+ "schemaVersion": 1,
+ "linkedin": {
+  "platform": "linkedin",
+  "displayName": "LinkedIn",
+  "characters": {
+   "standard": 3000
+  },
+  "images": {
+   "supported": true,
+   "maxSizeBytes": 52428800,
+   "maxPixels": 36152320,
+   "maxCount": 10,
+   "formats": [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp"
+   ]
+  },
+  "videos": {
+   "supported": true,
+   "maxDurationSeconds": 1800,
+   "minDurationSeconds": 3,
+   "maxSizeBytes": 524288000,
+   "formats": [
+    "video/mp4"
+   ],
+   "maxCount": 1
+  },
+  "requirements": {
+   "requiresMedia": false,
+   "requiresVideo": false,
+   "supportsTextOnly": true,
+   "supportsThreading": false
+  },
+  "documents": {
+   "supported": true,
+   "maxSizeBytes": 104857600,
+   "maxPageCount": 300,
+   "maxCount": 1,
+   "formats": [
+    "application/pdf"
+   ],
+   "titleRequired": true
+  },
+  "gifs": null,
+  "thumbnails": null
+ }
+}

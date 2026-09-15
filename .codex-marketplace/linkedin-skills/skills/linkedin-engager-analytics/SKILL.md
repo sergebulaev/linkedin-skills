@@ -27,7 +27,7 @@ Output format (engager roster, tier breakdown, action lists): see `references/ou
 
 ## Steps
 
-1. **Fetch engagers.** Call `lib.ApifyClient.fetch_post_engagers(post_url=<url>, max_items=100)`. Returns a list of dicts with `type` ("commenters" | "likers"), `name`, `subtitle` (job title + company), `url_profile`, `content` (comment text if commenter), `datetime`. Cost is roughly $0.005 per engager-record.
+1. **Fetch engagers.** Call `lib.ApifyClient.fetch_post_engagers(post_url=<url>, max_items=100)`. Returns a list of dicts with `type` ("commenters" | "likers"), `name`, `subtitle` (job title + company), `url_profile`, `content` (comment text if commenter), `datetime`. Cost is roughly $0.005 per engager-record. The underlying actor answers for one audience per run, so `max_items` is the total across both and is split evenly; pass `types=("likers",)` when only one side matters, or add `"reshares"` to include people who reposted.
 2. **Parse subtitle into structured fields.** The `subtitle` typically reads "Director at Acme Corp" or "Founder & CEO at SaaS Inc". Extract: title, company, seniority bucket (IC / Manager / Director / VP / C-suite / Founder).
 3. **Score ICP fit.** Use the user's supplied ICP rules:
    - Title match (regex or keyword list)

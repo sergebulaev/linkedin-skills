@@ -222,7 +222,15 @@ def check_pixfaro(report: Report, offline: bool) -> None:
     # PIXFARO_API_KEY is an accepted alias (see lib/pixfaro_client.py).
     token = os.getenv("PIXFARO_TOKEN") or os.getenv("PIXFARO_API_KEY")
     if not token:
-        report.add(OFF, "PIXFARO_TOKEN", "not set; image skills draft a prompt for you to run yourself")
+        # The case that is genuinely hard to spot by hand: the file defines the
+        # token but nothing loaded it (python-dotenv missing / wrong cwd).
+        from lib._env import find_unloaded_token_file
+
+        unloaded = find_unloaded_token_file()
+        if unloaded:
+            report.add(BAD, "PIXFARO_TOKEN", f"defined in {unloaded} but NOT loaded - install python-dotenv (pip install python-dotenv) or run from the linkedin-skills folder")
+        else:
+            report.add(OFF, "PIXFARO_TOKEN", "not set; image skills draft a prompt for you to run yourself")
         return
 
     name = "PIXFARO_TOKEN" if os.getenv("PIXFARO_TOKEN") else "PIXFARO_API_KEY (alias)"
@@ -235,18 +243,32 @@ def check_pixfaro(report: Report, offline: bool) -> None:
     try:
         import requests
 
+        # GET /v1/key answers for THIS key (any scope, free). /v1/models is
+        # public and returned 200 to a wrong token, so this check used to say
+        # "N models available" to people whose key never worked.
         r = requests.get(
-            "https://api.pixfaro.com/v1/models",
+            "https://api.pixfaro.com/v1/key",
             headers={"Authorization": f"Bearer {token}"},
             timeout=30,
         )
         if r.status_code == 200:
-            payload = r.json()
-            models = payload.get("data", payload) if isinstance(payload, dict) else payload
-            count = len(models) if isinstance(models, list) else "?"
-            report.add(OK, "  live check", f"{count} models available")
-        elif r.status_code in (401, 403):
-            report.add(BAD, "  live check", f"HTTP {r.status_code}: token rejected")
+            payload = r.json() if r.content else {}
+            key = payload.get("key") or {}
+            bal = payload.get("balance")
+            verified = payload.get("email_verified", True)
+            desc = f"key '{key.get('name', '?')}' ({key.get('scope', '?')} scope)" + (f", balance ${bal}" if bal is not None else "")
+            report.add(OK, "  live check", desc)
+            if not verified:
+                report.add(WARN, "  email", "not verified yet - generation is blocked until you click the link Pixfaro emailed you")
+        elif r.status_code == 401:
+            msg = ""
+            try:
+                msg = (r.json().get("error") or {}).get("message", "")
+            except Exception:
+                pass
+            report.add(BAD, "  live check", f"HTTP 401: {msg or 'token rejected'} - keys are shown once; copy the whole pf_live_ string or mint a new one at https://api.pixfaro.com/dashboard")
+        elif r.status_code == 403:
+            report.add(BAD, "  live check", "HTTP 403: account not allowed (suspended, or email unverified)")
         else:
             report.add(BAD, "  live check", f"unexpected HTTP {r.status_code}")
     except Exception as exc:
@@ -282,6 +304,18 @@ def check_backends(report: Report) -> None:
         "image backend",
         "pixfaro (auto-generate)" if images == "pixfaro" else "manual (prompt drafted for you)",
     )
+
+    # This script reads environment variables. A Publora or Pixfaro connector
+    # attached in claude.ai lives in the agent's runtime, not in the shell, so
+    # it is invisible here - and saying "manual" flatly is then wrong in a way
+    # that reads as a broken setup: the user has just watched a post go out.
+    if (publish == "manual" or images != "pixfaro") and os.getenv("CLAUDECODE"):
+        report.add(
+            OFF,
+            "  connectors",
+            "this check only sees .env and the shell. If you connected Publora or "
+            "Pixfaro in claude.ai, the skills use that and it still works.",
+        )
 
 
 def main() -> int:

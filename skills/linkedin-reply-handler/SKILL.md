@@ -47,7 +47,7 @@ Either shape works:
 **Voice profile first (all drafts, both modes).** If `../../references/voice-profile.md` has `filled: yes`, load it and match the user's voice fingerprint, hard rules, and CTA/link style throughout. If it is not filled, mention once that `linkedin-humanizer --mode profile` can learn their voice from a few posts, then proceed with the generic voice rules. If `../../references/story-bank.md` has `filled: yes`, load it too and take concrete details (numbers, dates, named projects) from there instead of asking mid-draft. Never invent a figure that is not in it; if the bank has nothing that fits, ask the user or offer `linkedin-interviewer`.
 
 1. **Parse the URL.** `lib.url_parser.parse_linkedin_url` returns `post_urn`, `comment_id`, `comment_urn`.
-2. **Determine thread structure.** If `APIFY_TOKEN` is set, call `lib.ApifyClient.fetch_post_comments(post_id=post_urn, max_items=50, scrape_replies=True)` and locate the comment by `comment_id`. Otherwise ask the user to paste the relevant slice of the thread. Figure out whether the target is:
+2. **Determine thread structure.** If `APIFY_TOKEN` is set, call `lib.ApifyClient.fetch_post_comments(post_id=post_urn, max_items=50)` and locate the comment by `comment_id`. Otherwise ask the user to paste the relevant slice of the thread. Figure out whether the target is:
    - a top-level comment (parentComment = this comment's URN when replying)
    - a reply to a top-level comment (parentComment = the TOP comment's URN, not this reply's URN. LinkedIn flattens)
 3. **Read the full context.** Author post text, top-level comment text, any intermediate replies. Include the user's own prior comment if they're in the thread.
@@ -61,7 +61,7 @@ Either shape works:
 Same voice-profile-first rule applies. Then:
 
 1. **Parse the post URL.** `lib.url_parser.parse_linkedin_url` to get `post_urn`. If the URL is a reshare, resolve the canonical original post first — see "Reshare gotcha" below — comments live on the original, not the reshare's activity id.
-2. **Fetch the full comment tree.** Call `lib.ApifyClient.fetch_post_comments(post_id=<post_urn or resolved canonical id>, max_items=100, scrape_replies=True)`. If `APIFY_TOKEN` is not set, ask the user to paste the comment list (name + text per comment is enough; nested replies noted as such).
+2. **Fetch the full comment tree.** Call `lib.ApifyClient.fetch_post_comments(post_id=<post_urn or resolved canonical id>, max_items=100)` Comments come back sorted by most relevant, which is what surfaces the reply threads the parentComment rule needs; pass `sort_order="most recent"` if the user explicitly wants the newest first. If `APIFY_TOKEN` is not set, ask the user to paste the comment list (name + text per comment is enough; nested replies noted as such).
 3. **Flatten the tree into a reply queue.** For each top-level comment, queue the comment itself plus every reply under it. Each queue entry carries: `comment_id` (the one being replied to), `top_level_comment_id` (for the flattening rule below), author name, comment text, and depth.
 4. **Filter out low-value comments.** Drop anything matching `references/filtering-rules.md`: plain "thanks for sharing" / generic praise with no content, duplicate or near-duplicate text already filtered elsewhere in the thread, spam or engagement-bait patterns, and comments from the user's own account (don't reply to yourself). Report the drop count and a one-line reason per category — don't silently discard.
 5. **Draft each remaining reply.** For every surviving queue entry, follow the same `references/reply-templates.md` templates as single-comment mode (R1 Answer-Their-Question, R2 Concede-Then-Sharpen, R3 Extend-Their-Thesis, R4 Share-Lived-Experience, R5 Ask-Back). Read the surrounding thread (the top-level comment plus any prior replies) for context before drafting a reply to a nested reply.
@@ -76,11 +76,20 @@ LinkedIn only nests replies two levels deep. Visually the thread looks like:
 
 ```
 Top comment by Alice (id: 111)
-└─ Reply by Bob (id: 222)          ← parentComment: urn:li:comment:(activity:POST, 111)
-   └─ Reply by Carol (id: 333)     ← parentComment: STILL urn:li:comment:(activity:POST, 111)
+└─ Reply by Bob (id: 222)          ← parentComment: urn:li:comment:(urn:li:activity:POST,111)
+   └─ Reply by Carol (id: 333)     ← parentComment: STILL urn:li:comment:(urn:li:activity:POST,111)
 ```
 
-Carol's reply doesn't nest under Bob's — it's pinned at level 2 to the same top comment. If you pass `urn:li:comment:(activity:POST, 222)` as parentComment, the API returns 400 on some paths or silently misplaces the reply.
+**Two URN forms exist, and only one is the API's.** LinkedIn's web permalinks and
+the Apify scraper both use the short form, `urn:li:comment:(activity:POST,111)`.
+The API uses the long one, `urn:li:comment:(urn:li:activity:POST,111)` — verified
+against a live `create_comment` response, which comes back in the long form.
+`lib.url_parser.parse_linkedin_url` normalises a pasted short-form URL into the
+long form, and `build_parent_comment_urn` emits the long form, so following this
+skill as written is correct. Do not "fix" a long-form URN into a short one
+because a LinkedIn URL looks different.
+
+Carol's reply doesn't nest under Bob's — it's pinned at level 2 to the same top comment. If you pass `urn:li:comment:(urn:li:activity:POST,222)` as parentComment, the API returns 400 on some paths or silently misplaces the reply.
 
 **Rule in this skill:** always use the TOP-level comment's URN as `parentComment`. In single-comment mode, if you're replying to a 2nd-level reply, walk up the tree to find the top comment. In whole-thread mode, carry `top_level_comment_id` through the queue from step 3 onward so every draft targeting Bob's or Carol's comment still uses Alice's URN.
 

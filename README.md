@@ -207,6 +207,24 @@ Publora also ships [official MCP skills](https://github.com/publora/skills) (`np
 
 ### Setup (2 minutes)
 
+Before or after any of it, one command tells you where you stand:
+
+```bash
+python3 scripts/selftest.py          # install, accounts, tests, and which skills work right now
+python3 scripts/selftest.py --fresh  # clone to a temp dir and check a genuinely clean install
+```
+
+It reports each of Apify, Publora and Pixfaro separately, using free endpoints that verify a key without doing any work, and it names what is missing rather than only that something is. Skills that need a layer you have not connected still work, by drafting for you to paste, and the report says which ones those are.
+
+### Two ways to connect, pick either
+
+**A connector, if you are on claude.ai or Claude Code.** Publora and Pixfaro both publish one. Authorize it once in your connector settings and the skills use it: no key on disk, no `.env`, nothing to rotate. Publora's connector also carries `post_stats` and `profile_stats`, which the REST path below does not have.
+
+**An API key, if you are anywhere else** — a plain terminal, CI, a script, or you would rather the credential lived in a file you control. That is the seven steps below.
+
+They are not exclusive and neither is second-class. One caveat worth knowing: `scripts/check_config.py` and `scripts/selftest.py` read `.env` and the shell, so a connector is invisible to them. If they say "manual" while your posts are going out, the connector is doing the work and nothing is wrong.
+
+
 **Step 1.** Sign up at https://app.publora.com/signup (free)
 
 **Step 2.** Connect LinkedIn: click **Channels** in the left sidebar, then **Add Channel**, pick **LinkedIn**, authorize.
@@ -248,7 +266,7 @@ Posts with a visual get more dwell time. The Post Writer can generate an illustr
 
 [Pixfaro](https://pixfaro.com) is a single image API over multiple models (from `flux-schnell` at $0.004 to `gpt-5-image`). It composites your handle, brand color, or logo onto the image as a **pixel-exact overlay**, so a cheap base model still renders crisp text on a quote-card or thumbnail. Pull those brand fields from your [Voice & Brand Profile](references/voice-profile.md) (section 6) and every asset stays on-brand.
 
-Setup: drop `PIXFARO_TOKEN=pf_live_...` into your `.env`. The thin client at `lib/pixfaro_client.py` and the wrappers `lib.illustrate(prompt, kind=...)` / `lib.refine(image_id, instruction)` return a hosted URL that flows straight into `lib.publish(..., media_urls=[url])`. `refine` edits a prior image by its id (cheaper than regenerating); results carry `cost`, `balance_after`, and a `premium` flag so the skills never quietly spend on a pricey model.
+Setup: sign up at [api.pixfaro.com/signup](https://api.pixfaro.com/signup?ref=linkedin-skills), create a key (name it `linkedin`, scope **Generate**), and put `PIXFARO_TOKEN=pf_live_...` in `.env` **at the root of the `linkedin-skills` folder** (next to this README; keys are shown once). Then `python3 scripts/check_config.py` calls Pixfaro's `GET /v1/key` and prints the key's name and scope when it is right. The thin client at `lib/pixfaro_client.py` and the wrappers `lib.illustrate(prompt, kind=...)` / `lib.refine(image_id, instruction)` return a hosted URL that flows straight into `lib.publish(..., media_urls=[url])`. `refine` edits a prior image by its id (cheaper than regenerating); results carry `cost`, `balance_after`, and a `premium` flag so the skills never quietly spend on a pricey model.
 
 For **text-led visuals** (a quote-card of your hook), the skills skip the image model entirely and use Pixfaro's design templates: `lib.quote_card("<hook>", handle="@you", style="brand")` typesets the card server-side (`POST /v1/renders`), so the line is crisp at any length — same hosted-URL flow. `lib.available_templates()` lists templates and live prices. A brand logo can be uploaded once with `lib.brand_logo("logo.png")` (full-scope key); the returned `logo_id` goes into Voice & Brand Profile §6 and every overlay from then on stamps the real mark.
 
@@ -270,6 +288,8 @@ Every skill follows these rules automatically:
 | Skills don't activate when I ask about LinkedIn | Make sure you installed via the Skills panel, `/plugin install`, or `codex plugin add`. Try starting a new conversation. |
 | "Publora API key not provided" | Your `.env` file is missing or in the wrong folder. It should be in the `linkedin-skills/` root. |
 | "401 Unauthorized" from Publora | Your API key expired. Go to Publora Settings > API > Create a new key. |
+| Image skills keep saying "No Pixfaro key set" although you added one | The key was not loaded: `.env` must be at the `linkedin-skills/` root and `python-dotenv` installed. `python3 scripts/check_config.py` now says exactly which — and, with a key, whether Pixfaro accepts it (`GET /v1/key`). |
+| "401" from Pixfaro | The key was copied short or revoked. Keys are shown once — mint a new one in the Pixfaro dashboard and paste the whole `pf_live_...` string. |
 | "404 on comment/post" | Your `LINKEDIN_PLATFORM_ID` is wrong. Go to Publora Channels and copy the full `linkedin-...` string. |
 | "400 reactionType" error | Known Publora quirk. The skills handle this automatically. If you're calling the API manually, use PRAISE (not CELEBRATE), INTEREST (not INSIGHTFUL). |
 | `pip install` fails | Use a virtual environment: `python -m venv venv && source venv/bin/activate && pip install requests python-dotenv` |

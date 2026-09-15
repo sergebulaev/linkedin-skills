@@ -1,0 +1,75 @@
+{
+ "success": true,
+ "postGroupId": "000000000000000000000000",
+ "status": "published",
+ "scheduledTime": "2026-09-15T17:23:39.000Z",
+ "platformSettings": {
+  "tiktok": {
+   "viewerSetting": "PUBLIC_TO_EVERYONE",
+   "allowComments": true,
+   "allowDuet": false,
+   "allowStitch": false,
+   "commercialContent": false,
+   "brandOrganic": false,
+   "brandedContent": false
+  },
+  "instagram": {
+   "videoType": "REELS"
+  },
+  "threads": {
+   "replyControl": ""
+  },
+  "twitter": {
+   "replyTo": "",
+   "quoteTweet": ""
+  },
+  "youtube": {
+   "privacy": "public",
+   "title": "",
+   "madeForKids": false,
+   "playlist": {
+    "id": "",
+    "platformId": ""
+   }
+  },
+  "telegram": {
+   "disableNotification": false,
+   "disableWebPagePreview": false,
+   "protectContent": false
+  },
+  "linkedin": {
+   "repostEnabled": false,
+   "repostParentUrn": "",
+   "repostVisibility": ""
+  }
+ },
+ "platforms": [
+  "linkedin-000000000"
+ ],
+ "posts": [
+  {
+   "_id": "000000000000000000000000",
+   "content": "Technical test post.\n\nChecking that an image our tooling generates reaches LinkedIn intact, through the full path: render it, hand the hosted URL to the scheduler, publish.\n\nNothing to read here. This post will be removed shortly.",
+   "platform": "linkedin",
+   "platformId": "110381908",
+   "status": "published",
+   "isThread": false,
+   "threadParts": [],
+   "postedId": "urn:li:share:7000000000000000000",
+   "error": null,
+   "permalink": null
+  }
+ ],
+ "media": [
+  {
+   "mediaId": "000000000000000000000000",
+   "sourceFileName": "img_7a60be5136290e927163.png",
+   "fileName": "images/1700000000000-0-abcdef12-img_7a60be5136290e927163.png",
+   "type": "image",
+   "mimeType": "image/png",
+   "status": "ready",
+   "failureReason": null,
+   "url": "https://media.publora.com/images/1700000000000-0-abcdef12-img_7a60be5136290e927163.png"
+  }
+ ]
+}

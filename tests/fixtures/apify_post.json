@@ -1,0 +1,86 @@
+{
+ "text": "Big day for Microsoft 365 Copilot: I’m really excited about our latest update. Copilot has…",
+ "urn": "urn:li:activity:7320867199693246465",
+ "shareUrn": "urn:li:ugcPost:7320867198548279298",
+ "canShare": null,
+ "url": "https://www.linkedin.com/posts/satyanadella_big-day-for-microsoft-365-copilot-im-really-ac…",
+ "type": "image",
+ "authorName": "Satya Nadella",
+ "authorHeadline": "Chairman and CEO at Microsoft",
+ "authorProfileUrl": "https://www.linkedin.com/in/satyanadella?miniProfileUrn=urn%3Ali%3Afsd_profile%3AACoAAAEkw…",
+ "authorFollowers": null,
+ "numLikes": 13538,
+ "numComments": 514,
+ "numShares": 1398,
+ "reactions": {
+  "like": 11732,
+  "appreciation": 33,
+  "empathy": 730,
+  "interest": 258,
+  "praise": 780,
+  "entertainment": 5
+ },
+ "postedAtISO": {
+  "timestamp": 1757948377397,
+  "date": "2025-09-15 16:59:37",
+  "relative": "1yr"
+ },
+ "isReshare": false,
+ "resharedPost": null,
+ "_raw": {
+  "post": {
+   "id": "7320867199693246465",
+   "url": "https://www.linkedin.com/posts/satyanadella_big-day-for-microsoft-365-copilot-im-really-ac…",
+   "created_at": {
+    "timestamp": 1757948377397,
+    "date": "2025-09-15 16:59:37",
+    "relative": "1yr"
+   },
+   "text": "Big day for Microsoft 365 Copilot: I’m really excited about our latest update. Copilot has…",
+   "type": "image",
+   "urn": {
+    "activity_urn": "7320867199693246465",
+    "share_urn": null,
+    "ugcPost_urn": "7320867198548279298"
+   }
+  },
+  "author": {
+   "name": "Satya Nadella",
+   "headline": "Chairman and CEO at Microsoft",
+   "profile_url": "https://www.linkedin.com/in/satyanadella?miniProfileUrn=urn%3Ali%3Afsd_profile%3AACoAAAEkw…",
+   "profile_picture": "https://media.licdn.com/dms/image/v2/C5603AQHHUuOSlRVA1w/profile-displayphoto-shrink_800_8…",
+   "followers": null,
+   "company_id": null
+  },
+  "media": [
+   {
+    "type": "image",
+    "url": "https://media.licdn.com/dms/image/v2/D5622AQF8TJLzl8em_g/feedshare-image-high-res/B56ZZjx6…"
+   },
+   {
+    "type": "image",
+    "url": "https://media.licdn.com/dms/image/v2/D5622AQGsFMQA8dvo2Q/feedshare-image-high-res/B56ZZjx6…"
+   },
+   {
+    "type": "image",
+    "url": "https://media.licdn.com/dms/image/v2/D5622AQHu8hhBXTISnQ/feedshare-image-high-res/B56ZZjx6…"
+   }
+  ],
+  "stats": {
+   "total_reactions": 13538,
+   "reactions": {
+    "like": 11732,
+    "appreciation": 33,
+    "empathy": 730,
+    "interest": 258,
+    "praise": 780,
+    "entertainment": 5
+   },
+   "comments": 514,
+   "shares": 1398
+  },
+  "is_reshared": false,
+  "reshared_post": null,
+  "input": "https://www.linkedin.com/posts/satyanadella_big-day-for-microsoft-365-copilot-im-really-ac…"
+ }
+}

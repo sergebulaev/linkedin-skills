@@ -97,6 +97,8 @@ bank, so a post interview quietly grows it.
 
 ## Hard rules
 
+Global voice rules: see root `SKILL.md` §Voice rules. Additional skill-specific rules:
+
 - **Never invent an answer, and never fill a gap with a plausible one.** An
   unverified number in the bank becomes an unverified number in a published post.
   Leave the line empty and mark the section thin.

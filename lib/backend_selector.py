@@ -271,6 +271,14 @@ def publish(
 
         client = PubloraClient()
         platform_id = kwargs.get("platform_id") or os.getenv("LINKEDIN_PLATFORM_ID")
+        if not platform_id:
+            # Derivable from the key, so do not make the user fetch it by hand.
+            # Only when the account has exactly one LinkedIn channel: with
+            # several, picking one would publish to the wrong account.
+            try:
+                platform_id = client.resolve_linkedin_platform_id()
+            except Exception:
+                platform_id = None                # stay on the documented path
 
         if kind in ("comment", "reply"):
             post_urn = kwargs["post_urn"]
@@ -429,7 +437,7 @@ def repost(
 # that URL straight to `publish(..., media_urls=[url])`.
 # ─────────────────────────────────────────────────────────────────
 
-PIXFARO_SIGNUP_URL = "https://pixfaro.com"
+PIXFARO_SIGNUP_URL = "https://api.pixfaro.com/signup?ref=linkedin-skills"
 
 # Warn (don't block) when the prepaid balance drops below this, so a run
 # doesn't silently drain the account.
@@ -460,6 +468,35 @@ def image_backend() -> Literal["pixfaro", "manual"]:
     if os.getenv("PIXFARO_TOKEN") or os.getenv("PIXFARO_API_KEY"):
         return "pixfaro"
     return "manual"
+
+
+def _unloaded_token_note() -> str:
+    """The case that looked exactly like "no key": a .env in the expected place
+    DOES define PIXFARO_TOKEN, but it never reached the environment (python-dotenv
+    missing, or the process started elsewhere). Until now that user was told
+    "get a key" — the step they had already done. Name the file and the fix
+    instead of repeating the pitch."""
+    from ._env import find_unloaded_token_file
+
+    path = find_unloaded_token_file()
+    if not path:
+        return ""
+    return (
+        f"\n\n> **Your Pixfaro key is set but was not loaded.** `{path}` defines "
+        "PIXFARO_TOKEN, yet it is not in the environment. Usually that means "
+        "`python-dotenv` is not installed (`pip install python-dotenv`) or the "
+        "agent started from a different folder. Fix that and try again - you do "
+        "not need a new key.\n"
+    )
+
+
+def _verify_note() -> str:
+    """One line telling the user how to prove the key works, from the same folder."""
+    return (
+        "\nAfter adding it, run `python3 scripts/check_config.py` in the linkedin-skills "
+        "folder: it calls Pixfaro's GET /v1/key and prints the key's name and scope when "
+        "the key is right."
+    )
 
 
 _PIXFARO_CLIENT = None
@@ -493,13 +530,17 @@ def manual_illustration_message(prompt: str, aspect_ratio: str) -> str:
         "Image prompt:\n"
         f"{prompt}\n\n"
         f"Tip: a Pixfaro key ({PIXFARO_SIGNUP_URL}) lets me generate + attach "
-        "the illustration in one step, with your brand handle/color overlaid."
+        "the illustration in one step, with your brand handle/color overlaid. "
+        "Put it as `PIXFARO_TOKEN=pf_live_...` in `.env` at the root of the "
+        "linkedin-skills folder (next to its README)."
+        + _verify_note()
+        + _unloaded_token_note()
     )
 
 
 def manual_edit_message(instruction: str) -> str:
     """Shown when no Pixfaro key is set and the user asks to edit an image."""
-    return (
+    return _unloaded_token_note().lstrip("\n") + (
         "No Pixfaro key set, so I can't edit the image for you.\n"
         "Re-generate or edit it yourself, then paste the new URL.\n\n"
         "Edit instruction:\n"
@@ -672,7 +713,10 @@ def manual_card_message(template: str, slots: dict[str, Any], size: str) -> str:
         "then paste the URL and I'll attach it to the post.\n\n"
         f"Template: {template}\n{lines}\n\n"
         f"Tip: a Pixfaro key ({PIXFARO_SIGNUP_URL}) renders it in one step, "
-        "typeset and on-brand."
+        "typeset and on-brand. Put it as `PIXFARO_TOKEN=pf_live_...` in `.env` at "
+        "the root of the linkedin-skills folder."
+        + _verify_note()
+        + _unloaded_token_note()
     )
 
 
