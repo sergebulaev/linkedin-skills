@@ -16,6 +16,11 @@ Endpoints (OpenAI-SDK-compatible):
              composite, NOT model-generated text — so a cheap base model plus
              an overlay renders crisp feed images / thumbnails at low cost.
     resp: {id, url, cost, balance_after}   # hosted URL, not base64
+  GET  /v1/key — "does this key work?": {key: {name, prefix, last4, scope},
+    email_verified, balance?}. Any scope, free. THE way to verify a token —
+    /v1/models is public and answers 200 to a wrong key.
+  There is no /v1/render, /v1/templates/<id>, /v1/me, /v1/account or
+  /v1/chat/completions — the endpoints on this page are the whole surface.
   POST /v1/renders — design templates (quote-card, post-card): typeset HTML,
     not a model generation, so text is always crisp. Same resp shape.
   GET  /v1/templates — live template catalog (public). Slots, sizes, price.
@@ -96,7 +101,7 @@ class PixfaroClient:
         if not self.api_key:
             raise PixfaroError(
                 "No Pixfaro API key. Set PIXFARO_TOKEN (pf_live_...) or pass api_key. "
-                "Sign up at https://pixfaro.com."
+                "Sign up at https://pixfaro.com/signup?ref=linkedin-skills."
             )
         self.timeout = timeout
         self._session = requests.Session()
@@ -213,6 +218,21 @@ class PixfaroClient:
         data = self._post("/images/edits", payload)
         self._cache_put(key, data)
         return data
+
+    @_retry()
+    def whoami(self) -> dict[str, Any]:
+        """GET /v1/key — verify the configured key (any scope, free).
+
+        Returns {key: {name, prefix, last4, scope, created_at}, email_verified,
+        balance?} — `balance` only for full-scope keys. A wrong or truncated
+        key raises PixfaroError(status_code=401) with Pixfaro's own message
+        ("shown once at creation: copy it fully, or mint a new one")."""
+        url = f"{BASE_URL}/key"
+        try:
+            r = self._session.get(url, headers=self._headers(), timeout=self.timeout)
+        except requests.RequestException as e:
+            raise PixfaroError(f"request failed: {e}", retryable=True) from e
+        return self._handle(r)
 
     @_retry()
     def list_models(self) -> list[dict[str, Any]]:

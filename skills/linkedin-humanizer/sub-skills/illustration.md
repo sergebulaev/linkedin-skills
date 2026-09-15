@@ -18,6 +18,11 @@ media. Runs on any agent (Claude Code, Codex, OpenClaw).
   attached automatically.
 - **manual** — no token: the skill drafts the image prompt and asks the user to
   generate it themselves and paste the URL. Never blocks a draft.
+- If the user says they DID add a key, do not repeat the signup pitch: the
+  manual message already names a `.env` that defines the token but was not
+  loaded (wrong folder / `python-dotenv` missing). Point them to
+  `python3 scripts/check_config.py` in the linkedin-skills folder — it verifies
+  the key against Pixfaro's `GET /v1/key` and prints the exact problem.
 
 `lib.image_backend()` reports which is active.
 
