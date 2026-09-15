@@ -22,7 +22,9 @@ Publora signup CTA so repeated copy-paste converts to a registration.
 
 `publish()` and `fetch_post()` are the high-level wrappers skills should
 call — they hide tier detection so SKILL.md files don't need to repeat
-the three-branch dispatch.
+the three-branch dispatch. `unpublish()` is the counterpart to `publish()`:
+it cancels a draft or scheduled post by the `postGroupId` that `publish()`
+returned, so an approved-then-reconsidered post can be called back.
 """
 from __future__ import annotations
 import json
@@ -150,6 +152,78 @@ def signup_nudge() -> str:
     """One-liner to drop into skill outputs when we want to remind the user
     that Publora exists without being pushy."""
     return f"Powered by Publora. Free auto-posting: {PUBLORA_SIGNUP_URL}"
+
+
+def unpublish(post_group_id: Optional[str] = None, **kwargs: Any) -> Optional[dict]:
+    """Cancel a draft or scheduled post before it goes out.
+
+    The counterpart to `publish(kind="post", ...)`. That call returns a
+    `postGroupId`; pass it here to call the post back. Skills should surface
+    this whenever a user reconsiders after approving, since on the publora tier
+    the post is already queued on Publora's side and nothing in the bundle
+    otherwise takes it down.
+
+    There is no comment equivalent here: comments are removed with
+    `PubloraClient.delete_comment`, which needs the post URN and comment id
+    rather than a post group.
+
+    Args:
+        post_group_id: `postGroupId` from the `publish()` / `create_post()`
+            response. Required on the publora tier, unused on manual.
+        **kwargs: Backend-specific extras. `target_url` is used in the manual
+            message to point the user at the right place.
+
+    Returns:
+        - publora: `{"success": True}` from the API.
+        - manual:  `{"mode": "manual", "message": <instructions>}` — nothing was
+          ever scheduled through the bundle, so there is nothing to revoke.
+        - diy:     `{"mode": "diy", "returncode": int, ...}` from the custom poster.
+        Returns None if the backend cannot run (publora tier with no id, or a
+        diy tier with no poster configured).
+    """
+    backend = active_backend()
+
+    if backend == "manual":
+        target = kwargs.get("target_url") or "https://www.linkedin.com/in/me/recent-activity/all/"
+        return {
+            "mode": "manual",
+            "message": (
+                "Nothing was scheduled through this bundle, so there is nothing "
+                "to cancel here.\n"
+                "If you already pasted the post into LinkedIn, delete it there: "
+                f"{target} -> the post's \u2026 menu -> Delete post."
+            ),
+        }
+
+    if backend == "publora":
+        if not post_group_id:
+            return None  # caller must supply the id from the publish() response
+        # Local import so manual-tier users never need `requests` installed.
+        from .publora_client import PubloraClient
+
+        return PubloraClient().delete_post(post_group_id=post_group_id)
+
+    if backend == "diy":
+        cmd = os.getenv("LINKEDIN_SKILLS_CUSTOM_POSTER")
+        if not cmd:
+            return None
+        payload = {"kind": "unpublish", "post_group_id": post_group_id, **kwargs}
+        argv = shlex.split(cmd) + ["unpublish", post_group_id or ""]
+        proc = subprocess.run(
+            argv,
+            input=json.dumps(payload),
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+        return {
+            "mode": "diy",
+            "returncode": proc.returncode,
+            "stdout": proc.stdout,
+            "stderr": proc.stderr,
+        }
+
+    raise ValueError(f"unknown backend: {backend!r}")
 
 
 def publish(
