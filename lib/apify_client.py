@@ -195,7 +195,9 @@ class ApifyClient:
             self.POST_COMMENTS_ACTOR,
             {
                 "postIds": [post_id],
-                "maxItems": max_items,
+                # Actor input schema calls this `limit` (max 100). Sending
+                # `maxItems` is silently ignored and every run bills 100 rows.
+                "limit": min(max_items, 100),
                 "scrapeReplies": scrape_replies,
             },
             force_refresh=force_refresh,
@@ -217,7 +219,9 @@ class ApifyClient:
         """Return a user's most recent comments across LinkedIn."""
         return self._run_sync(
             self.PROFILE_COMMENTS_ACTOR,
-            {"username": username, "resultLimit": result_limit},
+            # Actor takes `usernames` (array) and `limit`; the singular
+            # `username` / `resultLimit` pair is ignored and bills 100 rows.
+            {"usernames": [username], "limit": result_limit},
             force_refresh=force_refresh,
         )
 
@@ -233,7 +237,8 @@ class ApifyClient:
         """Return the people who liked or commented on a post."""
         return self._run_sync(
             self.POST_ENGAGERS_ACTOR,
-            {"urls": [post_url], "maxItems": max_items},
+            # Actor takes `resultsLimit`, not `maxItems`.
+            {"urls": [post_url], "resultsLimit": max_items},
             force_refresh=force_refresh,
         )
 
