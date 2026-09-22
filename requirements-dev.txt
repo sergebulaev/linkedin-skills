@@ -8,4 +8,4 @@
 
 # scripts/check_frontmatter.py parses SKILL.md frontmatter strictly, so that a
 # file which looks fine but does not load is caught here rather than by a user.
-PyYAML>=6.0
+PyYAML>=6.0.3
