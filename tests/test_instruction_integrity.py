@@ -137,6 +137,15 @@ class SkillConventions(unittest.TestCase):
                 too_long.append(f"{skill.name}: {len(description)} chars")
         self.assertEqual(too_long, [], "descriptions past the 510-char hard limit:\n  " + "\n  ".join(too_long))
 
+    def test_humanizer_description_makes_post_audit_discoverable(self):
+        description = frontmatter(
+            ROOT / "skills" / "linkedin-humanizer" / "SKILL.md"
+        ).get("description") or ""
+
+        self.assertIn("post audit", description.lower())
+        self.assertIn("post auditor", description.lower())
+        self.assertIn("--mode audit", description)
+
     def test_no_description_uses_an_em_dash(self):
         offenders = [s.name for s in SKILLS
                      if re.search(r"[—–]", frontmatter(s / "SKILL.md").get("description") or "")]

@@ -1,6 +1,6 @@
 ---
 name: linkedin-humanizer
-description: "Remove the AI tells human readers and LinkedIn's AI-slop filter react to in a post or comment: 2026 vocabulary by paragraph density, reveal bridges, staccato fragments, stacked triads, performed sincerity. Tiered rewriter (forensic / strict / aesthetic / all) plus `--mode audit` pass-fail review and `--mode profile` voice profile builder. Not for beating AI detectors (no edit reliably does). Keywords: humanize, de-AI, reads like ChatGPT, AI slop, scrub AI tells, review this draft, audit before posting."
+description: "Remove AI tells from LinkedIn posts/comments: 2026 vocabulary density, reveal bridges, staccato fragments, stacked triads, performed sincerity. Tiered rewriter plus `--mode audit` LinkedIn post auditor and `--mode profile` voice builder. Not for drafting from scratch (use linkedin-post-writer) or beating AI detectors. Keywords: humanize, de-AI, post audit, post auditor, audit before posting."
 ---
 
 # LinkedIn Humanizer V3

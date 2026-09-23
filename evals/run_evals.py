@@ -160,6 +160,41 @@ def case_humanizer_keeps_facts():
     return prompt, grade
 
 
+def case_humanizer_audit_flags_blockers():
+    """Audit mode should detect known blockers instead of silently treating
+    a problematic draft as ready to publish."""
+    draft = (
+        "AI is transforming everything — and we need to act now — because this "
+        "is a robust, comprehensive, groundbreaking framework for the future — "
+        "truly a game changer.\n\n"
+        "Here's the thing: we cut deploy time from 47 minutes to 6. "
+        "Read the full story at https://example.com/report"
+    )
+    prompt = (
+        "Use the linkedin-humanizer skill with --mode audit on this draft. "
+        "Return the audit report only. Do not rewrite the full post.\n\n" + draft
+    )
+
+    def grade(output: str):
+        lower = output.lower()
+
+        if "fail" not in lower:
+            return False, "audit did not produce a failing result"
+
+        if "blocker" not in lower:
+            return False, "audit did not report blockers"
+
+        if "em dash" not in lower:
+            return False, "audit did not identify the em dash issue"
+
+        if "external" not in lower or "link" not in lower:
+            return False, "audit did not identify the external-link issue"
+
+        return True, "audit reported the expected blockers"
+
+    return prompt, grade
+
+
 def case_engagers_no_fabrication():
     """Segmenting must work from the people supplied, and only those.
 
@@ -198,6 +233,7 @@ CASES = {
     "reply-no-invention": ("linkedin-reply-handler: invents no participants", case_reply_no_invention),
     "hook-formula": ("linkedin-hook-extractor: names a formula that exists", case_hook_formula),
     "humanizer-facts": ("linkedin-humanizer: scrubs markers, keeps figures", case_humanizer_keeps_facts),
+    "humanizer-audit": ("linkedin-humanizer: audit flags known blockers", case_humanizer_audit_flags_blockers),
     "engagers-real": ("linkedin-engager-analytics: fabricates nobody", case_engagers_no_fabrication),
 }
 
