@@ -1,0 +1,14 @@
+{
+  "name": "linkedin-skills-daily-candidates",
+  "private": true,
+  "type": "commonjs",
+  "description": "Draft-only daily LinkedIn comment candidates plus an explicit approve/publish queue. Never publishes without a named approval.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "daily": "node run-daily.js",
+    "plan": "node run-daily.js --plan",
+    "queue:build": "node publish-cli.js build",
+    "queue:show": "node publish-cli.js show",
+    "test": "node --test test/automation.test.js test/publish-queue.test.js"
+  }
+}

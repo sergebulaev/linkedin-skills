@@ -13,6 +13,11 @@ marketing/
 # local skill testing scratch area
 testing/
 
+# daily comment-candidate automation: drafts, scraped post data, API usage and logs stay local
+automation/output/
+automation/state/
+automation/logs/
+
 
 # Playwright MCP session artifacts
 .playwright-mcp/

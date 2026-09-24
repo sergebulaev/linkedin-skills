@@ -1,0 +1,140 @@
+{
+  "timezone": "Asia/Kolkata",
+  "timezoneLabel": "IST",
+  "runWindow": { "startHour": 17, "endHour": 20 },
+
+  "positioning": "Serious software/backend engineer",
+
+  "experience": {
+    "facts": [
+      "Processed approximately 700MB JSON with 100K+ records in Node.js.",
+      "Used streaming/incremental processing, batching, backpressure and memory optimization."
+    ],
+    "keywords": ["stream", "streaming", "streams", "backpressure", "batch", "batching", "large json", "json", "large file", "memory", "ingestion", "etl", "pipeline", "incremental"],
+    "maxDraftsUsingExperiencePerDay": 2
+  },
+
+  "topics": {
+    "backend": ["backend", "back-end", "server-side", "api gateway", "web server"],
+    "nodejs": ["node.js", "nodejs", "node js", "express.js", "nestjs", "event loop", "libuv", "npm", "bun", "deno"],
+    "python": ["python", "django", "fastapi", "flask", "asyncio", "celery", "pydantic"],
+    "frontend": ["react", "react native", "next.js", "nextjs", "frontend", "front-end", "typescript", "javascript", "redux", "vite", "expo"],
+    "apis": ["api", "apis", "rest", "graphql", "grpc", "idempotency", "idempotent", "rate limit*", "pagination", "webhook*", "openapi"],
+    "databases": ["database*", "sql", "postgres", "postgresql", "mysql", "mongodb", "redis", "indexes", "indexing", "transaction*", "sharding", "replication", "query plan*", "orm", "sqlite", "dynamodb"],
+    "systemDesign": ["system design", "architecture", "microservice*", "monolith", "load balancer*", "cache", "caching", "message queue*", "kafka", "rabbitmq", "event-driven", "cap theorem"],
+    "performance": ["performance", "latency", "throughput", "memory", "profiling", "benchmark*", "optimization", "optimisation", "p99", "p95", "bottleneck*"],
+    "scalability": ["scalability", "scaling", "scale out", "horizontal scaling", "high traffic", "autoscal*", "concurrency"],
+    "aiEngineering": ["llm*", "ai agent*", "agentic", "rag", "embedding*", "vector database*", "vector db", "prompt engineering", "evals", "claude code", "cursor", "copilot", "mcp", "fine-tun*", "inference", "ai engineer*", "context window", "coding agent*", "tokens", "claude.md", "agents.md", "codex", "subagent*", "context engineering", "ai coding", "vibe coding"],
+    "developerExperience": ["developer experience", "dx", "ci/cd", "code review*", "dev tools", "tooling", "monorepo", "onboarding", "build time*", "cli", "plugin*", "developer productivity", "tech debt"],
+    "productionEngineering": ["production", "incident*", "on-call", "oncall", "observability", "monitoring", "sre", "deploy*", "rollback*", "outage*", "postmortem*", "reliability"],
+    "debugging": ["debug*", "bug", "bugs", "stack trace*", "root cause", "memory leak*", "heap snapshot*", "flaky"],
+    "distributedSystems": ["distributed system*", "distributed", "consensus", "eventual consistency", "partition*", "exactly-once", "at-least-once", "raft", "saga", "outbox"],
+    "openSource": ["open source", "open-source", "oss", "github", "gitlab", "pull request*", "maintainer*", "contributor*", "contributing to", "npm package", "changelog", "semver", "self-host*", "self hosted", "homelab", "mit license", "apache license", "gpl license", "fork*", "issue tracker", "rfc process", "release notes"],
+    "devTools": ["developer tools", "dev tool*", "framework", "library", "sdk", "cli tool", "linter", "bundler", "build tool*", "package manager", "docker", "kubernetes", "terraform", "ci pipeline"]
+  },
+
+  "filters": {
+    "minReactions": 100,
+    "maxAgeHours": 72,
+    "minHeuristicRelevance": 30,
+    "excludeCompanyAuthors": true,
+    "excludeGroupPosts": true,
+    "excludeJobPosts": true,
+    "motivationalMaxRelevance": 55
+  },
+
+  "weights": { "reach": 35, "recency": 25, "relevance": 25, "competition": 10, "insight": 5 },
+
+  "selection": {
+    "finalCount": 10,
+    "shortlistForDrafting": 12,
+    "topUpRounds": 1,
+    "excludePresentedWithinDays": 30
+  },
+
+  "discovery": {
+    "windowOverlapMinutes": 60,
+    "watchlist": {
+      "enabled": true,
+      "maxProfiles": 20,
+      "maxPostsPerProfileFirstRun": 3,
+      "maxPostsPerProfile": 2,
+      "learnFromSearch": true,
+      "seedProfiles": [
+        { "name": "Neo Kim", "url": "https://www.linkedin.com/in/nk-systemdesign-one/" },
+        { "name": "Addy Osmani", "url": "https://www.linkedin.com/in/addyosmani/" },
+        { "name": "Leonard Rodman", "url": "https://www.linkedin.com/in/leonardrodman/" },
+        { "name": "Jatinder Singh", "url": "https://www.linkedin.com/in/jatinsingh/" },
+        { "name": "Abhisek Sahu", "url": "https://www.linkedin.com/in/abhisek-sahu-84a404b1/" },
+        { "name": "Shalini Goyal", "url": "https://www.linkedin.com/in/goyalshalini/" },
+        { "name": "Rocky Bhatia", "url": "https://www.linkedin.com/in/rocky-bhatia-a4801010/" },
+        { "name": "Sumit Gupta", "url": "https://www.linkedin.com/in/sumonigupta/" },
+        { "name": "Shubham Saboo", "url": "https://www.linkedin.com/in/shubhamsaboo/" },
+        { "name": "Jaswindder Kummar", "url": "https://www.linkedin.com/in/jaswindder-kummar/" },
+        { "name": "Rohan Goyal", "url": "https://www.linkedin.com/in/rohangoyal16/" }
+      ]
+    },
+    "search": {
+      "enabled": true,
+      "queriesPerRun": 1,
+      "maxPostsPerQuery": 10,
+      "sortBy": "relevance",
+      "rotation": [
+        "system design",
+        "Node.js",
+        "backend engineering",
+        "AI engineering",
+        "PostgreSQL",
+        "distributed systems",
+        "API design",
+        "LLM in production",
+        "Python backend",
+        "React performance",
+        "production incident",
+        "developer experience",
+        "React Native",
+        "debugging production",
+        "scalability"
+      ]
+    }
+  },
+
+  "comments": {
+    "maxPerPost": 3,
+    "skipIfCommentCountBelow": 3,
+    "refetchAfterHours": 24
+  },
+
+  "budget": {
+    "maxRunUsd": 0.15,
+    "abortIfEstimateOverUsd": 0.30,
+    "automationCycleCapUsd": 2.40,
+    "accountReserveUsd": 0.50,
+    "pricingUsd": { "post": 0.002, "comment": 0.002, "noResult": 0.001, "actorStart": 0.00005 }
+  },
+
+  "draft": {
+    "enabled": true,
+    "claudePath": "",
+    "model": "",
+    "timeoutMinutes": 15,
+    "repairInvalidOnce": true,
+    "minChars": 200,
+    "maxChars": 350
+  },
+
+  "commentRules": [
+    "200-350 characters where practical.",
+    "Sound like a real experienced engineer.",
+    "No generic praise and no \"Great post!\".",
+    "No fake personal experience: first-person experience only from the experience facts.",
+    "No hashtags, no emojis, no links, no @mentions.",
+    "No engagement bait.",
+    "No obvious AI phrasing.",
+    "Add a real technical observation: a counterpoint, implementation detail, edge case or production lesson.",
+    "Ask a question only when it naturally fits.",
+    "Do not repeat points already made in the existing comments."
+  ],
+
+  "cache": { "retainDays": 10 }
+}
