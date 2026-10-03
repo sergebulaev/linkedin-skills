@@ -265,6 +265,80 @@ class PlatformIdResolution(unittest.TestCase):
         self.assertIsNone(self.client([{"platformId": "mylinkedin-abc"}]).resolve_linkedin_platform_id())
 
 
+class ReshareParentResolution(unittest.TestCase):
+    """Resolve the share/ugcPost URN required by the reshare API."""
+
+    def test_share_urn_is_preferred(self):
+        from lib.backend_selector import resolve_reshare_parent
+
+        post = {
+            "shareUrn": "urn:li:ugcPost:999",
+            "urn": "urn:li:activity:123",
+        }
+
+        self.assertEqual(
+            resolve_reshare_parent(post),
+            "urn:li:ugcPost:999",
+        )
+
+    def test_share_urn_is_used_unchanged(self):
+        from lib.backend_selector import resolve_reshare_parent
+
+        post = {
+            "shareUrn": "urn:li:share:999",
+        }
+
+        self.assertEqual(
+            resolve_reshare_parent(post),
+            "urn:li:share:999",
+        )
+
+    def test_ugc_post_urn_is_used_when_share_urn_is_missing(self):
+        from lib.backend_selector import resolve_reshare_parent
+
+        post = {
+            "urn": "urn:li:ugcPost:999",
+        }
+
+        self.assertEqual(
+            resolve_reshare_parent(post),
+            "urn:li:ugcPost:999",
+        )
+
+    def test_share_urn_is_used_when_it_is_the_primary_urn(self):
+        from lib.backend_selector import resolve_reshare_parent
+
+        post = {
+            "urn": "urn:li:share:999",
+        }
+
+        self.assertEqual(
+            resolve_reshare_parent(post),
+            "urn:li:share:999",
+        )
+
+    def test_activity_urn_is_only_a_fallback(self):
+        from lib.backend_selector import resolve_reshare_parent
+
+        post = {
+            "urn": "urn:li:activity:123",
+        }
+
+        self.assertEqual(
+            resolve_reshare_parent(post),
+            "urn:li:share:123",
+        )
+
+    def test_unusable_post_returns_none(self):
+        from lib.backend_selector import resolve_reshare_parent
+
+        for post in (
+            {},
+            {"urn": "urn:li:comment:123"},
+        ):
+            with self.subTest(post=post):
+                self.assertIsNone(resolve_reshare_parent(post))
+
 class UnpublishLimits(unittest.TestCase):
     """`unpublish` cancels what has not gone out. It cannot take back what has.
 
