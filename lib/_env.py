@@ -88,3 +88,25 @@ def load_env(force: bool = False) -> None:
         pass
 
     _ENV_LOADED = True
+
+
+def utf8_stdio() -> None:
+    """Make stdout and stderr UTF-8 when they are not already.
+
+    On Windows a pipe or a redirected file defaults to the ANSI code page
+    (cp1252 on most installs), which cannot encode the emoji and arrows in this
+    bundle's messages. Printing a manual-mode approval message then raised
+    UnicodeEncodeError in the caller, and post_comment.py died on its check
+    mark after the reaction had gone out, so the comment never did. Agents
+    capture output through a pipe, so this was the normal case, not an edge.
+
+    A console, Linux and macOS are UTF-8 already and are left alone, as is any
+    stream without `reconfigure` (a test's StringIO, a notebook).
+    """
+    import codecs
+    import sys
+
+    for stream in (sys.stdout, sys.stderr):
+        encoding = getattr(stream, "encoding", None)
+        if encoding and hasattr(stream, "reconfigure") and codecs.lookup(encoding).name != "utf-8":
+            stream.reconfigure(encoding="utf-8")

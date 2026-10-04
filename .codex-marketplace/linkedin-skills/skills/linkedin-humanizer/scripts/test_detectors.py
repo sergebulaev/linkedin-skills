@@ -332,6 +332,12 @@ def main():
                    help="also write the full report as JSON to PATH")
     args = p.parse_args()
 
+    # Drafts are UTF-8. A Windows pipe defaults to cp1252, which misreads their
+    # em dashes and curly quotes on the way in and cannot print emoji on the way out.
+    for stream in (sys.stdin, sys.stdout):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
+
     text = args.text if args.text else sys.stdin.read()
     text = text.strip()
     if len(text) < 50:
@@ -348,7 +354,7 @@ def main():
     report = render_report(text, results)
 
     if args.json:
-        with open(args.json, "w") as f:
+        with open(args.json, "w", encoding="utf-8") as f:
             json.dump(report, f, indent=2)
         print(f"\nReport written to {args.json}")
 

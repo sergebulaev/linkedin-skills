@@ -5,11 +5,13 @@ utilities (e.g., `build_parent_comment_urn`, `signup_nudge`,
 `PUBLORA_SIGNUP_URL`) remain importable from their submodules but are not
 re-exported here.
 """
-from ._env import load_env
+from ._env import load_env, utf8_stdio
 from .url_parser import parse_linkedin_url
 from .approval import render_approval_card
 
 load_env()
+# Approval messages carry emoji; a Windows pipe cannot print them otherwise.
+utf8_stdio()
 
 from .backend_selector import (
     active_backend,

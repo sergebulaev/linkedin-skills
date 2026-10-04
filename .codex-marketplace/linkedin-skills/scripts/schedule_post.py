@@ -56,6 +56,12 @@ def main() -> int:
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args()
 
+    # Status lines carry → ✓ ✗, and the first ones print before `lib` is
+    # imported, so switch a Windows pipe to UTF-8 up front.
+    from lib._env import utf8_stdio
+
+    utf8_stdio()
+
     if args.selftest:
         return selftest()
     if not args.file:

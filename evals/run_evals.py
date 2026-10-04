@@ -115,7 +115,7 @@ def case_hook_formula():
     """hook-extractor claims it returns which of the 20 canonical formulas a
     post used. The answer must be one that exists."""
     defined = set(re.findall(r"^## (F\d+) ",
-                             (ROOT / "references" / "hook-formulas.md").read_text(), re.M))
+                             (ROOT / "references" / "hook-formulas.md").read_text(encoding="utf-8"), re.M))
     post = ("I deleted our $40k/yr analytics stack on a Tuesday.\n\n"
             "Three weeks later nobody on the team had noticed.\n\n"
             "Here is what we replaced it with, and the one thing that actually broke.")
@@ -244,7 +244,9 @@ def ask(prompt: str, timeout: int) -> tuple[str, str]:
     try:
         result = subprocess.run(
             ["claude", "-p", prompt, "--output-format", "text"],
-            cwd=ROOT, capture_output=True, text=True, timeout=timeout,
+            # The CLI writes UTF-8 whatever the locale. Read as cp1252 (Windows),
+            # the answer comes back garbled, or fails on a byte cp1252 lacks.
+            cwd=ROOT, capture_output=True, encoding="utf-8", timeout=timeout,
         )
     except FileNotFoundError:
         return "", "the `claude` CLI is not on PATH"
@@ -292,7 +294,7 @@ def main() -> int:
         print(f"  [{mark}] {title:<52} {detail} ({time.time() - started:.0f}s)")
 
     if args.save:
-        args.save.write_text(json.dumps(transcripts, indent=1, ensure_ascii=False))
+        args.save.write_text(json.dumps(transcripts, indent=1, ensure_ascii=False), encoding="utf-8")
         print(f"\n{GREY}answers written to {args.save}{OFF}")
     print(f"\n{BOLD}{'All cases passed' if not failures else f'{failures} case(s) failed'}{OFF}")
     return failures

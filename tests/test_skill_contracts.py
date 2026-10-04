@@ -97,7 +97,7 @@ class SkillContracts(unittest.TestCase):
     def test_skill_count_matches_the_manifest(self):
         import json
 
-        manifest = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text())
+        manifest = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))
         promised = re.match(r"\s*(\d+)\b", manifest.get("description", ""))
         directories = [d for d in (ROOT / "skills").iterdir() if (d / "SKILL.md").is_file()]
         if promised:

@@ -41,6 +41,17 @@ if not sys.stdout.isatty() or os.getenv("NO_COLOR"):
 PASS, FAIL, WARN, SKIP = f"{GREEN}pass{OFF}", f"{RED}FAIL{OFF}", f"{YELLOW}warn{OFF}", f"{GREY}----{OFF}"
 
 
+def utf8_pipes() -> dict:
+    """subprocess.run keywords for a pipe that is UTF-8 at both ends.
+
+    Left to the locale, Windows writes and reads a child's pipe as cp1252, so
+    only switching the reading side would break it. The child is told to write
+    UTF-8 too; `replace` keeps a stray byte from failing a report line.
+    """
+    return {"encoding": "utf-8", "errors": "replace",
+            "env": {**os.environ, "PYTHONIOENCODING": "utf-8"}}
+
+
 class Phase:
     def __init__(self, title):
         self.title = title
@@ -78,7 +89,7 @@ def phase_install(root: pathlib.Path) -> Phase:
             [sys.executable, "-c",
              "import lib; [getattr(lib, n) for n in "
              "('publish','repost','fetch_post','illustrate','refine','quote_card')]; print('ok')"],
-            cwd=root, capture_output=True, text=True, timeout=120,
+            cwd=root, capture_output=True, timeout=120, **utf8_pipes(),
         )
         phase.add(PASS if result.returncode == 0 else FAIL, "lib imports",
                   "public wrappers resolve" if result.returncode == 0
@@ -92,7 +103,7 @@ def phase_install(root: pathlib.Path) -> Phase:
     promised = None
     if manifest.is_file():
         import re
-        match = re.match(r"\s*(\d+)\b", json.loads(manifest.read_text()).get("description", ""))
+        match = re.match(r"\s*(\d+)\b", json.loads(manifest.read_text(encoding="utf-8")).get("description", ""))
         promised = int(match.group(1)) if match else None
     phase.add(PASS if promised in (None, len(skills)) else FAIL, "skills present",
               f"{len(skills)} loadable" + (f", manifest promises {promised}" if promised else ""))
@@ -112,7 +123,7 @@ def phase_install(root: pathlib.Path) -> Phase:
         # generated package, and conflating them cries wolf on every branch.
         def state():
             out = subprocess.run(["git", "status", "--porcelain", ".codex-marketplace"],
-                                 cwd=root, capture_output=True, text=True).stdout
+                                 cwd=root, capture_output=True, **utf8_pipes()).stdout
             return {line[3:] for line in out.splitlines()}
 
         before = state()
@@ -244,7 +255,7 @@ def phase_tests(root: pathlib.Path) -> Phase:
         return phase
     started = time.time()
     result = subprocess.run([sys.executable, "-m", "unittest", "discover", "-s", "tests", "-q"],
-                            cwd=root, capture_output=True, text=True, timeout=900)
+                            cwd=root, capture_output=True, timeout=900, **utf8_pipes())
     tail = (result.stderr or result.stdout).strip().splitlines()
     count = next((line for line in tail if line.startswith("Ran ")), "ran")
     phase.add(PASS if result.returncode == 0 else FAIL, "offline suite",
@@ -261,7 +272,8 @@ def phase_tests(root: pathlib.Path) -> Phase:
         path = root / "scripts" / script
         if not path.is_file():
             continue
-        run = subprocess.run([sys.executable, str(path)], cwd=root, capture_output=True, text=True, timeout=300)
+        run = subprocess.run([sys.executable, str(path)], cwd=root, capture_output=True, timeout=300,
+                             **utf8_pipes())
         mark = PASS if run.returncode == 0 else (WARN if run.returncode == 2 else FAIL)
         note = "" if run.returncode == 0 else (run.stdout or run.stderr).strip().splitlines()[0][:66]
         phase.add(mark, label, note or "clean")
@@ -437,7 +449,7 @@ def run_fresh(argv) -> int:
         if dev.is_file():
             requirements += ["-r", str(dev)]
         install = subprocess.run([str(python), "-m", "pip", "install", "--quiet", *requirements],
-                                 capture_output=True, text=True, timeout=900)
+                                 capture_output=True, timeout=900, **utf8_pipes())
         mark = PASS if install.returncode == 0 else FAIL
         print(f"  [{mark}] {'requirements installed':<34} "
               f"{'runtime + maintainer tooling' if install.returncode == 0 else install.stderr.strip()[:60]}")

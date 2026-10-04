@@ -68,8 +68,10 @@ def restore_templates(package_references: Path) -> list[str]:
     restored = []
     for name in PERSONAL:
         tracked = f".codex-marketplace/linkedin-skills/references/{name}"
+        # The blob is UTF-8. Decoding it with the locale (cp1252 on Windows) and
+        # writing UTF-8 back turned every … and — into mojibake in the package.
         blob = subprocess.run(["git", "show", f"HEAD:{tracked}"],
-                              cwd=ROOT, capture_output=True, text=True)
+                              cwd=ROOT, capture_output=True, encoding="utf-8")
         if blob.returncode == 0:
             (package_references / name).write_text(blob.stdout, encoding="utf-8")
             restored.append(name)

@@ -104,7 +104,7 @@ class PlatformLimits(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.limits = json.loads((FIXTURES / "publora_platform_limits.json").read_text())["linkedin"]
+        cls.limits = json.loads((FIXTURES / "publora_platform_limits.json").read_text(encoding="utf-8"))["linkedin"]
 
     def test_the_post_character_cap_matches(self):
         cap = self.limits["characters"]["standard"]
@@ -139,7 +139,7 @@ class UserModelWiring(unittest.TestCase):
 
     def consumers(self):
         """Skills the interviewer names as drawing on the bank."""
-        related = (ROOT / "skills" / "linkedin-interviewer" / "SKILL.md").read_text()
+        related = (ROOT / "skills" / "linkedin-interviewer" / "SKILL.md").read_text(encoding="utf-8")
         related = related.split("## Related skills", 1)[1]
         return set(re.findall(r"`(linkedin-[a-z-]+)`", related))
 
@@ -151,7 +151,7 @@ class UserModelWiring(unittest.TestCase):
     def test_every_skill_the_interviewer_sends_material_to_reads_the_bank(self):
         deaf = []
         for name in sorted(self.consumers()):
-            text = (ROOT / "skills" / name / "SKILL.md").read_text()
+            text = (ROOT / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
             # the humanizer is named for the other half of the model, the voice profile
             if "--mode profile" in text and "story-bank" not in text:
                 continue
@@ -160,8 +160,8 @@ class UserModelWiring(unittest.TestCase):
         self.assertEqual(deaf, [], "named as bank consumers but never read it:\n  " + "\n  ".join(deaf))
 
     def test_the_spine_has_the_same_five_lines_on_both_sides(self):
-        interviewer = (ROOT / "skills" / "linkedin-interviewer" / "SKILL.md").read_text()
-        writer = (ROOT / "skills" / "linkedin-post-writer" / "SKILL.md").read_text()
+        interviewer = (ROOT / "skills" / "linkedin-interviewer" / "SKILL.md").read_text(encoding="utf-8")
+        writer = (ROOT / "skills" / "linkedin-post-writer" / "SKILL.md").read_text(encoding="utf-8")
         for line in self.SPINE:
             self.assertIn(f"**{line}**", interviewer,
                           f"the interviewer no longer defines the {line} line")
@@ -186,13 +186,13 @@ class ReadLayerPromises(unittest.TestCase):
         exported = set(lib.__all__)
         missing = []
         for path in [ROOT / "SKILL.md", *markdown(ROOT / "skills"), *markdown(ROOT / "references")]:
-            for name in set(self.CALLS.findall(path.read_text())):
+            for name in set(self.CALLS.findall(path.read_text(encoding="utf-8"))):
                 if name not in exported:
                     missing.append(f"{path.relative_to(ROOT)}: lib.{name}()")
         self.assertEqual(missing, [], "documents calling helpers lib does not export:\n  " + "\n  ".join(missing))
 
     def test_the_profile_optimizer_asks_for_a_paste_not_a_url(self):
-        text = (ROOT / "skills" / "linkedin-profile-optimizer" / "SKILL.md").read_text()
+        text = (ROOT / "skills" / "linkedin-profile-optimizer" / "SKILL.md").read_text(encoding="utf-8")
         intake = text.split("## Input", 1)[1].split("## Output", 1)[0]
 
         self.assertIn("paste", intake.lower(),
