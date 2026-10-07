@@ -285,6 +285,8 @@ class ApifyClient:
             raise ValueError(
                 f"types must be a non-empty subset of {self.ENGAGER_TYPES}, got {types!r}"
             )
+        if max_items <= 0:
+            raise ValueError("max_items must be greater than 0")
 
         per_type = max(1, min(max_items // len(wanted), 3000))
         engagers: list[dict[str, Any]] = []

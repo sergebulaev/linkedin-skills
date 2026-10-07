@@ -123,6 +123,12 @@ class EngagerBudget(unittest.TestCase):
             with self.subTest(types=bad), patch, self.assertRaises(ValueError):
                 client.fetch_post_engagers(post_url="u", types=bad)
 
+    def test_zero_budget_is_refused_before_any_actor_run(self):
+        client, calls, patch = client_with_spy()
+        with patch, self.assertRaises(ValueError):
+            client.fetch_post_engagers(post_url="u", max_items=0)
+        self.assertEqual(calls, [])
+
 
 class ProfileCommentLimits(unittest.TestCase):
     def test_limit_is_clamped_to_the_schema_maximum(self):
