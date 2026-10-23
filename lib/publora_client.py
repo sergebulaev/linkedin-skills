@@ -26,6 +26,7 @@ import os
 import time
 import random
 from typing import Any, Optional
+from uuid import uuid4
 
 import requests
 
@@ -202,7 +203,10 @@ class PubloraClient:
             payload["scheduledTime"] = scheduled_time
         if media_urls:
             payload["mediaUrls"] = media_urls
-        return self._post("/create-post", payload)
+        return self._post(
+            "/create-post",
+            payload,
+            idempotency_key=str(uuid4()),)
 
     #: Statuses whose content is, or may be, already on the platform. Deleting
     #: one destroys the only record of something that stays live.
@@ -328,9 +332,23 @@ class PubloraClient:
     # ---- Internals --------------------------------------------------------
 
     @_retry()
-    def _post(self, path: str, json_body: dict[str, Any]) -> dict[str, Any]:
+    def _post(
+        self,
+        path: str,
+        json_body: dict[str, Any],
+        *,
+        idempotency_key: Optional[str] = None,
+    ) -> dict[str, Any]:
+        headers = (
+            {"Idempotency-Key": idempotency_key}
+            if idempotency_key is not None
+            else None
+        )
         r = self._session.post(
-            self.BASE_URL + path, json=json_body, timeout=self.timeout,
+            self.BASE_URL + path,
+            json=json_body,
+            headers=headers,
+            timeout=self.timeout,
             allow_redirects=False,
         )
         return self._handle(r)

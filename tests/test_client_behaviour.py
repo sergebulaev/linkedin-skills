@@ -432,3 +432,38 @@ class ApifyResponseShapeTests(unittest.TestCase):
         ):
             with self.assertRaises(ApifyError):
                 self.client._run_sync("test/actor", {"limit": 1})
+
+class PubloraCreatePostIdempotency(unittest.TestCase):
+    def test_retries_reuse_the_same_idempotency_key(self):
+        import requests
+        from lib.publora_client import PubloraClient
+
+        client = PubloraClient.__new__(PubloraClient)
+        client.BASE_URL = "https://example.invalid"
+        client.timeout = 1
+        client._session = mock.Mock()
+
+        success = mock.Mock(status_code=200)
+        success.json.return_value = {"id": "post-123"}
+        client._session.post.side_effect = [
+            requests.Timeout("simulated timeout"),
+            success,
+        ]
+
+        with mock.patch("lib.publora_client.time.sleep"):
+            result = client.create_post(
+                content="Offline regression test",
+                platforms=["linkedin-test"],
+            )
+
+        self.assertEqual(result, {"id": "post-123"})
+        self.assertEqual(client._session.post.call_count, 2)
+
+        first_call, second_call = client._session.post.call_args_list
+        first_key = first_call.kwargs["headers"]["Idempotency-Key"]
+        second_key = second_call.kwargs["headers"]["Idempotency-Key"]
+
+        self.assertTrue(first_key)
+        self.assertEqual(first_key, second_key)
+        self.assertEqual(first_call.args[0], "https://example.invalid/create-post")
+        self.assertEqual(second_call.args[0], "https://example.invalid/create-post")
