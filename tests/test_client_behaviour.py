@@ -432,3 +432,31 @@ class ApifyResponseShapeTests(unittest.TestCase):
         ):
             with self.assertRaises(ApifyError):
                 self.client._run_sync("test/actor", {"limit": 1})
+
+
+class MalformedJsonResponseTests(unittest.TestCase):
+    def test_apify_malformed_json_raises_apify_error(self):
+        from lib.apify_client import ApifyError, ApifyClient
+
+        client = ApifyClient.__new__(ApifyClient)
+        client.token = "test-token"
+        client.timeout = 1
+        client._session = mock.Mock()
+
+        response = mock.Mock(status_code=200)
+        response.json.side_effect = ValueError("invalid JSON")
+        response.text = "not valid JSON"
+        client._session.post.return_value = response
+
+        with self.assertRaisesRegex(ApifyError, "non-JSON response"):
+            client._do_request("test/actor", {})
+
+    def test_publora_malformed_json_raises_publora_error(self):
+        from lib.publora_client import PubloraClient, PubloraError
+
+        response = mock.Mock(status_code=200)
+        response.json.side_effect = ValueError("invalid JSON")
+        response.text = "not valid JSON"
+
+        with self.assertRaisesRegex(PubloraError, "non-JSON response"):
+            PubloraClient._handle(response)

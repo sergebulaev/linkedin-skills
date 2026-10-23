@@ -345,4 +345,7 @@ class PubloraClient:
             except Exception:
                 body = {"error": r.text[:500]}
             raise PubloraError(f"HTTP {r.status_code}: {body}")
-        return r.json()
+        try:
+            return r.json()
+        except ValueError as e:
+            raise PubloraError(f"non-JSON response: {r.text[:300]}") from e

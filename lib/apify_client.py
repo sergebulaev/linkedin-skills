@@ -376,7 +376,13 @@ class ApifyClient:
             except Exception:
                 body = {"error": r.text[:500]}
             raise ApifyError(f"HTTP {r.status_code}: {body}")
-        data = r.json()
+        try:
+            data = r.json()
+        except ValueError as e:
+            raise ApifyError(
+                f"non-JSON response: {r.text[:300]}"
+            ) from e
+
         if isinstance(data, dict) and "error" in data:
             raise ApifyError(f"actor failed: {data['error']}")
         return data
