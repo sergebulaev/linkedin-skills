@@ -45,6 +45,7 @@ import os
 import random
 import time
 from collections import OrderedDict
+from copy import deepcopy
 from typing import Any, Optional
 
 import requests
@@ -117,10 +118,10 @@ class PixfaroClient:
             self._cache.pop(key, None)
             return None
         self._cache.move_to_end(key)
-        return val
+        return deepcopy(val)
 
     def _cache_put(self, key: str, val: dict) -> None:
-        self._cache[key] = (time.time(), val)
+        self._cache[key] = (time.time(), deepcopy(val))
         self._cache.move_to_end(key)
         while len(self._cache) > CACHE_MAX_ENTRIES:
             self._cache.popitem(last=False)
