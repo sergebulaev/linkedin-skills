@@ -10,7 +10,8 @@ from __future__ import annotations
 
 import os
 import unittest
-from unittest.mock import patch
+import requests
+from unittest.mock import Mock, patch
 
 from lib.pixfaro_client import PixfaroClient, PixfaroError
 
@@ -130,6 +131,28 @@ class RetryBehaviour(unittest.TestCase):
                 "url": "https://media.example/image.png",
             },
         ]
+
+        result = self.client.generate("A data engineer at work")
+
+        self.assertEqual(result["id"], "img_123")
+        self.assertEqual(post.call_count, 2)
+        sleep.assert_called_once()
+
+    @patch("lib.pixfaro_client.time.sleep")
+    def test_network_timeout_is_retried(self, sleep):
+        post = Mock(
+            side_effect=[
+                requests.Timeout("simulated timeout"),
+                Mock(
+                    status_code=200,
+                    json=Mock(return_value={
+                        "id": "img_123",
+                        "url": "https://media.example/image.png",
+                    }),
+                ),
+            ]
+        )
+        self.client._session.post = post
 
         result = self.client.generate("A data engineer at work")
 
