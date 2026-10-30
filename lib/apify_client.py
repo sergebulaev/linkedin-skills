@@ -35,6 +35,7 @@ import os
 import random
 import time
 from collections import OrderedDict
+from copy import deepcopy
 from typing import Any, Optional, Sequence
 
 import requests
@@ -320,10 +321,10 @@ class ApifyClient:
             del self._cache[key]
             return None
         self._cache.move_to_end(key)
-        return value
+        return deepcopy(value)
 
     def _cache_put(self, key: str, value: Any) -> None:
-        self._cache[key] = (time.time(), value)
+        self._cache[key] = (time.time(), deepcopy(value))
         self._cache.move_to_end(key)
         while len(self._cache) > CACHE_MAX_ENTRIES:
             self._cache.popitem(last=False)
