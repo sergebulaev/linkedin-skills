@@ -1,6 +1,9 @@
 ---
 name: linkedin-humanizer
 description: "Remove AI tells from LinkedIn posts/comments: 2026 vocabulary density, reveal bridges, staccato fragments, stacked triads, performed sincerity. Tiered rewriter plus `--mode audit` LinkedIn post auditor and `--mode profile` voice builder. Not for drafting from scratch (use linkedin-post-writer) or beating AI detectors. Keywords: humanize, de-AI, post audit, post auditor, audit before posting."
+license: MIT
+metadata:
+  author: Sergey Bulaev
 ---
 
 # LinkedIn Humanizer V3
@@ -11,16 +14,7 @@ Rewrites any text to remove the AI tells that human readers notice and that Link
 
 ## What changed in V3
 
-Evidence tier in brackets: [strong] = replicated across 2+ independent 2025-2026 studies or our own length-controlled corpus; [vendor] = single platform or vendor dataset; [weak] = one study or expert-panel report.
-
-- **Vocabulary moved from a delete-list to density scoring.** The 2023-24 words (delve, tapestry, realm, journey) are decaying as humans avoid them [strong: Geng & Trotta 2025]. The durable 2026 markers are common words (significant, crucial, notably, comprehensive, insights, robust, leverage, foster, landscape, nuanced, streamline, elevate) plus grammar: nominalisations and "-ing" clause openers at 5.3x human rate [strong: Kobak Sci Adv 2025; Wu et al 2026; PNAS 2025]. AI vocabulary is also the one marker consistently reach-negative on LinkedIn in our own corpus (0.74-0.84 author-relative) [strong]. One marker in a paragraph is not a verdict. Three or more is.
-- **Em dash is no longer a tell.** GPT-5.4 emits 1.43 per 1,000 words, below the 3.23 human baseline; 29% of human captions and 23% of top-creator LinkedIn posts in our corpus use one (author-relative ratio 1.09) [strong]. Zero em dashes is now its own tell (the writer is trying to look human). New rule: cap at about 1 per 100 words, replace excess with comma, colon, parentheses or a rewrite. Never a period.
-- **Forced burstiness is the #1 2026 tell, not the fix.** LLM sentence-length variance is half of human [strong], but detectors do not score it, mechanical long/short alternation is a learnable humanizer fingerprint [weak: DAMAGE 2025], and on LinkedIn sentence-length variance is not an engagement lever in either direction (our corpus, n=397, within-creator: null to slightly negative) [strong]. "Short. Punchy. Done.", "No X. No Y. Just Z.", one-word paragraphs and "The result?" reveals are the current top tells. Pass 2 is now RHYTHM, not BREAK: fix machine-flat rhythm, never manufacture variance.
-- **Rule of three is still a tell, at density.** Tricolon runs at 2x expert-human rate across 2026 frontier models [strong: arXiv 2604.19768]. Stacked, perfectly parallel triads and 3+ per post get scrubbed. One natural triple stays (26% of top human tweets have one).
-- **Fingerprint injection was half wrong.** Named entities and concreteness are supported [strong: lower entity density in LLM text across 3 studies]; an odd-precision number with a referent in line 1 lifts likes 34% [vendor]. Bare numbers are not a discriminator, and inserted hedges and confessions backfire: performed hesitancy is 2x more common in LLM text than expert human text, and sincerity announcements ("let me be honest") are a named 2026 tell [strong: tropes.fyi false vulnerability; Schilke & Reimann 2025]. Pass 3 now asks for a flat, dated, uncomfortable fact instead.
-- **Over-correction guard.** Humanizer output has its own fingerprint; "writing slightly worse on purpose" now reads as a tell [weak: DAMAGE 2025; slopotron]. Pass 4 checks whether Passes 1-3 introduced the very patterns they were meant to remove. Edits are proportional to real problems. When in doubt, leave it.
-
-See `sub-skills/rules-explainer.md` for per-rule justification, defenses, and citations, and `references/tier-rationale.md` §V3 for the evidence.
+Load `references/v3-changes.md` for the V3 evidence tiers and rationale. Pass behaviour is defined in "The four passes" below.
 
 ## When to use
 
