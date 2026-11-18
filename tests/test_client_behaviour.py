@@ -437,6 +437,30 @@ class ApifyResponseShapeTests(unittest.TestCase):
             with self.assertRaises(ApifyError):
                 self.client._run_sync("test/actor", {"limit": 1})
 
+    def test_cached_rows_are_isolated_from_caller_mutation(self):
+        response = [
+            {
+                "id": "post_123",
+                "metadata": {"status": "original"},
+            }
+        ]
+
+        with mock.patch.object(
+            self.client, "_do_request", return_value=response
+        ) as request:
+            first = self.client._run_sync("test/actor", {"limit": 1})
+            first[0]["metadata"]["status"] = "mutation of cache-miss result"
+
+            second = self.client._run_sync("test/actor", {"limit": 1})
+            self.assertEqual(second[0]["metadata"]["status"], "original")
+
+            second[0]["metadata"]["status"] = "mutation of cache-hit result"
+
+            third = self.client._run_sync("test/actor", {"limit": 1})
+            self.assertEqual(third[0]["metadata"]["status"], "original")
+
+        request.assert_called_once()
+
 class PubloraCreatePostIdempotency(unittest.TestCase):
     def test_retries_reuse_the_same_idempotency_key(self):
         import requests
