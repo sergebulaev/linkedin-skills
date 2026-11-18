@@ -1,6 +1,9 @@
 ---
 name: linkedin-interviewer
 description: "Interview the user for the raw material their posts are made of. Builds a lasting Story Bank of roles, numbers, turning points, scars and positions, or runs a focused interview that turns one topic into a post spine. Use when a draft has nothing concrete to draw on, or the user says interview me. Not for learning how they write (use linkedin-humanizer --mode profile)."
+license: MIT
+metadata:
+  author: Sergey Bulaev
 ---
 
 # LinkedIn Interviewer
