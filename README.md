@@ -447,3 +447,5 @@ Part of a family of AI social-media marketing skill bundles for Claude Code and 
 - [facebook-skills](https://github.com/sergebulaev/facebook-skills) - Facebook Pages
 
 Also: [Anthropic Skills repo](https://github.com/anthropics/skills), the `awesome-claude-skills` directory.
+
+Contribution by Belgacem
